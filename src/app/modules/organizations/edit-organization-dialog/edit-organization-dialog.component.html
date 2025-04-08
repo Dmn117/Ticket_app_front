@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Editar Organización</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre de la organización</mat-label>
+    <input matInput [(ngModel)]="organizationName" required />
+    <mat-error *ngIf="!organizationName">El nombre es obligatorio</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Director</mat-label>
+    <mat-select [(ngModel)]="directorID">
+      <mat-option *ngFor="let director of directors" [value]="director._id">
+        {{ director.firstName }} {{ director.lastName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button  mat-dialog-close (click)="onClose()">Cancelar</button>
+  <button mat-raised-button color="warn" (click)="save()"
+          [disabled]="!organizationName || !isFormChanged()">Guardar</button>
+</mat-dialog-actions>

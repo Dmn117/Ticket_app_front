@@ -1,0 +1,12 @@
+ <h1 mat-dialog-title>Detalles de la Incidencia</h1>
+
+<mat-dialog-content>
+  <p><strong>Título:</strong> {{ data.title }}</p>
+  <p><strong>Descripción:</strong> {{ data.description }}</p>
+  <p><strong>Severidad:</strong> {{ data.severity }}</p>
+  <p><strong>Autor:</strong> {{ data.author.firstName }} {{ data.author.lastName }}</p>
+  <p><strong>Dirigido a:</strong> {{ data.agent.firstName }} {{ data.agent.lastName }}</p>
+  <p><strong>Fecha de creación:</strong> {{ data.createdAt | date:'short' }}</p>
+</mat-dialog-content>
+
+

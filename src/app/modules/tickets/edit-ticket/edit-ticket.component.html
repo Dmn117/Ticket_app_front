@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Editar Ticket</h2>
+
+<mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Titulo</mat-label>
+    <input matInput [(ngModel)]="titleTicket">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Descripción</mat-label>
+    <input matInput [(ngModel)]="descriptionTicket">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-flat-button  mat-dialog-close (click)="onClose()">Cancelar</button>
+  <button mat-raised-button color="warn" (click)="save()" [disabled]="!isFormChanged()">Guardar</button>
+</mat-dialog-actions>

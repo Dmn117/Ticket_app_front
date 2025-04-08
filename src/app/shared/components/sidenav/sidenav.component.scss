@@ -1,0 +1,90 @@
+.example-container {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+mat-list-item {
+  display: block;
+}
+
+mat-expansion-panel {
+  margin: 0;
+}
+
+mat-card {
+  margin: 3em;
+  padding: 1em;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.user-info {
+  padding: 10px;
+  max-width: 250px;
+}
+
+.user-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.user-avatar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: space-between;
+}
+
+.user-details {
+  margin-bottom: 8px;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.user-role {
+  color: gray;
+}
+
+.user-email {
+  font-size: 0.9em;
+}
+
+.user-actions button {
+  margin-right: 5px;
+}
+
+a {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  mat-card {
+    margin: 0;
+    padding: 0;
+  }
+
+}

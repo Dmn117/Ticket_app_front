@@ -1,0 +1,67 @@
+$primary-color: black;
+$secondary-color: #263141;
+$bg-color: #424242;
+$spinner: #ff3d00;
+$action-hover: #f44336;
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+
+h2 {
+    color: #ffffff
+}
+
+
+.assigned-ticket {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px;
+}
+
+
+form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+h3 {
+    margin: 0;
+    padding: 0;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    background: $primary-color;
+    color: white;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    margin: .5rem 1rem;
+}
+
+
+.action-button:hover {
+    background: $secondary-color;
+    transition: .3s ease;
+}
+
+
+@media (max-width: 600px) {
+    form {
+        grid-template-columns: 1fr;
+    }
+}

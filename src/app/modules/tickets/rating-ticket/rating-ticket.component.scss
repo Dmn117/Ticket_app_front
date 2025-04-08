@@ -1,0 +1,44 @@
+.rating-modal {
+  padding: 20px;
+}
+
+.rating-header {
+  display: flex;
+  gap: 15px;
+}
+
+.rating-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2em 4em;
+  flex-direction: column;
+}
+
+img{
+  width: 150px;
+  height: 150px;
+}
+
+.rating-h2 {
+  color: #ffffff;
+  font-size: 25px;
+}
+
+.star-rating {
+
+  mat-icon {
+    color: #ffca28;
+    margin-right: 2px;
+  }
+}
+
+.rating-comment {
+  text-align: center;
+}
+
+.rating-comment p {
+  color: #ffffff;
+  font-size: 15px;
+}

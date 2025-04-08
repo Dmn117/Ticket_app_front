@@ -1,0 +1,285 @@
+<div class="ticket-container" *ngIf="ticket">
+  <header class="ticket-section">
+    <div class="ticket-details-container">
+      <div class="ticket-title">
+        <div class="title">
+          <h1>
+            Ticket # {{ticket.number}}: {{ticket.title}}
+          </h1>
+          <button class="button-share" (click)="sharePage()"
+            matTooltip="Compartir detalles del ticket {{ticket.number}}">
+            <mat-icon>share</mat-icon>
+          </button>
+        </div>
+
+        <button class="action-button" (click)="openRateTicket(ticket)" *ngIf="openRate">
+          <mat-icon>star_half</mat-icon>
+          <h4>Evaluar Ticket</h4>
+        </button>
+      </div>
+
+      <div class="ticket-details">
+        <div class="ticket-details-section">
+          <div class="ticket-details-item">
+            <h3 class="item item-key">Estatus: </h3>
+            <h3 class="item item-value" [ngClass]="ticket.status">{{getStatusEn(ticket.status)}}</h3>
+          </div>
+
+          <div class="ticket-details-item">
+            <h3 class="item item-key">Autor: </h3>
+            <h3 class="item item-value">{{ticket.owner.firstName}} {{ticket.owner.lastName}}</h3>
+          </div>
+
+          <div class="ticket-details-item" *ngIf="ticket.assignedTo">
+            <h3 class="item item-key">Agente: </h3>
+            <h3 class="item item-value">{{ticket.assignedTo.firstName}} {{ticket.assignedTo.lastName}}</h3>
+          </div>
+
+          <div class="ticket-details-item" *ngIf="notUser">
+            <h3 class="item item-key">Estado: </h3>
+            <h3 class="item item-value" [ngClass]="getExpirationStatusClass(ticket, seconds2String(counter))">
+              {{ getExpirationStatus(ticket, seconds2String(counter)) }}
+            </h3>
+          </div>
+        </div>
+
+        <div class="ticket-details-section">
+          <div class="ticket-details-item">
+            <h3 class="item item-key">Departamento: </h3>
+            <h3 class="item item-value">{{ticket.department.name}}</h3>
+          </div>
+
+          <div class="ticket-details-item">
+            <h3 class="item item-key">Tema de ayuda:</h3>
+            <h3 class="item item-value">{{ticket.helpTopic.name}}</h3>
+          </div>
+
+          <div class="ticket-details-item" *ngIf="ticket.rating">
+            <h3 class="item item-key">Rating: </h3>
+            <h3 class="item item-value" [ngClass]="getRatingClass(ticket.rating)">
+              {{formatDecimal(ticket.rating)}}</h3>
+          </div>
+
+          <div class="ticket-details-item" *ngIf="notUser">
+            <h3 class="item item-key">Tiempo de Expiración: </h3>
+            <h3 class="item item-value">{{minutes2String(ticket.helpTopic.expIn)}}</h3>
+          </div>
+        </div>
+
+        <div class="ticket-details-section">
+          <div class="ticket-details-item" *ngIf="ticket.createdAt">
+            <h3 class="item item-key">Fecha de Creaci&oacute;n:</h3>
+            <h3 class="item item-value">{{formatLocalDateL(ticket.createdAt, dateTypeL.long)}}</h3>
+          </div>
+
+          <div class="ticket-details-item" *ngIf="ticket.assignedAt">
+            <h3 class="item item-key">Fecha de asignaci&oacute;n: </h3>
+            <h3 class="item item-value">{{formatLocalDateL(ticket.assignedAt, dateTypeL.long)}}</h3>
+          </div>
+
+          <div class="ticket-details-item" *ngIf="ticket.completedAt">
+            <h3 class="item item-key">Fecha de Cierre:</h3>
+            <h3 class="item item-value">{{formatLocalDateL(ticket.completedAt, dateTypeL.long)}}</h3>
+          </div>
+
+          <div class="ticket-details-item" *ngIf="notUser">
+            <h3 class="item item-key">Expira en: </h3>
+            <h3 class="item item-value">{{seconds2String(counter) || '00:00'}}</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket-details-item">
+        <h3 class="item item-key item-key-desc">Descripci&oacute;n: </h3>
+        <h3 class="item item-value item-value-desc">{{ticket.description}}</h3>
+      </div>
+    </div>
+  </header>
+
+  <main class="ticket-section">
+    <div #chatContainer class="chat-container"
+      *ngIf="!(messages.length === 0 && (ticket.status === status.CLOSED || ticket.status === status.CANCELED))">
+      <div class="message-container" [ngClass]="message.attachment && 'max-width-file'" [ngClass]="ticketOwner(message)"
+        *ngFor="let message of messages; trackBy: trackByMessageId">
+
+        <div class="message-header">
+          <p class="message-author">{{message.owner.firstName}} {{message.owner.lastName}}</p>
+
+          <button class="message-menu" [matMenuTriggerFor]="menu" aria-label="Message Menu"
+            *ngIf="(itsMyMessage(message) && message.visibility !== messageVisibilities.TO_NO_ONE) || isAdmin">
+            <mat-icon>{{getVisibilityIcon(message.visibility)}}</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="changeVisibility(message._id, messageVisibilities.TO_ALL)">
+              <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_ALL)}}</mat-icon>
+              <span>Ver para todos</span>
+            </button>
+
+            <button mat-menu-item *ngIf="userRol !== roles.USER"
+              (click)="changeVisibility(message._id, messageVisibilities.TO_AGENTS)">
+              <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_AGENTS)}}</mat-icon>
+              <span>Solo para uso interno</span>
+            </button>
+
+            <button mat-menu-item (click)="changeVisibility(message._id, messageVisibilities.ONLY_TO_ME)">
+              <mat-icon>{{getVisibilityIcon(messageVisibilities.ONLY_TO_ME)}}</mat-icon>
+              <span>Solo para mi</span>
+            </button>
+
+            <button mat-menu-item *ngIf="message.visibility !== messageVisibilities.TO_NO_ONE || isAdmin"
+              (click)="changeVisibility(message._id, messageVisibilities.TO_NO_ONE)">
+              <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_NO_ONE)}}</mat-icon>
+              <span>Eliminar mensaje</span>
+            </button>
+          </mat-menu>
+        </div>
+
+        <img class="message-img" [src]="getMediaUrl(message)" *ngIf="
+                        message.attachmentType === messageAttachmentType.IMAGE &&
+                        message.visibility !== messageVisibilities.TO_NO_ONE
+                    " alt="Imagen del mensaje" (click)="openViewImage(getMediaUrl(message))">
+
+        <video class="message-video" [src]="getMediaUrl(message)" *ngIf="
+                        message.attachmentType === messageAttachmentType.VIDEO &&
+                        message.visibility !== messageVisibilities.TO_NO_ONE
+                    " controls></video>
+
+        <button class="message-other" [ngClass]="fileOwner(message)" type="button" (click)="downloadFile(message)"
+          *ngIf="
+                        (message.attachmentType === messageAttachmentType.OTHER ||
+                        message.attachmentType === messageAttachmentType.TEXT ||
+                        message.attachmentType === messageAttachmentType.PDF) &&
+                        message.visibility !== messageVisibilities.TO_NO_ONE
+                        ">
+          <div class="preview-other-item">
+            <h4 matTooltip="{{message.attachment.originalName}}">{{ formatFileName(message.attachment.originalName ||
+              'Unnamed', 20) }}</h4>
+            <mat-icon>download</mat-icon>
+          </div>
+        </button>
+
+        
+        <p class="message-text" *ngIf="message.visibility !== messageVisibilities.TO_NO_ONE">
+          <span [innerHTML]="getTruncatedText(message)"></span>
+          <span *ngIf="message.text.length > maxLength" (click)="toggleExpand(message)">
+            <span
+              [innerHTML]="isMessageExpanded(message) ? '<strong> \n\n Leer menos</strong>' : '<strong> Leer más</strong>'"></span>
+          </span>
+        </p>
+
+        <p class="message-text" *ngIf="message.visibility === messageVisibilities.TO_NO_ONE">Mensaje Eliminado</p>
+
+        <div class="message-info">
+          <p>{{message.isEdited ? 'Editado' : ''}}</p>
+          <p>{{formatLocalDateL(message.createdAt || '', dateTypeL.short)}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="file-viewer" *ngIf="getOpenInputFile()">
+      <button class="delete-file" matTooltip="Eliminar Archivo" (click)="resetFileSelect(true)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    
+      <img class="preview-image" *ngIf="isImage" [src]="previewUrl" alt="Vista previa de Imagen"
+        (click)="openViewImage(previewUrl)" />
+    
+      <video class="preview-video" *ngIf="isVideo" [src]="previewUrl" controls></video>
+    
+      <div class="preview-txt" *ngIf="isText">
+        <p>{{ previewText }}</p>
+      </div>
+    
+      <iframe class="preview-pdf" *ngIf="isPdf" [src]="previewUrl"></iframe>
+    
+      <a class="preview-other" *ngIf="isOther" [href]="previewUrl" target="_blank" download="{{messageFile?.name}}">
+        <div class="preview-other-item">
+          <h3>{{ formatFileName(messageFile?.name || '', 30) }}</h3>
+          <mat-icon>download</mat-icon>
+        </div>
+      </a>
+    </div>
+
+    <form #sendMessageContainer class="send-message-container" action="" (ngSubmit)="sendMessage($event)"
+      [formGroup]="formMessage" autocomplete="off" *ngIf="unassignedOrAdmin">
+
+      <div class="container-message" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (paste)="onPaste($event)">
+
+        <textarea class="input-message" formControlName="message" rows="3" (keydown)="onKeyDown($event)"
+          placeholder="Escribe un mensaje...">
+        </textarea>
+
+        <input type="file" class="input-message-file" #fileInput (change)="onFileSelectedInput($event)" accept="image/*"
+          hidden>
+      </div>
+
+
+      <div class="button-container">
+        <button class="button-send" type="button" matTooltip="Adjuntar Archivo" id="fileButton"
+          (click)="triggerFileInput()">
+          <mat-icon class="hover-fill">attach_file</mat-icon>
+          <input type="file" class="fileInput" id="fileInput" style="display: none;" (change)="onFileSelected($event)">
+        </button>
+
+        <button class="message-menu button-send" type="button" matTooltip="Cambiar visiblidad"
+          [matMenuTriggerFor]="menu" aria-label="Message Menu">
+          <mat-icon>{{getVisibilityIcon(messageVisibility)}}</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="selectMessageVisibility(messageVisibilities.TO_ALL)">
+            <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_ALL)}}</mat-icon>
+            <span>Ver para todos</span>
+          </button>
+
+          <button mat-menu-item *ngIf="userRol !== roles.USER"
+            (click)="selectMessageVisibility(messageVisibilities.TO_AGENTS)">
+            <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_AGENTS)}}</mat-icon>
+            <span>Solo para uso interno</span>
+          </button>
+
+          <button mat-menu-item (click)="selectMessageVisibility(messageVisibilities.ONLY_TO_ME)">
+            <mat-icon>{{getVisibilityIcon(messageVisibilities.ONLY_TO_ME)}}</mat-icon>
+            <span>Solo para mi</span>
+          </button>
+        </mat-menu>
+
+        <button class="button-send" type="submit" matTooltip="Enviar mensaje" [disabled]="formMessage.invalid">
+          <mat-icon class="hover-fill">send</mat-icon>
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="ticket-section" *ngIf="visiblePanel">
+    <h2>Panel de acciones</h2>
+
+    <div class="button-container">
+      <button class="action-button" (click)="openAssignedAgent(ticket)">
+        <mat-icon>person_add</mat-icon>
+        <h4>Asignar Agente</h4>
+      </button>
+
+      <button class="action-button" (click)="openTransferTicket(ticket)">
+        <mat-icon>swap_horiz</mat-icon>
+        <h4>Transferir Ticket</h4>
+      </button>
+
+      <button class="action-button" (click)="openChangeStatus(ticket)" *ngIf="unassignedOrAdmin">
+        <mat-icon>update</mat-icon>
+        <h4>Cambiar Estatus</h4>
+      </button>
+    </div>
+  </footer>
+</div>
+
+
+<div class="loader-container" *ngIf="!loaded">
+  <span class="loader"></span>
+</div>
+
+
+<h1 *ngIf="!ticket && loaded">
+  Ticket no encontrado...
+</h1>

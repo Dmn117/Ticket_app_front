@@ -1,0 +1,31 @@
+<div class="container">
+    <mat-card class="assigned-ticket">
+      <mat-card-header>
+        <mat-card-title>
+          <h2 mat-dialog-title>Asignar ticket a un Agente</h2>
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form autocomplete="off" [formGroup]="ticketForm" (ngSubmit)="assignedTo()">
+
+          <mat-form-field appearance="fill">
+            <mat-label>Agente</mat-label>
+            <mat-select formControlName="assignedTo" required="true">
+                <mat-option *ngFor="let user of users" [value]="user._id">
+                    {{user.firstName.toUpperCase()}}
+                    {{user.lastName.toUpperCase()}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+          <br>
+
+          <button class="action-button" color="accent" type="submit" [disabled]="isSubmitting">
+            <h3>Asignar Agente</h3>
+          </button>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>

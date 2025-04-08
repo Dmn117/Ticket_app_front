@@ -1,0 +1,61 @@
+<div class="home-page">
+  <div class="user-header" *ngIf="userData">
+    <div class="user-info">
+      <div class="img-container">
+        <img mat-card-avatar [src]="imgAvatar" alt="Avatar del usuario" (click)="confirmChangeAvatar()"
+          style="cursor: pointer;" matTooltip="Clic para cambiar imagen" />
+      </div>
+
+      <div class="user-details">
+        <h2>{{ userData.user?.firstName }} {{ userData.user?.lastName }}</h2>
+        <p> Rol: {{ userData.user?.role }}
+          <br> Email: <a href="mailto:{{ userData.user?.email }}"></a> {{ userData.user?.email }}
+        </p>
+        <div class="star-rating" *ngIf="userData.user?.role === 'AGENT' || userData.user?.role === 'ADMIN'">
+          <ng-container *ngFor="let star of getStars(userData.user?.rating)">
+            <mat-icon *ngIf="star.filled">star</mat-icon>
+            <mat-icon *ngIf="star.half">star_half</mat-icon>
+            <mat-icon *ngIf="!star.filled && !star.half">star_border</mat-icon>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="total-tickets">
+        <div>
+          <h2 *ngIf="userData.user?.role === 'AGENT' || userData.user?.role === 'ADMIN'">Tickets con evaluación:</h2>
+          <p *ngIf="userData.user?.role === 'AGENT' || userData.user?.role === 'ADMIN'">{{
+            userData.user?.evaluatedTickets }}</p>
+          <h2>Tickets cerrados</h2>
+          <p>{{ userData.user?.closedTickets }}</p>
+        </div>
+      </div>
+
+      <div class="user-departments"
+        *ngIf="departments.length > 0 || userData.user?.role === 'AGENT' || userData.user?.role === 'ADMIN' ">
+        <h2>Departamentos</h2>
+        <mat-chip-list>
+          <mat-chip *ngFor="let department of departments" color="primary">
+            {{ department.name }} - {{ getOrganization(department.organization)?.name }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <div class="user-stats">
+        <h2>Accesos rápidos</h2>
+        <div class="user-stats-content">
+          <a class="direct" color="accent" href="/tickets/my-open-ones" mat-raised-button> Mis tickets abiertos </a>
+          <a class="direct" color="accent" href="/tickets/my-closed-ones" mat-raised-button> Mis tickets cerrados </a>
+          <a *ngIf="userData.user?.role !== 'USER' && userData.user?.role !== 'DIRECTOR'" class="direct" color="accent" href="/tickets/new" mat-raised-button> Tickets abiertos del departamento </a>
+          <a *ngIf="userData.user?.role !== 'USER' && userData.user?.role !== 'DIRECTOR'" class="direct" color="accent" href="/tickets/closed" mat-raised-button> Tickets cerrados del departamento </a>
+          <a class="direct" color="primary" (click)="addTicket()" mat-raised-button> Crear ticket </a>
+          <a class="direct" mat-raised-button color="primary" (click)="openCreateTopicDialog()"
+            *ngIf="userData?.user?.role === 'BOSS' || userData?.user?.role === 'ADMIN'">Crear topico </a>
+          <a class="direct"
+            *ngIf="userData?.user?.role === 'ADMIN' || userData?.user?.role === 'BOSS'"
+            href="/help-topics" mat-raised-button> Ver topicos </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

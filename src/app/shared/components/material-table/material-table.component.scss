@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+th.mat-header-cell {
+  background: #f5f5f5;
+}
+
+.mat-row:hover {
+  background: #e0e0e0;
+}
+
+ @media (max-width: 768px) {
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,72 @@
+<app-material-table [dataSourceMat]="dataSourceMat" [displayedColumns]="displayedColumns">
+  <table mat-table [dataSource]="dataSourceMat" class="mat-elevation-z8">
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef ># de ticket</th>
+      <td mat-cell *matCellDef="let element;">{{element.number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Titulo</th>
+      <td mat-cell *matCellDef="let element;">{{element.title}}</td>
+    </ng-container>
+    <ng-container matColumnDef="helpTopic">
+      <th mat-header-cell *matHeaderCellDef>Tema ayuda</th>
+      <td mat-cell *matCellDef="let element;">{{element.helpTopicName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="owner">
+      <th mat-header-cell *matHeaderCellDef>Creador por:</th>
+      <td mat-cell *matCellDef="let element;">{{element.ownerName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef>Departamento</th>
+      <td mat-cell *matCellDef="let element;">{{element.departmentName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Estatus</th>
+      <td mat-cell *matCellDef="let element;" [ngClass]="element?.status">{{
+          element.status === 'CLOSED' ? 'Cerrado' :
+            element.status === 'OPEN' ? 'Nuevo' :
+              element.status === 'ASSIGNED' ? 'Asignado' :
+                element.status === 'IN_PROCESS' ? 'En proceso' :
+                  element.status === 'STOPPED' ? 'Detenido' :
+                    element.status === 'ON_HOLD' ? 'En espera':
+                      element.status === 'CANCELED' ? 'Cancelado / Anulado':
+                        element.status
+        }}</td>
+    </ng-container>
+    <ng-container matColumnDef="assignedTo">
+      <th mat-header-cell *matHeaderCellDef>Asignado a:</th>
+      <td mat-cell *matCellDef="let element;">{{element.assignedName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="completedAt">
+      <th mat-header-cell *matHeaderCellDef>Fecha de completado</th>
+      <td mat-cell *matCellDef="let element;">{{element.completedAt | date}}</td>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let element;">
+        <!--    Ver    -->
+        <a [href]="'/tickets/view/'+element._id" class="cursoPointer"  style="color: #0061a9; margin-right: 10px" (click)="viewTicket(element._id)">
+          <mat-icon matTooltip="Ver ticket">visibility</mat-icon>
+        </a>
+        <!--    Ver motivo de cancelacion    -->
+        <a class="cursoPointer"  style="color: red; margin-right: 10px"
+           *ngIf="element.justification !== ''"
+           (click)="viewCancelation(element.justification)
+        ">
+          <mat-icon matTooltip="Ver motivo">do_not_disturb_off</mat-icon>
+        </a>
+        <!--    Calificación    -->
+        <a class="cursoPointer" (click)="ratingTicket(element)"  style="color: #ffff00; margin-right: 10px">
+          <mat-icon matTooltip="Ver calificación">star_rate</mat-icon>
+        </a>
+        <!--    Borrar    -->
+        <a class="cursoPointer" *ngIf="roleUser !== 'USER' && roleUser !== 'AGENT'" (click)="deleteTicket(element._id)" style="color: #b50811; margin-right: 10px; cursor: pointer">
+          <mat-icon matTooltip="Eliminar ticket">delete_forever</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</app-material-table>

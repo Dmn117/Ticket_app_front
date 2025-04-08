@@ -1,0 +1,172 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    color: white;
+    padding: 1rem 2rem;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+span {
+    padding: 0;
+    margin: 0;
+}
+
+
+header {
+    padding: 1rem 0;
+    flex-direction: column;
+    row-gap: .3rem;
+}
+
+.instructions {
+    font-size: small;
+    color: rgba(255, 255, 255, 0.521);
+}
+
+
+main {
+    flex-direction: column;
+    row-gap: 3rem;
+}
+
+
+.rating-options {
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.rating {
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.rating-rated {
+    flex-direction: column;
+    row-gap: 3rem;
+}
+
+.rating-icon {
+    font-size: xx-large;
+    transition: .3s ease-in-out;
+}
+
+.rating-name {
+    color: rgb(255, 255, 255);
+}
+
+.rating-icon:hover {
+    transform: scale(1.35);
+}
+
+
+.rating-icon:active {
+    transform: rotate(0deg);
+}
+
+.rated {
+    font-size: 5rem;
+}
+
+.incidents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: .5rem;
+}
+
+.incidents-container {
+    display: flex;
+    flex-direction: column;
+    height: 8.5rem;
+    width: 100%;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+    overflow-y: auto;
+}
+
+
+.incident-container {
+    justify-content: space-between;
+    gap: 1rem;
+    border: none;
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0px -2px 7px 0px rgba(0,0,0,0.47);
+    flex-wrap: wrap;
+    scroll-snap-align: center;
+}
+
+
+footer {
+    width: 100%;
+}
+
+.rate-evalution {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.comment {
+    width: 100%;
+}
+
+
+.action-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 1rem;
+    border: none;
+    border-radius: 5px;
+    background: black;
+    color: white;
+    padding: .5rem 1rem;
+    transition: .3s ease-in-out;
+}
+
+
+.action-button:hover {
+    background: #263141;
+}
+
+.comments-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.cursorPointer:hover {
+    cursor: pointer;
+}
+
+.selected-rating {
+    text-shadow: 
+    0 0 20px #ff0000,
+    0 0 40px #ff0000;
+
+}

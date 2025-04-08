@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Crear Nuevo Tema de Ayuda</h2>
+<mat-dialog-content>
+  <form [formGroup]="topicForm">
+    <mat-form-field>
+      <mat-label>Nombre del Tema</mat-label>
+      <input matInput formControlName="name" placeholder="Ej. Instalación de Aplicación" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Departamentos</mat-label>
+      <mat-select formControlName="department" required>
+        <mat-option *ngFor="let dept of departments" [value]="dept._id">{{ dept.name }}</mat-option>
+      </mat-select>
+      <mat-hint>Selecciona un departamento</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Etiquetas</mat-label>
+      <mat-chip-list #chipList aria-label="Etiquetas seleccionadas">
+        <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true" (removed)="removeTag(tag)">
+          {{ tag }}
+          <button mat-icon-button *ngIf="true" (click)="removeTag(tag)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input matInput
+               [formControl]="tagsControl"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               (matChipInputTokenEnd)="addTag($event)"
+               placeholder="Añadir etiqueta"
+        />
+      </mat-chip-list>
+      <mat-hint>Presiona Enter para añadir una etiqueta</mat-hint>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button mat-raised-button color="primary" (click)="onCreate()">Crear</button>
+</mat-dialog-actions>

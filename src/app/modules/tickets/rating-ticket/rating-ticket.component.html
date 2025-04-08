@@ -1,0 +1,23 @@
+<div class="rating-modal">
+  <mat-card class="rating-header">
+    <div class="rating-info">
+      <img mat-card-avatar [src]="imgAvatar" alt="Avatar del usuario">
+      <div>
+        <h2 class="rating-h2">{{data.ownerName}}</h2>
+      </div>
+      <div class="star-rating">
+        <h2 class="rating-h2">Calificación</h2>
+        <ng-container *ngFor="let star of getStars(data.rating)">
+          <mat-icon *ngIf="star.filled">star</mat-icon>
+          <mat-icon *ngIf="star.half">star_hal</mat-icon>
+          <mat-icon *ngIf="!star.filled && !star.half">star_border</mat-icon>
+        </ng-container>
+      </div>
+      <div class="rating-comment">
+        <h2 class="rating-h2">Comentarios</h2>
+        <p>{{data.comment}}</p>
+      </div>
+      <button mat-raised-button color="primary" (click)="closedDialog()">Cerrar</button>
+    </div>
+  </mat-card>
+</div>

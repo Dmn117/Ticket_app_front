@@ -1,0 +1,37 @@
+<div class="container">
+    <mat-card class="assigned-ticket">
+      <mat-card-header>
+        <mat-card-title>
+          <h2 mat-dialog-title>Cambiar Estatus del Ticket</h2>
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form autocomplete="off" [formGroup]="ticketForm" (ngSubmit)="changeStatus()">
+
+          <mat-form-field appearance="fill" >
+            <mat-label>Estatus</mat-label>
+            <mat-select formControlName="status" (selectionChange)="ticketForm.get('cancellationComment')?.setValue(ticketForm.get('status')?.value === 'Cancelado / Anulado' ? '' : 'No hay justificación')">
+                <mat-option *ngFor="let status of statuses" [value]="status">
+                    {{status}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+          <mat-form-field *ngIf="ticketForm.get('status')?.value === 'Cancelado / Anulado'" appearance="fill">
+            <mat-label>Justificación de Cancelación</mat-label>
+            <input matInput required="true" formControlName="cancellationComment" placeholder="Ingrese un comentario"  />
+            <mat-error *ngIf="ticketForm.get('cancellationComment')?.invalid">
+              Debes llenar la información
+            </mat-error>
+          </mat-form-field>
+
+
+          <button class="action-button" color="accent" type="submit" *ngIf="ticketForm.get('status')?.valid "  [disabled]="isSubmitting">
+            <h3>Aplicar Cambio</h3>
+          </button>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>

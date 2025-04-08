@@ -1,0 +1,35 @@
+<div class="container">
+    <header>
+        <h1 class="title">Eval&uacute;a la atenci&oacute;n que recibiste</h1>
+    </header>
+
+    <main>
+        <form class="rate-ticket-container" autocomplete="off" [formGroup]="ticketForm" (ngSubmit)="rateTicket()">
+
+            <div class="rating-container">
+                <div class="rating-star" *ngFor="let star of stars">
+                    <button class="half-star" type="button" (click)="selectStar(star[0])" (mouseover)="onHover(star[0])" (mouseleave)="onLeave()">
+                        <mat-icon class="left-half-star" [ngClass]="getStarColor(star[0])">star</mat-icon>
+                    </button>
+
+                    <button class="half-star" type="button" (click)="selectStar(star[1])" (mouseover)="onHover(star[1])" (mouseleave)="onLeave()">
+                        <mat-icon class="right-half-star" [ngClass]="getStarColor(star[1])">star</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <mat-form-field class="comment" appearance="outline">
+                <mat-label>Comentarios</mat-label>
+                <textarea matInput formControlName="comment" rows="4"></textarea>
+              <mat-hint>Debes rellenar el campo</mat-hint>
+              <mat-error *ngIf="ticketForm.get('comment')?.hasError('required')">
+                El campo no debe ir vacío
+              </mat-error>
+            </mat-form-field>
+
+            <button class="action-button" type="submit" [disabled]="ticketForm.get('comment')?.invalid || isSubmitting">
+                <h3>Enviar Calificaci&oacute;n</h3>
+            </button>
+        </form>
+    </main>
+</div>

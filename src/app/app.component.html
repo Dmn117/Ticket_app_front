@@ -1,0 +1,7 @@
+<ng-container *ngIf="isLoginPage; else mainAppContent">
+  <router-outlet></router-outlet>
+</ng-container>
+
+<ng-template #mainAppContent>
+  <app-sidenav></app-sidenav>
+</ng-template>

@@ -1,0 +1,28 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+
+.register-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px;
+  background-color: #000000b2 !important;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  form {
+    grid-template-columns: 1fr;
+  }
+}

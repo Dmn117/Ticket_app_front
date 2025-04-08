@@ -1,0 +1,55 @@
+<div class="container">
+    <mat-card class="assigned-ticket">
+        <mat-card-header>
+            <mat-card-title>
+                <h2 mat-dialog-title>Transferir Ticket</h2>
+            </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form autocomplete="off" [formGroup]="ticketForm" (ngSubmit)="transferTicket()">
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Organizaci&oacute;n</mat-label>
+                    <mat-select formControlName="organization" (selectionChange)="onOrganizationSelected()" required="true">
+                        <mat-option *ngFor="let organization of organizations" [value]="organization._id">
+                            {{organization.name.toUpperCase()}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Departamento</mat-label>
+                    <mat-select formControlName="department" (selectionChange)="onDepartmentSelected()" required="true">
+                        <mat-option *ngFor="let department of filteredDepartments" [value]="department._id">
+                            {{department.name.toUpperCase()}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Tema de ayuda</mat-label>
+                    <input
+                        type="text"
+                        matInput
+                        [matAutocomplete]="autoTopic"
+                        formControlName="helpTopic"
+                        (input)="filterHelpTopics($event)" 
+                        required="true"/>
+                    <mat-autocomplete #autoTopic="matAutocomplete" [displayWith]="displayHelpTopicUpperCase">
+                        <mat-option *ngFor="let helpTopic of filteredHelpTopics" [value]="helpTopic._id">
+                            {{helpTopic.name.toUpperCase()}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <br>
+
+                <button class="action-button" color="accent" type="submit" [disabled]="isSubmitting">
+                    <h3>Transferir</h3>
+                </button>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

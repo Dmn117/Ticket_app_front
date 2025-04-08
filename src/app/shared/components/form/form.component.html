@@ -1,0 +1,31 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div *ngFor="let field of fields">
+    <mat-form-field *ngIf="field.type !== 'checkbox'" appearance="outline">
+      <mat-label>{{ field.label }}</mat-label>
+      <input
+        [type]="field.type === 'password' && !showPassword[field.name] ? 'password' : 'text'"
+        matInput
+        [formControlName]="field.name"
+      />
+      <button
+        *ngIf="field.type === 'password'"
+        mat-icon-button
+        type="button"
+        (click)="togglePasswordVisibility(field.name)"
+        matSuffix
+        aria-label="Toggle password visibility">
+        <mat-icon>{{ showPassword[field.name] ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="form?.get(field.name)?.hasError('required')">
+        {{ field.label }} es requerido.
+      </mat-error>
+      <mat-error *ngIf="field.name === 'email' && form?.get(field.name)?.hasError('email')">
+        El formato del correo electrónico es inválido.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox *ngIf="field.type === 'checkbox'" [formControlName]="field.name">
+      {{ field.label }}
+    </mat-checkbox>
+  </div>
+</form>

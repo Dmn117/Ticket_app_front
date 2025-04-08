@@ -1,0 +1,45 @@
+.banner {
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-toolbar {
+background-color: transparent;
+padding: 0;
+}
+
+.cursoPointer:hover {
+    cursor: pointer;
+}
+
+.selectorStatus {
+  width: 20%;
+}
+
+@media (max-width: 768px) {
+  .selectorStatus {
+    width: 100%;
+  }
+}
+
+.Restrasado
+{
+  background-color: #b50811;
+  color: white;
+}
+
+.tiempo{
+  background-color: darkgreen;
+  color: white;
+}
+
+.Falta{
+  background-color: #263141;
+  color: white;
+}
+
+td[data-text="Sin asignar"] {
+    color: white !important;
+    background: #263141;
+  }
+

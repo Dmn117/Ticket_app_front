@@ -1,0 +1,53 @@
+<div class="main-container">
+    <header class="flex-center">
+        <h1 class="title">Evaluación de cierre de mes</h1>
+        <h3 class="instructions" *ngIf="!data.evaluation.rated">Seleccione la opcion acorde a la calificacion (10 - 100)</h3>
+    </header>
+
+    <main class="flex-center">
+
+        <div class="flex-center rating-rated" *ngIf="data.evaluation.rated">
+            <a class="rating-icon rated">{{rating?.icon}}</a>
+            <h2 class="rating-name">{{rating?.name}} ({{rating?.rate}})</h2>
+        </div>
+
+        <div class="flex-center rating-options" *ngIf="!data.evaluation.rated">
+            <div class="flex-center rating" *ngFor="let rating of ratings">
+                <a class="rating-icon cursorPointer" (click)="selectRating(rating)">{{rating.icon}}</a>
+                <p class="rating-name" [ngClass]="itsSelected(rating) ? 'selected-rating' : ''">{{rating.name}}</p>
+            </div>
+        </div>
+
+        <div class="incidents">
+            <h2 class="subtitle">Incidencias del periodo</h2>
+
+            <div class="incidents-container" *ngIf="incidents.length > 0">
+                <div class="flex-center incident-container cursorPointer" *ngFor="let incidence of incidents" (click)="viewIncident(incidence)">
+                    <h4 class="incident-title">{{incidence.title}}</h4>
+                    <p class="incident-createAt">{{formatLocalDateL(incidence.createdAt, dateTypeL.long)}}</p>
+                </div>
+            </div>
+
+            <h3 *ngIf="incidents.length === 0">No hay incidencias registradas...</h3>
+        </div>
+    </main>
+
+    <footer>
+        <form class="rate-evalution" autocomplete="off" [formGroup]="evaluationForm" (ngSubmit)="rateEvaluation()" *ngIf="!data.evaluation.rated">
+            <mat-form-field class="comment" appearance="outline">
+                <mat-label>Comentarios</mat-label>
+                <textarea type="text" matInput formControlName="comment" required="true" rows="1"></textarea>
+            </mat-form-field>
+    
+            <button class="action-button cursorPointer" type="submit" [disabled]="isSubmitting">
+                <p>Enviar Calificación</p>
+                <mat-icon>task_alt</mat-icon>
+            </button>
+        </form>
+
+        <div class="comments-container" *ngIf="data.evaluation.rated">
+            <h2 class="subtitle">Comentarios</h2>
+            <p class="comments">{{data.evaluation.comments}}</p>
+        </div>
+    </footer>
+</div>

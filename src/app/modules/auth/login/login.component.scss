@@ -1,0 +1,35 @@
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url(../../../../assets/background.png);
+  background-repeat: repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.login-card {
+  width: 400px;
+  max-width: 90%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+ }
+
+mat-card-header {
+  text-align: center;
+}
+
+.login-button {
+  width: 100%;
+  border-radius: 5px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+h2{
+  color: white;
+}

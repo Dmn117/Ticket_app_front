@@ -1,0 +1,111 @@
+.home-page {
+  padding: 2rem;
+  background-color: #424242b2;
+  border-radius: .5rem;
+  margin: .5rem;
+}
+
+.user-header {
+  display: flex;
+  gap: 1rem;
+  background-color: transparent;
+}
+
+.user-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.user-details h2 {
+  margin-bottom: 1em;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.user-stats {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-stats-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.user-settings mat-card,
+.user-stats mat-card {
+  padding: 20px;
+}
+
+.img-container {
+  height: 20rem;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+
+  mat-icon {
+    color: #ffca28;
+    margin-right: 2px;
+  }
+}
+
+mat-chip-list {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-chip {
+  border-radius: .2rem;
+  background-color: rgba(245, 245, 245, 0.52);
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  white-space: normal;
+}
+
+a {
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+
+  .home-page {
+    padding: 1rem;
+  }
+
+  .user-info {
+    justify-content: center;
+  }
+
+  .total-tickets, .user-stats {
+    width: 100%;
+  }
+
+  .user-stats-content {
+    flex-direction: column;
+  }
+
+  .direct {
+    width: 50%;
+  }
+
+  mat-card-content {
+    display: block
+  }
+}

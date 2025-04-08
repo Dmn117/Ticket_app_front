@@ -1,0 +1,78 @@
+<mat-toolbar>
+  <button (click)="toggleSidenav()" *ngIf="!opened" mat-icon-button aria-label="Abrir menú" matTooltip="Abrir menú">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <button (click)="toggleSidenav()" *ngIf="opened" mat-icon-button aria-label="Cerrar menú" class="close-menu-button" matTooltip="Cerrar menú">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <span>Ticket Application</span>
+  <span class="example-spacer"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Perfil de usuario" matTooltip="Perfil de usuario">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <div class="user-info" *ngIf="userData">
+      <div class="user-avatar">
+        <img [src]="imgAvatar" alt="Avatar">
+        <div class="user-name">{{ userData.user.firstName }} {{ userData.user.lastName }}</div>
+      </div>
+      <div class="user-details">
+        <div class="user-role">{{ userData.user.role }}</div>
+        <div class="user-email">
+          <a href="mailto:{{ userData.user.email }}">{{ userData.user.email }}</a>
+        </div>
+      </div>
+      <div class="user-actions">
+        <button mat-button (click)="viewProfile()">Ver perfil</button>
+        <button mat-button color="warn" (click)="logout()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" [opened]="opened">
+    <mat-divider></mat-divider>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let item of menuItems">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ item.label }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <!-- Verifica si hay subelementos -->
+        <ng-container *ngIf="item.subItems">
+          <mat-list>
+            <mat-list-item *ngFor="let subItem of item.subItems">
+               <a mat-button [routerLink]="subItem.route" (click)="toggleSidenav()">Ir a {{ subItem.label }}</a>
+            </mat-list-item>
+          </mat-list>
+        </ng-container>
+
+        <ng-container *ngIf="!item.subItems">
+           <a mat-button [routerLink]="item.route" (click)="toggleSidenav()">Ir a {{ item.label }}</a>
+        </ng-container>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-divider></mat-divider>
+    <div class="logout-button" style="margin-top: auto; padding: 16px;">
+      <button mat-button color="warn" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon> Cerrar Sesión
+      </button>
+    </div>
+  </mat-sidenav>
+
+   <mat-sidenav-content>
+    <mat-card>
+      <router-outlet></router-outlet>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<app-footer></app-footer>

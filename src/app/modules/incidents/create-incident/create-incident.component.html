@@ -1,0 +1,50 @@
+<div class="main-container">
+    <header>
+        <h1 class="title">Registrar una Incidencia</h1>
+    </header>
+
+    <main>
+        <form class="create-incidence" autocomplete="off" [formGroup]="incidentForm" (ngSubmit)="createIncidence()">
+            <mat-form-field appearance="outline">
+                <mat-label>Titulo</mat-label>
+                <input type="text" matInput formControlName="title" required="true">
+                <mat-error *ngIf="incidentForm.get('title')?.hasError('required')">
+                    El titulo es requerido.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="description" type="text" rows="2"></textarea>
+                <mat-error *ngIf="incidentForm.get('description')?.hasError('required')">
+                    La descripción es requerida.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Severidad</mat-label>
+                <input matInput formControlName="severity" type="number" min="1" max="10">
+                <mat-error *ngIf="incidentForm.get('severity')?.hasError('required')">
+                    La severidad es requerida.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Dirigida a</mat-label>
+                <mat-select formControlName="agent" required>
+                    <mat-option *ngFor="let agent of users" [value]="agent">
+                        {{ agent.firstName }} {{ agent.lastName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="incidentForm.get('agent')?.hasError('required')">
+                    El agente es requerido.
+                </mat-error>
+            </mat-form-field>
+
+            <button class="action-button cursorPointer" type="submit" [disabled]="isSubmitting">
+                <p>Guardar Incidencia</p>
+                <mat-icon>save</mat-icon>
+            </button>
+        </form>
+    </main>
+</div>
