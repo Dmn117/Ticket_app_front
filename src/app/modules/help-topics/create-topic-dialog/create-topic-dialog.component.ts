@@ -33,10 +33,15 @@ export class CreateTopicDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.topicForm = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(5)]],
       organization: ['', Validators.required],
       department: ['', Validators.required],
       expIn: ['', [Validators.min(0),Validators.required, Validators.pattern("^[0-9]*$")]],
+      example: ['', Validators.required],
+      example2: ['', Validators.required],
+      example3: [''],
+      example4: [''],
+      example5: [''],
     });
   }
 
@@ -81,11 +86,21 @@ export class CreateTopicDialogComponent implements OnInit {
   onCreate(): void {
     if (this.topicForm.valid) {
       const formData = this.topicForm.value;
+
+      const examples = [];
+
+      if (formData.example) examples.push(formData.example);
+      if (formData.example2) examples.push(formData.example2);
+      if (formData.example3) examples.push(formData.example3);
+      if (formData.example4) examples.push(formData.example4);
+      if (formData.example5) examples.push(formData.example5);
+
       const payload = {
         name: formData.name,
         tags: this.tags,
         department: formData.department,
         expIn: formData.expIn,
+        examples,
       };
       this.dialogRef.close(payload);
     }
