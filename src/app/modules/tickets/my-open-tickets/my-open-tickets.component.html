@@ -1,20 +1,33 @@
-<mat-toolbar class="banner">
-    <mat-form-field class="selectorStatus">
-      <mat-label>Selecciona un estatus</mat-label>
-      <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyStatusFilter()">
-        <mat-option *ngFor="let estatus of statusSelect" [value]="estatus.value">{{ estatus.label }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+<div class="my-open-tickets-container">
+  <mat-card class="my-open-tickets-card">
+    <mat-card-content>
+      <!-- Header Section -->
+      <div class="page-header">
+        <div class="header-content">
+          <mat-icon class="header-icon">assignment_ind</mat-icon>
+          <div class="header-text">
+            <h1 class="page-title">Mis Tickets Abiertos</h1>
+            <p class="page-subtitle">Gestión de tickets asignados pendientes</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <mat-form-field class="status-selector">
+            <mat-label>Filtrar por estatus</mat-label>
+            <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyStatusFilter()">
+              <mat-option *ngFor="let estatus of statusSelect" [value]="estatus.value">{{ estatus.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button class="primary-button" (click)="addTicket()">
+            <mat-icon>add</mat-icon>
+            Agregar nuevo
+          </button>
+        </div>
+      </div>
 
-  <button mat-raised-button (click)="addTicket()">
-    <mat-icon>add</mat-icon>
-    Agregar nuevo
-  </button>
-</mat-toolbar>
-
-
-<app-material-table [dataSourceMat]="dataSourceMat" [displayedColumns]="displayedColumns">
-  <table mat-table [dataSource]="dataSourceMat" class="mat-elevation-z8" matSort>
+      <!-- Table Section -->
+      <div class="table-container">
+        <app-material-table [dataSourceMat]="dataSourceMat" [displayedColumns]="displayedColumns">
+          <table mat-table [dataSource]="dataSourceMat" class="modern-table" matSort>
 
     <ng-container matColumnDef="number">
       <th mat-header-cell *matHeaderCellDef mat-sort-header># de ticket</th>
@@ -43,8 +56,9 @@
 
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</th>
-      <td mat-cell *matCellDef="let element;" [ngClass]="element?.status">{{
-          element.status === 'CLOSED' ? 'Cerrado' :
+      <td mat-cell *matCellDef="let element;">
+        <span class="status-badge" [ngClass]="element?.status?.toLowerCase()">
+          {{element.status === 'CLOSED' ? 'Cerrado' :
             element.status === 'OPEN' ? 'Nuevo' :
               element.status === 'ASSIGNED' ? 'Asignado' :
                 element.status === 'IN_PROCESS' ? 'En proceso' :
@@ -52,7 +66,9 @@
                     element.status === 'ON_HOLD' ? 'En espera':
                       element.status === 'CANCELED' ? 'Cancelado / Anulado':
                         element.status
-        }}</td>
+          }}
+        </span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="assignedTo">
@@ -65,16 +81,20 @@
       <td mat-cell *matCellDef="let element;">{{element.createdAt |  date:'d MMMM yyyy':'es'}}</td>
     </ng-container>
     <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
       <td mat-cell *matCellDef="let element;">
-        <!--    Ver    -->
-        <a [href]="'/tickets/view/'+element._id" class="cursoPointer"  style="color: #0061a9; margin-right: 10px" (click)="viewTicket(element._id)">
-          <mat-icon matTooltip="Ver ticket">visibility</mat-icon>
-        </a>
+        <button mat-icon-button class="action-button view-button" (click)="viewTicket(element._id)" 
+                matTooltip="Ver ticket">
+          <mat-icon>visibility</mat-icon>
+        </button>
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</app-material-table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </app-material-table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,50 @@
+@import '../../../../assets/styles/global-table.scss';
+
+// Assigned Ticket Theme - Orange Color Scheme
+:root {
+  --module-primary: #ff9800;
+  --module-primary-dark: #f57c00;
+  --module-primary-light: rgba(255, 152, 0, 0.1);
+  --module-primary-border: rgba(255, 152, 0, 0.2);
+}
+
+.assigned-ticket-container {
+  @extend .module-container;
+}
+
+.assigned-ticket-card {
+  @extend .module-card;
+}
+
+// Status badges for assigned tickets
+.status-badge {
+  &.assigned {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+  }
+  
+  &.in-progress {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+  }
+  
+  &.pending {
+    background: linear-gradient(135deg, #ffc107, #ff8f00);
+    color: #333;
+  }
+}
+
+// Priority indicators
+.priority-indicator {
+  &.high {
+    border-left: 4px solid #f44336;
+  }
+  
+  &.medium {
+    border-left: 4px solid #ff9800;
+  }
+  
+  &.low {
+    border-left: 4px solid #4caf50;
+  }
+}

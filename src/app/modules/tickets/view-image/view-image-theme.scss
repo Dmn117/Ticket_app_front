@@ -1,0 +1,57 @@
+@import '../../../../assets/styles/global-table.scss';
+
+// View Image Theme - Light Blue Color Scheme
+:root {
+  --module-primary: #03a9f4;
+  --module-primary-dark: #0288d1;
+  --module-primary-light: rgba(3, 169, 244, 0.1);
+  --module-primary-border: rgba(3, 169, 244, 0.2);
+}
+
+.view-image-container {
+  @extend .module-container;
+}
+
+.view-image-card {
+  @extend .module-card;
+}
+
+// Image viewer styling
+.image-viewer {
+  text-align: center;
+  
+  .image-container {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    
+    img {
+      max-width: 100%;
+      max-height: 70vh;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+    }
+  }
+  
+  .image-controls {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    
+    button {
+      background: var(--module-primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      
+      &:hover {
+        background: var(--module-primary-dark);
+        transform: translateY(-2px);
+      }
+    }
+  }
+}

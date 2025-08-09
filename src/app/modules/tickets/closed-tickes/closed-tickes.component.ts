@@ -9,6 +9,7 @@ import {SweetAlertComponent} from "../../../shared/components/sweet-alert/sweet-
 import {DialogService} from "../../../core/services/dialog.service";
 import {MatDialog} from "@angular/material/dialog";
 import {RatingTicketComponent} from "../rating-ticket/rating-ticket.component";
+import {CreateTicketsComponent} from "../create-tickets/create-tickets.component";
 import { Router } from '@angular/router';
 
 @Component({
@@ -232,6 +233,13 @@ export class ClosedTickesComponent implements OnInit{
     })
   }
 
+  addTicket() {
+    const dialogRef = this.dialog.open(CreateTicketsComponent, {
+      width: '750px',
+      height: '90vh',
+      maxWidth: '90vw'
+    })
+  }
 
   viewCancelation(_id: any) {
     const viewClaim = this.sweetAlert.showInfoAlert('Motivo de cancelación ' , _id)

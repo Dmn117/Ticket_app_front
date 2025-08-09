@@ -1,69 +1,100 @@
-<app-material-table [dataSourceMat]="dataSourceMat" [displayedColumns]="displayedColumns">
-  <table mat-table [dataSource]="dataSourceMat" class="mat-elevation-z8">
-    <ng-container matColumnDef="number">
-      <th mat-header-cell *matHeaderCellDef ># de ticket</th>
-      <td mat-cell *matCellDef="let element;">{{element.number}}</td>
-    </ng-container>
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef>Titulo</th>
-      <td mat-cell *matCellDef="let element;">{{element.title}}</td>
-    </ng-container>
-    <ng-container matColumnDef="helpTopic">
-      <th mat-header-cell *matHeaderCellDef>Tema ayuda</th>
-      <td mat-cell *matCellDef="let element;">{{element.helpTopicName}}</td>
-    </ng-container>
-    <ng-container matColumnDef="owner">
-      <th mat-header-cell *matHeaderCellDef>Creador por:</th>
-      <td mat-cell *matCellDef="let element;">{{element.ownerName}}</td>
-    </ng-container>
-    <ng-container matColumnDef="department">
-      <th mat-header-cell *matHeaderCellDef>Departamento</th>
-      <td mat-cell *matCellDef="let element;">{{element.departmentName}}</td>
-    </ng-container>
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>Estatus</th>
-      <td mat-cell *matCellDef="let element;" [ngClass]="element?.status">{{
-          element.status === 'CLOSED' ? 'Cerrado' :
-            element.status === 'OPEN' ? 'Nuevo' :
-              element.status === 'ASSIGNED' ? 'Asignado' :
-                element.status === 'IN_PROCESS' ? 'En proceso' :
-                  element.status === 'STOPPED' ? 'Detenido' :
-                    element.status === 'ON_HOLD' ? 'En espera':
-                      element.status === 'CANCELED' ? 'Cancelado / Anulado':
-                        element.status
-        }}</td>
-    </ng-container>
-    <ng-container matColumnDef="assignedTo">
-      <th mat-header-cell *matHeaderCellDef>Asignado a:</th>
-      <td mat-cell *matCellDef="let element;">{{element.assignedName}}</td>
-    </ng-container>
-    <ng-container matColumnDef="completedAt">
-      <th mat-header-cell *matHeaderCellDef>Fecha de completado</th>
-      <td mat-cell *matCellDef="let element;">{{element.completedAt | date}}</td>
-    </ng-container>
-    <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef>Acciones</th>
-      <td mat-cell *matCellDef="let element;">
-        <!--    Ver    -->
-        <a [href]="'/tickets/view/'+element._id" class="cursoPointer"  style="color: #0061a9; margin-right: 10px" (click)="viewTicket(element._id)">
-          <mat-icon matTooltip="Ver ticket">visibility</mat-icon>
-        </a>
+<div class="my-closed-tickets-container">
+  <mat-card class="my-closed-tickets-card">
+    <mat-card-content>
+      <!-- Header Section -->
+      <div class="page-header">
+        <div class="header-content">
+          <mat-icon class="header-icon">assignment_turned_in</mat-icon>
+          <div class="header-text">
+            <h1 class="page-title">Mis Tickets Cerrados</h1>
+            <p class="page-subtitle">Historial de tickets completados</p>
+          </div>
+        </div>
+      </div>
 
-        <!--    Ver motivo de cancelacion    -->
-        <a class="cursoPointer"  style="color: red; margin-right: 10px"
-           *ngIf="element.justification !== ''"
-           (click)="viewCancelation(element.justification)
-        ">
-          <mat-icon matTooltip="Ver motivo">do_not_disturb_off</mat-icon>
-        </a>
-        <!--    Calificación    -->
-        <a class="cursoPointer" (click)="ratingTicket(element)"  style="color: #ffff00; margin-right: 10px">
-          <mat-icon matTooltip="Ver calificación">star_rate</mat-icon>
-        </a>
-      </td>
-    </ng-container>
+      <!-- Table Section -->
+      <div class="table-container">
+        <app-material-table [dataSourceMat]="dataSourceMat" [displayedColumns]="displayedColumns">
+          <table mat-table [dataSource]="dataSourceMat" class="modern-table">
+            
+            <ng-container matColumnDef="number">
+              <th mat-header-cell *matHeaderCellDef># de ticket</th>
+              <td mat-cell *matCellDef="let element;">{{element.number}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Título</th>
+              <td mat-cell *matCellDef="let element;">{{element.title}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="helpTopic">
+              <th mat-header-cell *matHeaderCellDef>Tema ayuda</th>
+              <td mat-cell *matCellDef="let element;">{{element.helpTopicName}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="owner">
+              <th mat-header-cell *matHeaderCellDef>Creado por</th>
+              <td mat-cell *matCellDef="let element;">{{element.ownerName}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef>Departamento</th>
+              <td mat-cell *matCellDef="let element;">{{element.departmentName}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Estatus</th>
+              <td mat-cell *matCellDef="let element;">
+                <span class="status-badge" [ngClass]="element?.status?.toLowerCase()">
+                  {{element.status === 'CLOSED' ? 'Cerrado' :
+                    element.status === 'OPEN' ? 'Nuevo' :
+                      element.status === 'ASSIGNED' ? 'Asignado' :
+                        element.status === 'IN_PROCESS' ? 'En proceso' :
+                          element.status === 'STOPPED' ? 'Detenido' :
+                            element.status === 'ON_HOLD' ? 'En espera':
+                              element.status === 'CANCELED' ? 'Cancelado / Anulado':
+                                element.status
+                  }}
+                </span>
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="assignedTo">
+              <th mat-header-cell *matHeaderCellDef>Asignado a</th>
+              <td mat-cell *matCellDef="let element;">{{element.assignedName}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="completedAt">
+              <th mat-header-cell *matHeaderCellDef>Fecha de completado</th>
+              <td mat-cell *matCellDef="let element;">{{element.completedAt | date:'d MMMM yyyy':'es'}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef>Acciones</th>
+              <td mat-cell *matCellDef="let element;">
+                <button mat-icon-button class="action-button view-button" (click)="viewTicket(element._id)" 
+                        matTooltip="Ver ticket">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                
+                <button mat-icon-button *ngIf="element.justification !== ''"
+                        class="action-button cancellation-button" (click)="viewCancelation(element.justification)"
+                        matTooltip="Ver motivo">
+                  <mat-icon>do_not_disturb_off</mat-icon>
+                </button>
+                
+                <button mat-icon-button class="action-button rating-button" (click)="ratingTicket(element)"
+                        matTooltip="Ver calificación">
+                  <mat-icon>star_rate</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</app-material-table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </app-material-table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,13 +1,27 @@
-<mat-toolbar>
-  <span class="spacer"></span>
-  <button mat-raised-button (click)="addDepartment()">
-    <mat-icon>add</mat-icon>
-    Agregar nuevo
-  </button>
-</mat-toolbar>
+<div class="departments-container">
+  <mat-card class="departments-card">
+    <mat-card-content>
+      <!-- Header Section -->
+      <div class="page-header">
+        <div class="header-content">
+          <mat-icon class="header-icon">domain</mat-icon>
+          <div class="header-text">
+            <h1 class="page-title">Departamentos</h1>
+            <p class="page-subtitle">Gestión de departamentos organizacionales</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button mat-raised-button class="primary-button" (click)="addDepartment()">
+            <mat-icon>add</mat-icon>
+            Agregar nuevo
+          </button>
+        </div>
+      </div>
 
-<app-material-table [dataSourceMat]="dataSourceMat" [displayedColumns]="displayedColumns">
-<table mat-table [dataSource]="dataSourceMat" class="mat-elevation-z8" matSort>
+      <!-- Table Section -->
+      <div class="table-container">
+        <app-material-table [dataSourceMat]="dataSourceMat" [displayedColumns]="displayedColumns">
+          <table mat-table [dataSource]="dataSourceMat" class="modern-table" matSort>
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
     <td mat-cell *matCellDef="let department"> {{ department.name }} </td>
@@ -28,15 +42,20 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Acciones </th>
     <td mat-cell *matCellDef="let element">
-      <a class="cursoPointer" (click)="editDepartment(element)" style="color: #ffff00; margin-right: 10px">
-        <mat-icon matTooltip="Editar departamento">edit_document</mat-icon>
-      </a>
-      <a class="cursoPointer" *ngIf="!element?.isEnabled" (click)="activateDepartment(element._id, element.isEnabled)" style="color: #00bb2d; margin-right: 10px">
-        <mat-icon matTooltip="Activar departamento">check_circle</mat-icon>
-      </a>
-      <a class="cursoPointer" *ngIf="element?.isEnabled" (click)="activateDepartment(element._id, element.isEnabled)" style="color: #b50811; margin-right: 10px;">
-        <mat-icon matTooltip="Desactivar departamento">cancel</mat-icon>
-      </a>
+      <button mat-icon-button class="action-button edit-button" (click)="editDepartment(element)" 
+              matTooltip="Editar departamento">
+        <mat-icon>edit_document</mat-icon>
+      </button>
+      <button mat-icon-button class="action-button activate-button" 
+              *ngIf="!element?.isEnabled" (click)="activateDepartment(element._id, element.isEnabled)" 
+              matTooltip="Activar departamento">
+        <mat-icon>check_circle</mat-icon>
+      </button>
+      <button mat-icon-button class="action-button deactivate-button" 
+              *ngIf="element?.isEnabled" (click)="activateDepartment(element._id, element.isEnabled)" 
+              matTooltip="Desactivar departamento">
+        <mat-icon>cancel</mat-icon>
+      </button>
     </td>
   </ng-container>
 
@@ -44,3 +63,7 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 </app-material-table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

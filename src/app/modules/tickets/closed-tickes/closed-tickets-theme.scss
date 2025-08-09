@@ -1,0 +1,64 @@
+@import '../../../../assets/styles/global-table.scss';
+
+// Closed Tickets Theme - Red Color Scheme
+:root {
+  --module-primary: #f44336;
+  --module-primary-dark: #d32f2f;
+  --module-primary-light: rgba(244, 67, 54, 0.1);
+  --module-primary-border: rgba(244, 67, 54, 0.2);
+  --module-primary-shadow: rgba(244, 67, 54, 0.3);
+}
+
+.closed-tickets-container {
+  @extend .module-container;
+}
+
+.closed-tickets-card {
+  @extend .module-card;
+}
+
+// Specific status badges for closed tickets
+.status-badge {
+  @extend .status-badge;
+  
+  &.CLOSED {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.8), rgba(229, 115, 115, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+  }
+  
+  &.RESOLVED {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+}
+
+// Specific status badges for closed tickets
+.status-badge {
+  @extend .status-badge;
+  
+  &.CLOSED {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.8), rgba(229, 115, 115, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+  }
+  
+  &.RESOLVED {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  
+  &.ARCHIVED {
+    background: linear-gradient(135deg, rgba(96, 125, 139, 0.8), rgba(120, 144, 156, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(96, 125, 139, 0.3);
+  }
+  
+  &.CANCELED {
+    background: linear-gradient(135deg, rgba(255, 87, 34, 0.8), rgba(255, 138, 101, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
+  }
+}

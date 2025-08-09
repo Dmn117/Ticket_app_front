@@ -20,6 +20,7 @@ import {MatDialogRef} from "@angular/material/dialog";
 export class CreateTicketsComponent implements OnInit{
 
   owner = localStorage.getItem('id');
+  isSubmitting: boolean = false;
 
   ticketForm: FormGroup;
 
@@ -44,8 +45,8 @@ export class CreateTicketsComponent implements OnInit{
     private dialogRef: MatDialogRef<CreateTicketsComponent>
   ) {
     this.ticketForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
+      title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]],
       owner: [''],
       organization: ['', Validators.required],
       department: ['', Validators.required],
@@ -102,6 +103,7 @@ export class CreateTicketsComponent implements OnInit{
 
   createTicket = async(): Promise<void> => {
     try {
+      this.isSubmitting = true;
       this.ticketForm.value.owner = this.owner;
 
       delete this.ticketForm.value.organization;
@@ -109,8 +111,8 @@ export class CreateTicketsComponent implements OnInit{
       const departmentName = await firstValueFrom(this._departmentService.getDepartmentById(this.ticketForm.value.department));
 
       const confirmed = await this.sweetAlert.confirmAction(
-        'Estas por crear un ticket para el departamento de '+departmentName.department.name,
-        '¿Estás seguro de que deseas crear este ticket?'
+        'Crear Ticket de Soporte',
+        `¿Estás seguro de crear este ticket para el departamento de ${departmentName.department.name}?`
       );
 
       if (confirmed){
@@ -121,7 +123,7 @@ export class CreateTicketsComponent implements OnInit{
         if (ticketCreate) {
           this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
             this.router.navigate(['tickets/my-open-ones']).then(() => {
-              this.closedDialog();
+              this.dialogRef.close(true);
               this.dialog.openDialog(`${ticketCreate.message}`);
             });
           });
@@ -131,10 +133,16 @@ export class CreateTicketsComponent implements OnInit{
 
     }
     catch (error){
-      console.error('Error al crear el ticket: ', error)
+      console.error('Error al crear el ticket: ', error);
+      this.dialog.openDialog('Error al crear el ticket. Por favor, intenta nuevamente.');
     }
+    finally {
+      this.isSubmitting = false;
+    }
+  }
 
-
+  cancel(): void {
+    this.dialogRef.close(false);
   }
 
   closedDialog(): void {

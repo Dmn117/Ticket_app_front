@@ -1,0 +1,35 @@
+@import '../../../../assets/styles/global-table.scss';
+
+// Transfer Ticket Theme - Indigo Color Scheme
+:root {
+  --module-primary: #3f51b5;
+  --module-primary-dark: #303f9f;
+  --module-primary-light: rgba(63, 81, 181, 0.1);
+  --module-primary-border: rgba(63, 81, 181, 0.2);
+}
+
+.transfer-ticket-container {
+  @extend .module-container;
+}
+
+.transfer-ticket-card {
+  @extend .module-card;
+}
+
+// Transfer status indicators
+.transfer-status {
+  &.pending {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+  }
+  
+  &.approved {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+  }
+  
+  &.rejected {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+  }
+}

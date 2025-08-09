@@ -38,10 +38,14 @@ body {
 
 
 mat-sidenav-content {
-  background-image: url(./assets/background.png);
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a5a92 100%);
+  background-image: 
+    url(./assets/background.jpg),
+    linear-gradient(135deg, rgba(47, 58, 57, 0.6) 0%, rgba(60, 54, 75, 0.6) 100%);
+  background-blend-mode: overlay;
+  background-size: contain;
   background-position: center;
   background-repeat: repeat;
-  background-size: contain;
 }
 
 mat-card {
@@ -142,4 +146,53 @@ opacity: 95%;
 
 a {
   cursor: pointer !important;
+}
+
+mat-toolbar.banner {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95)) !important;
+  backdrop-filter: blur(10px);
+  color: white !important;
+  padding: 16px !important;
+  border-radius: 16px !important;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  margin-bottom: 24px !important;
+  
+  h1, h2, h3, span {
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  button {
+    color: white !important;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(5px);
+    }
+  }
+  
+  mat-icon {
+    color: white !important;
+  }
+}
+
+mat-sidenav {
+  .mat-mdc-list-item {
+    color: white !important;
+  }
+  
+  .mdc-list-item__primary-text {
+    color: white !important;
+  }
+  
+  .mat-expansion-panel-header-title {
+    color: white !important;
+  }
+  
+  .mat-expansion-indicator::after {
+    color: white !important;
+  }
 }

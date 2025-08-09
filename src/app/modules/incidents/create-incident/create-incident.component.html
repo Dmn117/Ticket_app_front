@@ -1,50 +1,150 @@
-<div class="main-container">
-    <header>
-        <h1 class="title">Registrar una Incidencia</h1>
-    </header>
+<div class="create-incident-container">
+    <div class="form-card">
+        <div class="form-header">
+            <div class="header-icon">
+                <mat-icon>bug_report</mat-icon>
+            </div>
+            <div class="header-text">
+                <h1 class="form-title">Crear Ticket de Soporte</h1>
+                <p class="form-subtitle">Reporta una incidencia para obtener asistencia técnica</p>
+            </div>
+        </div>
 
-    <main>
-        <form class="create-incidence" autocomplete="off" [formGroup]="incidentForm" (ngSubmit)="createIncidence()">
-            <mat-form-field appearance="outline">
-                <mat-label>Titulo</mat-label>
-                <input type="text" matInput formControlName="title" required="true">
-                <mat-error *ngIf="incidentForm.get('title')?.hasError('required')">
-                    El titulo es requerido.
-                </mat-error>
-            </mat-form-field>
+        <form class="incident-form" autocomplete="off" [formGroup]="incidentForm" (ngSubmit)="createIncidence()">
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>
+                        <mat-icon class="field-icon">title</mat-icon>
+                        Título del Ticket
+                    </mat-label>
+                    <input 
+                        type="text" 
+                        matInput 
+                        formControlName="title" 
+                        placeholder="Ej: Error al iniciar sesión en el sistema"
+                        maxlength="100"
+                        required>
+                    <mat-hint align="end">{{incidentForm.get('title')?.value?.length || 0}}/100</mat-hint>
+                    <mat-error *ngIf="incidentForm.get('title')?.hasError('required')">
+                        <mat-icon>error</mat-icon>
+                        El título es requerido
+                    </mat-error>
+                    <mat-error *ngIf="incidentForm.get('title')?.hasError('minlength')">
+                        <mat-icon>error</mat-icon>
+                        El título debe tener al menos 5 caracteres
+                    </mat-error>
+                    <mat-error *ngIf="incidentForm.get('title')?.hasError('maxlength')">
+                        <mat-icon>error</mat-icon>
+                        El título no puede exceder 100 caracteres
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Descripción</mat-label>
-                <textarea matInput formControlName="description" type="text" rows="2"></textarea>
-                <mat-error *ngIf="incidentForm.get('description')?.hasError('required')">
-                    La descripción es requerida.
-                </mat-error>
-            </mat-form-field>
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="form-field description-field">
+                    <mat-label>
+                        <mat-icon class="field-icon">description</mat-icon>
+                        Descripción Detallada
+                    </mat-label>
+                    <textarea 
+                        matInput 
+                        formControlName="description" 
+                        rows="4"
+                        maxlength="1000"
+                        placeholder="Describe detalladamente el problema:&#10;- ¿Qué estabas haciendo cuando ocurrió?&#10;- ¿Qué esperabas que pasara?&#10;- ¿Qué pasó en su lugar?&#10;- ¿Cómo se puede reproducir el problema?"></textarea>
+                    <mat-hint align="end">{{incidentForm.get('description')?.value?.length || 0}}/1000</mat-hint>
+                    <mat-error *ngIf="incidentForm.get('description')?.hasError('required')">
+                        <mat-icon>error</mat-icon>
+                        La descripción es requerida
+                    </mat-error>
+                    <mat-error *ngIf="incidentForm.get('description')?.hasError('minlength')">
+                        <mat-icon>error</mat-icon>
+                        La descripción debe tener al menos 10 caracteres
+                    </mat-error>
+                    <mat-error *ngIf="incidentForm.get('description')?.hasError('maxlength')">
+                        <mat-icon>error</mat-icon>
+                        La descripción no puede exceder 1000 caracteres
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Severidad</mat-label>
-                <input matInput formControlName="severity" type="number" min="1" max="10">
-                <mat-error *ngIf="incidentForm.get('severity')?.hasError('required')">
-                    La severidad es requerida.
-                </mat-error>
-            </mat-form-field>
+            <div class="form-row form-row-split">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>
+                        <mat-icon class="field-icon">priority_high</mat-icon>
+                        Nivel de Prioridad
+                    </mat-label>
+                    <mat-select formControlName="severity" required>
+                        <mat-option value="1">
+                            <div class="priority-option low">
+                                <mat-icon>keyboard_arrow_down</mat-icon>
+                                Baja (1-2)
+                            </div>
+                        </mat-option>
+                        <mat-option value="3">
+                            <div class="priority-option medium">
+                                <mat-icon>remove</mat-icon>
+                                Media (3-5)
+                            </div>
+                        </mat-option>
+                        <mat-option value="7">
+                            <div class="priority-option high">
+                                <mat-icon>keyboard_arrow_up</mat-icon>
+                                Alta (6-8)
+                            </div>
+                        </mat-option>
+                        <mat-option value="10">
+                            <div class="priority-option critical">
+                                <mat-icon>warning</mat-icon>
+                                Crítica (9-10)
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="incidentForm.get('severity')?.hasError('required')">
+                        <mat-icon>error</mat-icon>
+                        La prioridad es requerida
+                    </mat-error>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Dirigida a</mat-label>
-                <mat-select formControlName="agent" required>
-                    <mat-option *ngFor="let agent of users" [value]="agent">
-                        {{ agent.firstName }} {{ agent.lastName }}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="incidentForm.get('agent')?.hasError('required')">
-                    El agente es requerido.
-                </mat-error>
-            </mat-form-field>
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>
+                        <mat-icon class="field-icon">person</mat-icon>
+                        Asignar a Agente
+                    </mat-label>
+                    <mat-select formControlName="agent" required>
+                        <mat-option *ngFor="let agent of users" [value]="agent">
+                            <div class="agent-option">
+                                <mat-icon>account_circle</mat-icon>
+                                {{ agent.firstName }} {{ agent.lastName }}
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="incidentForm.get('agent')?.hasError('required')">
+                        <mat-icon>error</mat-icon>
+                        Debe seleccionar un agente
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
-            <button class="action-button cursorPointer" type="submit" [disabled]="isSubmitting">
-                <p>Guardar Incidencia</p>
-                <mat-icon>save</mat-icon>
-            </button>
+            <div class="form-actions">
+                <button 
+                    type="button" 
+                    class="cancel-button" 
+                    (click)="closedDialog()"
+                    [disabled]="isSubmitting">
+                    <mat-icon>close</mat-icon>
+                    Cancelar
+                </button>
+                
+                <button 
+                    type="submit" 
+                    class="submit-button" 
+                    [disabled]="isSubmitting || incidentForm.invalid">
+                    <mat-icon *ngIf="!isSubmitting">send</mat-icon>
+                    <div *ngIf="isSubmitting" class="loading-spinner"></div>
+                    {{ isSubmitting ? 'Creando Ticket...' : 'Crear Ticket' }}
+                </button>
+            </div>
         </form>
-    </main>
+    </div>
 </div>

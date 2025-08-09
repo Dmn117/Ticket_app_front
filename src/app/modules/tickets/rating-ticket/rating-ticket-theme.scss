@@ -1,0 +1,39 @@
+@import '../../../../assets/styles/global-table.scss';
+
+// Rating Ticket Theme - Deep Purple Color Scheme
+:root {
+  --module-primary: #673ab7;
+  --module-primary-dark: #512da8;
+  --module-primary-light: rgba(103, 58, 183, 0.1);
+  --module-primary-border: rgba(103, 58, 183, 0.2);
+}
+
+.rating-ticket-container {
+  @extend .module-container;
+}
+
+.rating-ticket-card {
+  @extend .module-card;
+}
+
+// Rating display styles
+.rating-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  .rating-value {
+    font-weight: 600;
+    color: var(--module-primary);
+  }
+  
+  .rating-stars {
+    display: flex;
+    gap: 2px;
+    
+    .star {
+      color: #ffc107;
+      font-size: 1.2rem;
+    }
+  }
+}

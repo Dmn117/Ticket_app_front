@@ -23,9 +23,19 @@ export class CreateIncidentComponent  implements OnInit {
   isSubmitting: boolean = false;
 
   incidentForm: UntypedFormGroup = new UntypedFormGroup({
-    title: new UntypedFormControl('', Validators.required),
-    description: new UntypedFormControl('', Validators.required),
-    severity: new UntypedFormControl('', Validators.required),
+    title: new UntypedFormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(100)
+    ]),
+    description: new UntypedFormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(1000)
+    ]),
+    severity: new UntypedFormControl('', [
+      Validators.required
+    ]),
     agent: new UntypedFormControl('', Validators.required),
   });
 
@@ -83,27 +93,29 @@ export class CreateIncidentComponent  implements OnInit {
       this.isSubmitting = true;
 
       if (this.incidentForm.invalid) {
+        this.markFormGroupTouched(this.incidentForm);
         this._dialogService.openDialog(
-          `Advertencia: Favor de llenar todos los campos obligatorios`
+          `Por favor, complete todos los campos requeridos correctamente`
         );
-
         return;
       }
 
       const agent: User = this.incidentForm.get('agent')?.value as User;
       const id: string = this._authService.getId() || '';
+      const severity = parseInt(this.incidentForm.get('severity')?.value);
 
       const data: IncidentEntry = {
-        title: this.incidentForm.get('title')?.value,
-        description: this.incidentForm.get('description')?.value,
-        severity: this.incidentForm.get('severity')?.value,
+        title: this.incidentForm.get('title')?.value.trim(),
+        description: this.incidentForm.get('description')?.value.trim(),
+        severity: severity,
         author: id,
         agent: agent._id
       };
 
+      const severityText = this.getSeverityText(severity);
       const isConfirmed = await this._sweetAlert.confirmAction(
-        '¿Confirmar Calificación?',
-        `¿Estás seguro de registrar esta incidencia al agente ${agent.firstName} ${agent.lastName}?`
+        '¿Crear Ticket de Soporte?',
+        `¿Estás seguro de crear este ticket con prioridad ${severityText} y asignarlo a ${agent.firstName} ${agent.lastName}?`
       );
 
       if (!isConfirmed) return;
@@ -119,12 +131,28 @@ export class CreateIncidentComponent  implements OnInit {
       let err = error as HttpErrorResponse;
       console.log(error);
       this.validateSession(err);
-      this._dialogService.openDialog(err.error.message);
+      
+      const errorMessage = err.error?.message || 'Error al crear el ticket. Inténtelo nuevamente.';
+      this._dialogService.openDialog(errorMessage);
     }
     finally {
       this.isSubmitting = false;
     }
   };
+
+  private markFormGroupTouched(formGroup: UntypedFormGroup): void {
+    Object.keys(formGroup.controls).forEach(key => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
+
+  private getSeverityText(severity: number): string {
+    if (severity <= 2) return 'BAJA';
+    if (severity <= 5) return 'MEDIA';
+    if (severity <= 8) return 'ALTA';
+    return 'CRÍTICA';
+  }
 
 
   closedDialog = (): void => {

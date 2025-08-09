@@ -1,0 +1,36 @@
+// Create Tickets Module Theme - Blue Color Scheme
+@import '../../../../assets/styles/global-table.scss';
+
+:root {
+  // Override module colors for create tickets
+  --module-primary: #2196f3;
+  --module-primary-dark: #1976d2;
+  --module-primary-light: rgba(33, 150, 243, 0.1);
+  --module-primary-border: rgba(33, 150, 243, 0.2);
+  --module-primary-shadow: rgba(33, 150, 243, 0.3);
+}
+
+.create-tickets-container {
+  @extend .module-container;
+}
+
+.create-tickets-card {
+  @extend .module-card;
+}
+
+// Specific form styles for creating tickets
+.form-section {
+  margin-bottom: 20px;
+  
+  &.priority-high {
+    border-left: 4px solid #f44336;
+  }
+  
+  &.priority-medium {
+    border-left: 4px solid #ff9800;
+  }
+  
+  &.priority-low {
+    border-left: 4px solid #4caf50;
+  }
+}

@@ -1,0 +1,86 @@
+// Help Topics Module Theme - Teal Color Scheme
+@import '../../../assets/styles/global-table.scss';
+
+:root {
+  // Override module colors for help topics
+  --module-primary: #009688;
+  --module-primary-dark: #00796b;
+  --module-primary-light: rgba(0, 150, 136, 0.1);
+  --module-primary-border: rgba(0, 150, 136, 0.2);
+  --module-primary-shadow: rgba(0, 150, 136, 0.3);
+}
+
+.help-topics-container {
+  @extend .module-container;
+}
+
+.help-topics-card {
+  @extend .module-card;
+}
+
+// Specific status badges for help topics
+.status-badge {
+  @extend .status-badge;
+  
+  &.active {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  
+  &.inactive {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.8), rgba(255, 193, 7, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+  }
+}
+
+// Specific status badges for help topics
+.status-badge {
+  @extend .status-badge;
+  
+  &.active {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  
+  &.inactive {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.8), rgba(255, 193, 7, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+  }
+  
+  &.archived {
+    background: linear-gradient(135deg, rgba(96, 125, 139, 0.8), rgba(120, 144, 156, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(96, 125, 139, 0.3);
+  }
+}
+
+.help-topics-card {
+  @extend .module-card;
+}
+
+// Specific status badges for help topics
+.status-badge {
+  @extend .status-badge;
+  
+  &.published {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  
+  &.draft {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.8), rgba(255, 193, 7, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+  }
+  
+  &.archived {
+    background: linear-gradient(135deg, rgba(96, 125, 139, 0.8), rgba(120, 144, 156, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(96, 125, 139, 0.3);
+  }
+}
