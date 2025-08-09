@@ -1,0 +1,51 @@
+@import '../../../../assets/styles/global-table.scss';
+
+// Rate Ticket Theme - Purple Color Scheme
+:root {
+  --module-primary: #9c27b0;
+  --module-primary-dark: #7b1fa2;
+  --module-primary-light: rgba(156, 39, 176, 0.1);
+  --module-primary-border: rgba(156, 39, 176, 0.2);
+}
+
+.rate-ticket-container {
+  @extend .module-container;
+}
+
+.rate-ticket-card {
+  @extend .module-card;
+}
+
+// Rating stars styling
+.rating-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+  
+  .star {
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: var(--transition);
+    
+    &.filled {
+      color: #ffc107;
+    }
+    
+    &:hover {
+      color: #ffb300;
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Rating feedback
+.rating-feedback {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: var(--border-radius);
+  background: var(--card-bg);
+  border: 1px solid var(--module-primary-border);
+}

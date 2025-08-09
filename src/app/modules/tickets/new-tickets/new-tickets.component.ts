@@ -256,13 +256,6 @@ export class NewTicketsComponent implements OnInit, AfterViewInit{
     }
   }
 
-  addTicket() {
-    const dialogRef = this.dialog.open(CreateTicketsComponent, {
-      width: '450px',
-      height: '95vh'
-    })
-  }
-
   viewTicket(id: string) {
     this._router.navigate([`/tickets/view/${id}`]);
   };

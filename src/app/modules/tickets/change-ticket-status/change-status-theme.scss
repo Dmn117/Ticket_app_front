@@ -1,0 +1,62 @@
+@import '../../../../assets/styles/global-table.scss';
+
+// Change Ticket Status Theme - Yellow/Amber Color Scheme
+:root {
+  --module-primary: #ffc107;
+  --module-primary-dark: #ff8f00;
+  --module-primary-light: rgba(255, 193, 7, 0.1);
+  --module-primary-border: rgba(255, 193, 7, 0.2);
+}
+
+.change-status-container {
+  @extend .module-container;
+}
+
+.change-status-card {
+  @extend .module-card;
+}
+
+// Status badges for status changes
+.status-badge {
+  &.open {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+  }
+  
+  &.in-progress {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+  }
+  
+  &.resolved {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+  }
+  
+  &.closed {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+  }
+}
+
+// Status transition indicators
+.status-transition {
+  padding: 12px;
+  border-radius: var(--border-radius);
+  background: var(--card-bg);
+  border: 1px solid var(--module-primary-border);
+  
+  .from-status, .to-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .arrow {
+    margin: 0 12px;
+    color: var(--module-primary);
+    font-weight: bold;
+  }
+}

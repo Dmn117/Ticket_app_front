@@ -167,9 +167,17 @@ export class MyOpenTicketsComponent implements OnInit, AfterViewInit{
 
    addTicket() {
     const dialogRef = this.dialog.open(CreateTicketsComponent, {
-      width: '450px',
-      height: '95vh'
-    })
+      width: '750px',
+      height: '90vh',
+      maxWidth: '90vw'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Refrescar la tabla si se creó un ticket
+        this.ngOnInit();
+      }
+    });
   }
 
   viewTicket(id: string) {

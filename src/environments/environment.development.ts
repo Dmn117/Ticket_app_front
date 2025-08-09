@@ -1,4 +1,4 @@
-const apiDomain: string = 'http://localhost:22230/';
+const apiDomain: string = 'http://localhost:3000/';
 
 
 

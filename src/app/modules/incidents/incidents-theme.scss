@@ -1,0 +1,54 @@
+// Incidents Module Theme - Red Color Scheme
+@import '../../../assets/styles/global-table.scss';
+
+:root {
+  // Override module colors for incidents
+  --module-primary: #f44336;
+  --module-primary-dark: #d32f2f;
+  --module-primary-light: rgba(244, 67, 54, 0.1);
+  --module-primary-border: rgba(244, 67, 54, 0.2);
+  --module-primary-shadow: rgba(244, 67, 54, 0.3);
+}
+
+.incidents-container {
+  @extend .module-container;
+}
+
+.incidents-card {
+  @extend .module-card;
+}
+
+// Specific status badges for incidents
+.status-badge {
+  @extend .status-badge;
+  
+  &.critical {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(229, 57, 53, 0.7));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
+  }
+  
+  &.high {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.8), rgba(255, 193, 7, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+  }
+  
+  &.medium {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.8), rgba(255, 235, 59, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+  }
+  
+  &.low {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  
+  &.resolved {
+    background: linear-gradient(135deg, rgba(96, 125, 139, 0.8), rgba(120, 144, 156, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(96, 125, 139, 0.3);
+  }
+}

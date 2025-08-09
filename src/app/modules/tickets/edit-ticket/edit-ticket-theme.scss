@@ -1,0 +1,35 @@
+@import '../../../../assets/styles/global-table.scss';
+
+// Edit Ticket Theme - Teal Color Scheme
+:root {
+  --module-primary: #009688;
+  --module-primary-dark: #00695c;
+  --module-primary-light: rgba(0, 150, 136, 0.1);
+  --module-primary-border: rgba(0, 150, 136, 0.2);
+}
+
+.edit-ticket-container {
+  @extend .module-container;
+}
+
+.edit-ticket-card {
+  @extend .module-card;
+}
+
+// Status badges for edit ticket
+.status-badge {
+  &.draft {
+    background: linear-gradient(135deg, #757575, #616161);
+    color: white;
+  }
+  
+  &.modified {
+    background: linear-gradient(135deg, #009688, #00695c);
+    color: white;
+  }
+  
+  &.pending-approval {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+  }
+}

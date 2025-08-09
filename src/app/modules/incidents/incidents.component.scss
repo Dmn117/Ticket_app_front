@@ -1,3 +1,179 @@
+@import './incidents-theme.scss';
+
+@mixin glass-card($padding: 20px, $radius: var(--border-radius)) {
+  background: rgba(255, 255, 255, 0.1);
+  padding: $padding;
+  border-radius: $radius;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  backdrop-filter: blur(15px);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+@mixin flex-center($direction: row, $gap: 16px) {
+  display: flex;
+  align-items: center;
+  gap: $gap;
+  @if $direction != row { flex-direction: $direction; }
+}
+
+@mixin button-gradient($primary: var(--primary-color), $secondary: #6a5a92) {
+  background: linear-gradient(135deg, $primary, $secondary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: var(--transition);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.incidents-container {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.incidents-card {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  @include glass-card(30px, var(--border-radius-lg));
+  min-height: calc(100vh - 40px);
+}
+
+.page-header {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  
+  .header-content {
+    @include flex-center(row, 20px);
+    flex: 1;
+    
+    .header-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      color: #ff6b35;
+      background: rgba(255, 107, 53, 0.1);
+      border-radius: 12px;
+      @include flex-center();
+      justify-content: center;
+    }
+    
+    .header-text {
+      flex: 1;
+      
+      .page-title {
+        margin: 0 0 8px 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--white-text);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      
+      .page-subtitle {
+        margin: 0;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 400;
+      }
+    }
+  }
+  
+  .header-actions {
+    .primary-button {
+      @include button-gradient(#ff6b35, #ff8c42);
+      padding: 12px 24px;
+      font-size: 1rem;
+      
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.table-container {
+  @include glass-card(20px, var(--border-radius));
+  background: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  
+  .modern-table {
+    width: 100%;
+    background: transparent;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: none;
+    
+    .mat-header-cell {
+      background: linear-gradient(135deg, #ff6b35, #ff8c42);
+      color: var(--white-text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 16px 12px;
+      border: none;
+      
+      &:first-child {
+        border-top-left-radius: var(--border-radius);
+      }
+      
+      &:last-child {
+        border-top-right-radius: var(--border-radius);
+      }
+    }
+    
+    .mat-cell {
+      padding: 16px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      color: var(--white-text);
+      transition: var(--transition);
+    }
+    
+    .mat-row {
+      transition: var(--transition);
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(1.01);
+      }
+      
+      &:last-child .mat-cell {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.action-button {
+  transition: var(--transition);
+  border-radius: 8px;
+  
+  &.view-button {
+    color: var(--white-text);
+    background: rgba(255, 255, 255, 0.2);
+    
+    &:hover {
+      background: #ff6b35;
+      color: white;
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Legacy styles for compatibility
 mat-toolbar {
     background-color: transparent;
     padding: 0;
@@ -5,4 +181,44 @@ mat-toolbar {
 
 .cursoPointer:hover {
     cursor: pointer;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .incidents-container {
+    padding: 10px;
+  }
+  
+  .incidents-card {
+    min-height: calc(100vh - 20px);
+    @include glass-card(20px, var(--border-radius));
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    
+    .header-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 15px;
+      
+      .header-text .page-title {
+        font-size: 2rem;
+      }
+    }
+    
+    .header-actions {
+      text-align: center;
+    }
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    
+    .modern-table {
+      min-width: 600px;
+    }
+  }
 }

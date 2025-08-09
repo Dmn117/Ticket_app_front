@@ -1,0 +1,67 @@
+// My Closed Tickets Module Theme - Orange Color Scheme (same as open tickets)
+@import '../../../../assets/styles/global-table.scss';
+
+:root {
+  // Override module colors for closed tickets
+  --module-primary: #ff9800;
+  --module-primary-dark: #f57c00;
+  --module-primary-light: rgba(255, 152, 0, 0.1);
+  --module-primary-border: rgba(255, 152, 0, 0.2);
+  --module-primary-shadow: rgba(255, 152, 0, 0.3);
+}
+
+// Use the global classes with ticket-specific naming
+.my-closed-tickets-container {
+  @extend .module-container;
+}
+
+.my-closed-tickets-card {
+  @extend .module-card;
+}
+
+// Specific status badges for tickets
+.status-badge {
+  @extend .status-badge;
+  
+  &.CLOSED {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.8), rgba(229, 115, 115, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+  }
+  
+  &.OPEN {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  
+  &.ASSIGNED {
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.8), rgba(100, 181, 246, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+  }
+  
+  &.IN_PROCESS {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.8), rgba(255, 193, 7, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+  }
+  
+  &.STOPPED {
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.8), rgba(171, 71, 188, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+  }
+  
+  &.ON_HOLD {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.8), rgba(255, 235, 59, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+  }
+  
+  &.CANCELED {
+    background: linear-gradient(135deg, rgba(96, 125, 139, 0.8), rgba(120, 144, 156, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(96, 125, 139, 0.3);
+  }
+}

@@ -1,0 +1,55 @@
+// Evaluations Module Theme - Purple Color Scheme
+@import '../../../assets/styles/global-table.scss';
+
+:root {
+  // Override module colors for evaluations
+  --module-primary: #9c27b0;
+  --module-primary-dark: #7b1fa2;
+  --module-primary-light: rgba(156, 39, 176, 0.1);
+  --module-primary-border: rgba(156, 39, 176, 0.2);
+  --module-primary-shadow: rgba(156, 39, 176, 0.3);
+}
+
+// Use the global classes with evaluations-specific naming
+.evaluations-container {
+  @extend .module-container;
+}
+
+.evaluations-card {
+  @extend .module-card;
+}
+
+// Specific status badges for evaluations
+.status-badge {
+  @extend .status-badge;
+  
+  &.pending {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.8), rgba(255, 193, 7, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+  }
+  
+  &.completed {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  
+  &.in_review {
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.8), rgba(100, 181, 246, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+  }
+  
+  &.approved {
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.8), rgba(171, 71, 188, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+  }
+  
+  &.rejected {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.8), rgba(229, 115, 115, 0.6));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+  }
+}

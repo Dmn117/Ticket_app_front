@@ -1,18 +1,25 @@
 <div class="login-container">
   <mat-card class="login-card">
-    <mat-card-header>
-      <mat-card-title>
-        <h2>Inicio de Sesión</h2>
-      </mat-card-title>
+    <mat-card-header class="login-header">
+      <div class="logo-container">
+        <img src="assets/MasteryTickets-Logo.svg" alt="MasteryTickets Logo" class="login-logo">
+      </div>
     </mat-card-header>
     <mat-card-content>
+      <p class="subtitle">Inicia sesión para continuar</p>
       <form [formGroup]="form" (ngSubmit)="onLoginSubmit(form.value)" (keydown.enter)="onLoginSubmit(form.value)">
         <app-form [fields]="loginFields" [form]="form" (submitForm)="onLoginSubmit($event)"></app-form>
         <br>
-        <button mat-raised-button color="accent" type="submit">Enviar</button>
+        <button mat-raised-button color="accent" type="submit" class="login-button">
+          <mat-icon>login</mat-icon>
+          Iniciar Sesión
+        </button>
       </form>
       <br>
-      <button mat-raised-button type="button" (click)="recoverPassword()">Olvidé la contraseña</button>
+      <button mat-stroked-button type="button" (click)="recoverPassword()" class="recovery-button">
+        <mat-icon>help_outline</mat-icon>
+        Olvidé la contraseña
+      </button>
     </mat-card-content>
   </mat-card>
 </div>

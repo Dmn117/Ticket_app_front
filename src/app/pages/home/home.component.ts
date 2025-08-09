@@ -27,6 +27,27 @@ export class HomeComponent implements OnInit {
   departments: Department[] = [];
   organizations: Organization[] = [];
 
+  // Propiedades computadas para simplificar el template
+  get isAgentOrAdmin(): boolean {
+    return this.userData?.user?.role === 'AGENT' || this.userData?.user?.role === 'ADMIN';
+  }
+
+  get isBossOrAdmin(): boolean {
+    return this.userData?.user?.role === 'BOSS' || this.userData?.user?.role === 'ADMIN';
+  }
+
+  get isNotUserOrDirector(): boolean {
+    return this.userData?.user?.role !== 'USER' && this.userData?.user?.role !== 'DIRECTOR';
+  }
+
+  get hasDepartments(): boolean {
+    return this.departments.length > 0 || this.isAgentOrAdmin;
+  }
+
+  get userFullName(): string {
+    return `${this.userData?.user?.firstName} ${this.userData?.user?.lastName}`;
+  }
+
   constructor(private authService: AuthService,
               private departmentService: DepartmentService,
               private organizationService: OrganizationService,
@@ -186,8 +207,9 @@ export class HomeComponent implements OnInit {
 
   addTicket() {
     const dialogRef = this.dialog.open(CreateTicketsComponent, {
-      width: '600px',
-      height: '95vh'
+      width: '750px',
+      height: '90vh',
+      maxWidth: '90vw'
     })
   }
 }

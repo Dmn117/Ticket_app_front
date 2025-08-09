@@ -1,13 +1,27 @@
-<mat-toolbar>
-  <span class="spacer"></span>
-  <button mat-raised-button (click)="createIncidence()">
-    <mat-icon>add</mat-icon>
-    Agregar Incidencia
-  </button>
-</mat-toolbar>
+<div class="incidents-container">
+  <mat-card class="incidents-card">
+    <mat-card-content>
+      <!-- Header Section -->
+      <div class="page-header">
+        <div class="header-content">
+          <mat-icon class="header-icon">report_problem</mat-icon>
+          <div class="header-text">
+            <h1 class="page-title">Incidencias</h1>
+            <p class="page-subtitle">Gestión de incidencias del sistema</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button mat-raised-button class="primary-button" (click)="createIncidence()">
+            <mat-icon>add</mat-icon>
+            Agregar Incidencia
+          </button>
+        </div>
+      </div>
 
-<app-material-table [dataSourceMat]="dataSourceMat" [displayedColumns]="displayedColumns">
-  <table mat-table [dataSource]="dataSourceMat" class="mat-elevation-z8" matSort>
+      <!-- Table Section -->
+      <div class="table-container">
+        <app-material-table [dataSourceMat]="dataSourceMat" [displayedColumns]="displayedColumns">
+          <table mat-table [dataSource]="dataSourceMat" class="modern-table" matSort>
 
     <!-- Columna: Título -->
     <ng-container matColumnDef="title">
@@ -45,19 +59,23 @@
       <td mat-cell *matCellDef="let incident"> {{ incident.createdAt | date:'short' }} </td>
     </ng-container>
 
-    <!-- Columna: Acciones -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let incident">
-        <!--  ver-->
-        <a class="cursoPointer"  style="color: #0061a9; margin-right: 10px" (click)="viewIncident(incident)">
-          <mat-icon matTooltip="Ver incidencia">visibility</mat-icon>
-        </a>
-      </td>
-    </ng-container>
+            <!-- Columna: Acciones -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Acciones </th>
+              <td mat-cell *matCellDef="let incident">
+                <button mat-icon-button class="action-button view-button" (click)="viewIncident(incident)" 
+                        matTooltip="Ver incidencia">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
-    <!-- Filas de encabezado y datos -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</app-material-table>
+            <!-- Filas de encabezado y datos -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </app-material-table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

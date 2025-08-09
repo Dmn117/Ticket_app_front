@@ -1,25 +1,4 @@
-h1,
-h2,
-h3,
-header,
-main,
-mat-icon {
-    margin: 0;
-    padding: 0;
-}
-
-
-.container {
-    display: flex;
-    flex-direction: column;
-    row-gap: 3rem;
-    justify-content: center;
-    align-items: center;
-    border-radius: .5rem;
-    border: solid 1px white;
-    padding: 1rem;
-}
-
+@import './rate-ticket-theme.scss';
 
 header,
 main {
