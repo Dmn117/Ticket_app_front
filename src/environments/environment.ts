@@ -1,4 +1,5 @@
-const apiDomain: string = 'https://api-tickets.dominio.com.mx/';
+// const apiDomain: string = 'http://localhost:3000/';
+const apiDomain: string = '';
 
 
 export const environment = {
