@@ -1,68 +1,68 @@
-@import '../../../../assets/styles/global-table.scss';
+// @import '../../../../assets/styles/global-table.scss';
 
-// View Ticket Theme - Cyan Color Scheme
-:root {
-  --module-primary: #00bcd4;
-  --module-primary-dark: #0097a7;
-  --module-primary-light: rgba(0, 188, 212, 0.1);
-  --module-primary-border: rgba(0, 188, 212, 0.2);
-}
+// // View Ticket Theme - Cyan Color Scheme
+// :root {
+//   --module-primary: #00bcd4;
+//   --module-primary-dark: #0097a7;
+//   --module-primary-light: rgba(0, 188, 212, 0.1);
+//   --module-primary-border: rgba(0, 188, 212, 0.2);
+// }
 
-.view-ticket-container {
-  @extend .module-container;
-}
+// .view-ticket-container {
+//   @extend .module-container;
+// }
 
-.view-ticket-card {
-  @extend .module-card;
-}
+// .view-ticket-card {
+//   @extend .module-card;
+// }
 
-// Ticket details styling
-.ticket-details {
-  .detail-row {
-    display: flex;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--module-primary-border);
+// // Ticket details styling
+// .ticket-details {
+//   .detail-row {
+//     display: flex;
+//     align-items: center;
+//     padding: 8px 0;
+//     border-bottom: 1px solid var(--module-primary-border);
     
-    .label {
-      font-weight: 600;
-      color: var(--text-medium);
-      min-width: 120px;
-    }
+//     .label {
+//       font-weight: 600;
+//       color: var(--text-medium);
+//       min-width: 120px;
+//     }
     
-    .value {
-      color: var(--text-dark);
-      flex: 1;
-    }
-  }
-}
+//     .value {
+//       color: var(--text-dark);
+//       flex: 1;
+//     }
+//   }
+// }
 
-// Comments section
-.comments-section {
-  margin-top: 24px;
+// // Comments section
+// .comments-section {
+//   margin-top: 24px;
   
-  .comment-item {
-    background: var(--card-bg);
-    border: 1px solid var(--module-primary-border);
-    border-radius: var(--border-radius);
-    padding: 16px;
-    margin-bottom: 12px;
+//   .comment-item {
+//     background: var(--card-bg);
+//     border: 1px solid var(--module-primary-border);
+//     border-radius: var(--border-radius);
+//     padding: 16px;
+//     margin-bottom: 12px;
     
-    .comment-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
+//     .comment-header {
+//       display: flex;
+//       justify-content: space-between;
+//       align-items: center;
+//       margin-bottom: 8px;
       
-      .author {
-        font-weight: 600;
-        color: var(--module-primary);
-      }
+//       .author {
+//         font-weight: 600;
+//         color: var(--module-primary);
+//       }
       
-      .date {
-        color: var(--text-light);
-        font-size: 0.875rem;
-      }
-    }
-  }
-}
+//       .date {
+//         color: var(--text-light);
+//         font-size: 0.875rem;
+//       }
+//     }
+//   }
+// }

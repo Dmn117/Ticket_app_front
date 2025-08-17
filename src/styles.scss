@@ -1,99 +1,110 @@
- html, body { height: 100vh; overflow: hidden; }
-body { 
-  margin: 0; 
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  min-height: 100vh;
-  overflow: hidden;
+ html,
+ body {
+   margin: 0;
+   padding: 0;
+   font-family: 'Montserrat', sans-serif;
+   height: 100%;
+ }
 
-  .app-root {
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-  }
-}
+ .sidenavC {
+   height: calc(100vh - 100px);
+ }
 
-@media (max-width: 768px) {
-  .table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .cdk-overlay-pane{
-    width: 100% !important;
-  }
+ body {
+   margin: 0;
+   font-family: Roboto, "Helvetica Neue", sans-serif;
+ }
 
-  table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-  mat-sidenav{
-    width: 100% !important;
-  }
-}
+ @media (max-width: 768px) {
+   .table-wrapper {
+     overflow-x: auto;
+     -webkit-overflow-scrolling: touch;
+   }
 
+   .cdk-overlay-pane {
+     width: 100% !important;
+   }
 
+   table {
+     display: block;
+     width: 100%;
+     overflow-x: auto;
+     white-space: nowrap;
+   }
 
-mat-sidenav-content {
-  background: linear-gradient(135deg, #5a6fd8 0%, #6a5a92 100%);
-  background-image: 
-    url(./assets/background.jpg),
-    linear-gradient(135deg, rgba(47, 58, 57, 0.6) 0%, rgba(60, 54, 75, 0.6) 100%);
-  background-blend-mode: overlay;
-  background-size: contain;
-  background-position: center;
-  background-repeat: repeat;
-}
-
-mat-card {
-  background-color: transparent;
-}
-
-* {
-  scrollbar-width: thin; /* Hace el scroll delgado */
-  scrollbar-color: #888 #f1f1f1; /* Color del scroll (barra y fondo) */
-  scroll-snap-type: y mandatory; /* Activa el snap por segmentos en el eje Y */
-  scroll-behavior: smooth; /* Movimiento suave */
-}
-
-/* Para navegadores basados en WebKit (Chrome, Edge, Safari) */
-*::-webkit-scrollbar {
-  width: 8px; /* Grosor vertical */
-  height: 8px; /* Grosor horizontal */
-}
-
-*::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Fondo del contenedor del scroll */
-  border-radius: 10px;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: #888; /* Color de la barra deslizante */
-  border-radius: 10px;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color al pasar el cursor */
-}
+   mat-sidenav {
+     width: 100% !important;
+   }
+ }
 
 
- .message-text a{
+
+ mat-sidenav-content {
+   background: linear-gradient(135deg, #5a6fd8 0%, #6a5a92 100%);
+   background-image:
+     url(./assets/background.jpg),
+     linear-gradient(135deg, rgba(47, 58, 57, 0.6) 0%, rgba(60, 54, 75, 0.6) 100%);
+   background-blend-mode: overlay;
+   background-size: contain;
+   background-position: center;
+   background-repeat: repeat;
+ }
+
+ mat-card {
+   background-color: transparent;
+ }
+
+ * {
+   scrollbar-width: thin;
+   /* Hace el scroll delgado */
+   scrollbar-color: #888 #f1f1f1;
+   /* Color del scroll (barra y fondo) */
+   scroll-snap-type: y mandatory;
+   /* Activa el snap por segmentos en el eje Y */
+   scroll-behavior: smooth;
+   /* Movimiento suave */
+ }
+
+ /* Para navegadores basados en WebKit (Chrome, Edge, Safari) */
+ *::-webkit-scrollbar {
+   width: 8px;
+   /* Grosor vertical */
+   height: 8px;
+   /* Grosor horizontal */
+ }
+
+ *::-webkit-scrollbar-track {
+   background: #f1f1f1;
+   /* Fondo del contenedor del scroll */
+   border-radius: 10px;
+ }
+
+ *::-webkit-scrollbar-thumb {
+   background: #888;
+   /* Color de la barra deslizante */
+   border-radius: 10px;
+ }
+
+ *::-webkit-scrollbar-thumb:hover {
+   background: #555;
+   /* Color al pasar el cursor */
+ }
+
+
+ .message-text a {
    color: #0061a9 !important;
  }
 
  .mdc-dialog__surface {
-opacity: 95%;
+   opacity: 95%;
    background: black !important;
  }
 
- mat-card{
+ mat-card {
    background: transparent !important;
  }
 
- .login-card{
+ .login-card {
    background: rgba(0, 0, 0, 0.53) !important;
  }
 
@@ -101,7 +112,7 @@ opacity: 95%;
 
  //? Status Classes
 
-.OPEN {
+ .OPEN {
    background: white !important;
    color: black;
    border: none;
@@ -120,79 +131,84 @@ opacity: 95%;
    border: none;
  }
 
- .STOPPED, .LOW {
+ .STOPPED,
+ .LOW {
    background: #ff5a00 !important;
    color: white;
    border: none;
  }
 
- .ON_HOLD, .MEDIUM {
+ .ON_HOLD,
+ .MEDIUM {
    background: yellow !important;
    color: black;
    border: none;
  }
 
- .CLOSED, .HIGH {
+ .CLOSED,
+ .HIGH {
    background: green !important;
    color: white;
    border: none;
  }
 
- .CANCELED
- {
+ .CANCELED {
    background: #b50811 !important;
    border: none;
  }
 
-a {
-  cursor: pointer !important;
-}
+ a {
+   cursor: pointer !important;
+ }
 
-mat-toolbar.banner {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95)) !important;
-  backdrop-filter: blur(10px);
-  color: white !important;
-  padding: 16px !important;
-  border-radius: 16px !important;
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.1),
-    0 4px 12px rgba(0, 0, 0, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  margin-bottom: 24px !important;
-  
-  h1, h2, h3, span {
-    color: white !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  }
-  
-  button {
-    color: white !important;
-    
-    &:hover {
-      background: rgba(255, 255, 255, 0.1) !important;
-      backdrop-filter: blur(5px);
-    }
-  }
-  
-  mat-icon {
-    color: white !important;
-  }
-}
+ mat-toolbar.banner {
+   background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95)) !important;
+   backdrop-filter: blur(10px);
+   color: white !important;
+   padding: 16px !important;
+   border-radius: 16px !important;
+   box-shadow:
+     0 8px 24px rgba(0, 0, 0, 0.1),
+     0 4px 12px rgba(0, 0, 0, 0.05) !important;
+   border: 1px solid rgba(255, 255, 255, 0.1) !important;
+   margin-bottom: 24px !important;
 
-mat-sidenav {
-  .mat-mdc-list-item {
-    color: white !important;
-  }
-  
-  .mdc-list-item__primary-text {
-    color: white !important;
-  }
-  
-  .mat-expansion-panel-header-title {
-    color: white !important;
-  }
-  
-  .mat-expansion-indicator::after {
-    color: white !important;
-  }
-}
+   h1,
+   h2,
+   h3,
+   span {
+     color: white !important;
+     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+   }
+
+   button {
+     color: white !important;
+
+     &:hover {
+       background: rgba(255, 255, 255, 0.1) !important;
+       backdrop-filter: blur(5px);
+     }
+   }
+
+   mat-icon {
+     color: white !important;
+   }
+ }
+
+ mat-sidenav {
+   .mat-mdc-list-item {
+     color: white !important;
+   }
+
+   .mdc-list-item__primary-text {
+     color: white !important;
+   }
+
+   .mat-expansion-panel-header-title {
+     color: white !important;
+   }
+
+   .mat-expansion-indicator::after {
+     color: white !important;
+   }
+ }

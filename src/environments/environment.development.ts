@@ -1,5 +1,5 @@
-// const apiDomain: string = 'http://localhost:3000/';
-const apiDomain: string = '';
+const apiDomain: string = 'http://localhost:3000/';
+// const apiDomain: string = '';
 
 
 
