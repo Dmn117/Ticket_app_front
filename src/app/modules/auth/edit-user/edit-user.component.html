@@ -39,6 +39,9 @@
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Rol</mat-label>
           <mat-select formControlName="role">
+            <mat-select-trigger>
+              {{ getRole(formEditUser.get('role')?.value) }}
+            </mat-select-trigger>
             <mat-option *ngFor="let role of roles" [value]="role">
               <div class="role-option">
                 <mat-icon>{{role === 'ADMIN' ? 'admin_panel_settings' : role === 'BOSS' ? 'supervisor_account' : role === 'AGENT' ? 'support_agent' : role === 'USER' ? 'person' : 'group'}}</mat-icon>

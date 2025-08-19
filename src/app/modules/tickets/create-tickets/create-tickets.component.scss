@@ -21,6 +21,35 @@
   transition: all 0.3s ease;
 }
 
+// Estilos para centrar el diálogo y asegurar transparencia consistente
+.modern-dialog-panel {
+  .mat-mdc-dialog-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    padding: 24px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 20px !important;
+    overflow: visible !important;
+  }
+  
+  .mdc-dialog__surface {
+    background: transparent !important;
+    box-shadow: none !important;
+    margin: 0 auto !important;
+    border-radius: 20px !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
+  
+  .mat-mdc-dialog-content {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
 @mixin flex-center($direction: row, $gap: 16px) {
   display: flex;
   align-items: center;
@@ -48,16 +77,18 @@
 }
 
 .create-tickets-container {
-  min-height: 100vh;
-  padding: 20px;
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0 auto;
 }
 
 .form-card {
   width: 100%;
   max-width: 800px;
+  margin: 0 auto;
   @include form-glass-card(40px, 20px);
   
   .form-header {

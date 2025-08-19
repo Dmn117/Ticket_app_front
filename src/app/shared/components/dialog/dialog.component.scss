@@ -3,6 +3,9 @@
   width: 100%;
   max-width: 450px;
   margin: 0 auto;
+  position: fixed;
+  transform: translateX(-50%);
+  box-sizing: border-box;
 
   .alert-backdrop {
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);

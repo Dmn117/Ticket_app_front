@@ -1,0 +1,123 @@
+// Global Mixins - Centralized reusable styles
+// This file contains all common mixins used across the application
+
+// Variables CSS globales
+:root {
+  --border-radius: 16px;
+  --border-radius-lg: 20px;
+  --transition: all 0.3s ease;
+  --white-text: #ffffff;
+  --shadow-sm: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.2);
+  
+  // Animation keyframes
+  --animation-duration: 0.3s;
+  --animation-timing: ease-out;
+}
+
+// Form Glass Card Mixin
+@mixin form-glass-card($padding: 20px, $radius: 16px) {
+  background: rgba(255, 255, 255, 0.1);
+  padding: $padding;
+  border-radius: $radius;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  transition: var(--transition);
+}
+
+// Glass Card Mixin (for main containers)
+@mixin glass-card($padding: 20px, $radius: var(--border-radius)) {
+  background: rgba(255, 255, 255, 0.1);
+  padding: $padding;
+  border-radius: $radius;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  backdrop-filter: blur(15px);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+// Flex Center Mixin
+@mixin flex-center($direction: row, $gap: 16px) {
+  display: flex;
+  align-items: center;
+  gap: $gap;
+  @if $direction != row { 
+    flex-direction: $direction; 
+  }
+}
+
+// Button Gradient Mixin
+@mixin button-gradient($primary: #2196f3, $secondary: #1976d2) {
+  background: linear-gradient(135deg, $primary, $secondary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: var(--transition);
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba($primary, 0.3);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// Dialog Animation Mixin
+@mixin dialog-animation() {
+  animation: dialogSlideIn var(--animation-duration) var(--animation-timing);
+  
+  @keyframes dialogSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-30px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+// Status Badge Mixin
+@mixin status-badge($bg-color, $text-color: white) {
+  background: linear-gradient(135deg, $bg-color, darken($bg-color, 10%));
+  color: $text-color;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba($bg-color, 0.3);
+}
+
+// Responsive Breakpoints
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}

@@ -177,7 +177,12 @@ export class HomeComponent implements OnInit {
     }
 
     const dialogRef = this.dialog.open(CreateTopicDialogHomeComponent, {
-      width: '400px',
+      width: '900px',
+      maxWidth: '90vw',
+      disableClose: false,
+      panelClass: 'modern-dialog-panel',
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-backdrop',
       data: { departments: this.departments }
     });
 

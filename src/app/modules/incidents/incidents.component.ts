@@ -89,14 +89,21 @@ export class IncidentsComponent implements OnInit, AfterViewInit {
 
   createIncidence () {
     const dialogRef = this.dialog.open(CreateIncidentComponent, {
-      width: '30vw',
+      width: '900px',
+      maxWidth: '90vw',
+      disableClose: false,
+      panelClass: 'modern-dialog-panel',
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-backdrop',
       data: {
         loadIncidents: (userBoss: string) => this.loadIncidents(userBoss),
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      //console.log('El dialog se cerro');
+      if (result) {
+        this.ngOnInit();
+      }
     });
   }
 

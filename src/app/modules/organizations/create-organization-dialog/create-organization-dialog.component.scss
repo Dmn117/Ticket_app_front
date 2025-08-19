@@ -1,48 +1,7 @@
-// Variables CSS para el formulario (similar a departments)
+// Module-specific overrides for organizations (using global mixins from styles.scss)
 :root {
-  --border-radius: 16px;
-  --border-radius-lg: 20px;
-  --transition: all 0.3s ease;
-  --white-text: #ffffff;
-  --shadow-sm: 0 8px 16px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.15);
-}
-
-// Mixins específicos para el formulario
-@mixin form-glass-card($padding: 20px, $radius: 16px) {
-  background: rgba(255, 255, 255, 0.1);
-  padding: $padding;
-  border-radius: $radius;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(15px);
-  transition: all 0.3s ease;
-}
-
-@mixin flex-center($direction: row, $gap: 16px) {
-  display: flex;
-  align-items: center;
-  gap: $gap;
-  @if $direction != row { flex-direction: $direction; }
-}
-
-@mixin button-gradient($primary: #9c27b0, $secondary: #7b1fa2) {
-  background: linear-gradient(135deg, $primary, $secondary);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  
-  &:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(156, 39, 176, 0.4);
-  }
-  
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+  --module-primary: #9c27b0;
+  --module-secondary: #7b1fa2;
 }
 
 .modern-create-organization-container {
@@ -61,7 +20,7 @@
       height: 60px;
       @include flex-center();
       justify-content: center;
-      background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+      background: linear-gradient(135deg, var(--module-primary), var(--module-secondary));
       border-radius: 16px;
       box-shadow: 0 8px 25px rgba(156, 39, 176, 0.3);
       
@@ -140,7 +99,7 @@
         }
 
         .mat-mdc-form-field-outline-thick {
-          color: #9c27b0;
+          color: var(--module-primary);
         }
 
         .mat-mdc-floating-label {
@@ -242,7 +201,7 @@
     }
 
     .save-btn {
-      @include button-gradient();
+      @include button-gradient(var(--module-primary), var(--module-secondary));
       font-size: 1rem;
       min-width: 180px;
 

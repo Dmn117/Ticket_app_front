@@ -14,9 +14,21 @@
   </div>
   <span class="example-spacer"></span>
 
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Perfil de usuario" matTooltip="Perfil de usuario">
-    <mat-icon>more_vert</mat-icon>
-  </button>
+  <div class="profile-button-container">
+    <button class="profile-button" [matMenuTriggerFor]="menu" aria-label="Perfil de usuario" matTooltip="Perfil de usuario">
+      <div class="profile-content" *ngIf="userData">
+        <img [src]="imgAvatar" alt="Avatar" class="profile-avatar">
+        <div class="profile-info">
+          <span class="profile-name">{{ userData.user.firstName }}</span>
+          <span class="profile-role">{{ userData.user.role }}</span>
+        </div>
+      </div>
+      <div class="profile-content-fallback" *ngIf="!userData">
+        <mat-icon>account_circle</mat-icon>
+        <span>Usuario</span>
+      </div>
+    </button>
+  </div>
   <mat-menu #menu="matMenu">
     <div class="user-info" *ngIf="userData">
       <div class="user-avatar">
@@ -30,8 +42,14 @@
         </div>
       </div>
       <div class="user-actions">
-        <button mat-button (click)="viewProfile()">Ver perfil</button>
-        <button mat-button color="warn" (click)="logout()">Cerrar Sesión</button>
+        <button mat-button (click)="viewProfile()">
+          <mat-icon>person</mat-icon>
+          <span>Ver perfil</span>
+        </button>
+        <button mat-button color="warn" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Cerrar Sesión</span>
+        </button>
       </div>
     </div>
   </mat-menu>

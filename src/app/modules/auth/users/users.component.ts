@@ -162,6 +162,8 @@ export class UsersComponent implements OnInit, AfterViewInit{
       maxWidth: '90vw',
       disableClose: false,
       panelClass: 'modern-dialog-panel',
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-backdrop',
       data: data
       })
 
@@ -170,11 +172,19 @@ export class UsersComponent implements OnInit, AfterViewInit{
 
   createUser() {
     const dialogRef = this.dialog.open(RegisterComponent,{
-      width: '600px',
-
+      width: '900px',
+      maxWidth: '90vw',
+      disableClose: false,
+      panelClass: 'modern-dialog-panel',
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-backdrop'
       })
 
-
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.ngOnInit();
+      }
+    });
   }
 
 

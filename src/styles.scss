@@ -1,3 +1,6 @@
+// Import global mixins first
+@import './assets/styles/global-mixins.scss';
+
  html,
  body {
    margin: 0;
@@ -19,10 +22,6 @@
    .table-wrapper {
      overflow-x: auto;
      -webkit-overflow-scrolling: touch;
-   }
-
-   .cdk-overlay-pane {
-     width: 100% !important;
    }
 
    table {
@@ -220,11 +219,529 @@
     box-shadow: none !important;
     border-radius: 20px !important;
     overflow: hidden !important;
+    z-index: 1000 !important;
   }
 
   .mdc-dialog__surface {
     background: transparent !important;
     box-shadow: none !important;
     border-radius: 20px !important;
+  }
+}
+
+// Dialog backdrop styling - fondo oscurecido y difuminado
+.cdk-overlay-backdrop {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+// Specific styling for tickets popup to ensure modern glassmorphism design
+app-create-tickets {
+  .modern-dialog-panel {
+    .mat-mdc-dialog-container {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: flex-start !important;
+      padding: 24px !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      border-radius: 20px !important;
+      overflow: visible !important;
+    }
+    
+    .mdc-dialog__surface {
+      background: transparent !important;
+      box-shadow: none !important;
+      margin: 0 auto !important;
+      border-radius: 20px !important;
+      max-width: none !important;
+      width: 100% !important;
+    }
+    
+    .mat-mdc-dialog-content {
+      background: transparent !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border-radius: 20px !important;
+      overflow: visible !important;
+    }
+  }
+}
+
+// Global style: Force all mat-icons to be white by default
+mat-icon {
+  color: white !important;
+}
+
+// Module-specific icon colors
+// Users module - Blue theme
+app-users,
+app-edit-user,
+app-register {
+  mat-icon {
+    color: #2196f3 !important;
+  }
+}
+
+// Departments module - Green theme  
+app-departments,
+app-create-department-dialog,
+app-edit-department-dialog {
+  mat-icon {
+    color: white !important;
+  }
+  
+  // Override mat-icon-no-color class
+  mat-icon.mat-icon-no-color {
+    color: white !important;
+  }
+  
+  // Specific selector for header icons
+  .header-icon mat-icon {
+    color: white !important;
+  }
+  
+  // Header icon background - Green
+  .header-icon {
+    background-color: #4caf50 !important;
+    background: linear-gradient(135deg, #4caf50, #388e3c) !important;
+  }
+}
+
+// Organizations module - Purple theme
+app-organizations,
+app-create-organization-dialog,
+app-edit-organization-dialog {
+  mat-icon {
+    color: #9c27b0 !important;
+  }
+}
+
+// Incidents module - Orange theme
+app-incidents,
+app-create-incident,
+app-incident-dialog {
+  mat-icon {
+    color: #ff9800 !important;
+  }
+}
+
+// Help Topics module - Purple theme (to match button color)
+app-help-topics,
+app-create-topic-dialog,
+app-edit-topic-dialog {
+  mat-icon {
+    color: #9c27b0 !important;
+  }
+}
+
+// Tickets module - Deep Orange theme
+app-tickets,
+app-create-tickets,
+app-view-ticket,
+app-edit-ticket,
+app-transfer-ticket,
+app-my-open-tickets,
+app-my-closed-tickets,
+app-new-tickets,
+app-assigned-ticket,
+app-rating-ticket,
+app-rate-ticket,
+app-closed-tickes,
+app-change-ticket-status,
+app-view-image {
+  mat-icon {
+    color: #ff5722 !important;
+  }
+}
+
+// Evaluations module - Indigo theme
+app-evaluations,
+app-view-evaluation {
+  mat-icon {
+    color: #3f51b5 !important;
+  }
+}
+
+// Auth module - Cyan theme (login, recover password)
+app-login,
+app-recover-password {
+  mat-icon {
+    color: #00bcd4 !important;
+  }
+}
+
+// Shared components - Light Blue theme
+app-material-table,
+app-form,
+app-dialog,
+app-footer,
+app-sweet-alert {
+  mat-icon {
+    color: #03a9f4 !important;
+  }
+}
+
+// Override: Keep action icons white across all modules
+// Action buttons and controls should remain white for better UX
+.action-button mat-icon,
+.primary-button mat-icon,
+button[mat-raised-button] mat-icon,
+button[mat-icon-button] mat-icon,
+button[mat-fab] mat-icon,
+button[mat-mini-fab] mat-icon,
+.header-actions mat-icon,
+.dialog-actions mat-icon,
+mat-paginator mat-icon,
+.mat-mdc-paginator-icon,
+.close-btn mat-icon,
+.save-btn mat-icon,
+.cancel-btn mat-icon,
+.edit-button mat-icon,
+.delete-button mat-icon,
+.view-button mat-icon,
+.add-button mat-icon,
+.activate-button mat-icon,
+.deactivate-button mat-icon {
+  color: white !important;
+}
+
+// Special case: view-ticket page should have white icons
+app-view-ticket {
+  mat-icon {
+    color: white !important;
+  }
+}
+
+// Special case: Incidents popups should have white icons
+app-create-incident,
+app-incident-dialog {
+  mat-icon {
+    color: white !important;
+  }
+}
+
+// Special case: Organizations popups should have white icons
+app-create-organization-dialog,
+app-edit-organization-dialog {
+  mat-icon {
+    color: white !important;
+  }
+}
+
+// Special case: Departments popups should have white icons
+app-create-department-dialog,
+app-edit-department-dialog {
+  mat-icon {
+    color: white !important;
+  }
+}
+
+// Special case: Help Topics popups should have white icons
+app-create-topic-dialog,
+app-edit-topic-dialog {
+  mat-icon {
+    color: white !important;
+  }
+}
+
+// Special case: Tickets popups should have white icons
+app-create-tickets,
+app-edit-ticket,
+app-transfer-ticket,
+app-rating-ticket,
+app-rate-ticket,
+app-change-ticket-status {
+  mat-icon {
+    color: white !important;
+  }
+}
+
+// Module-specific button colors for "Agregar nuevo" and primary buttons
+// Users module - Blue buttons
+app-users .primary-button,
+app-edit-user .primary-button,
+app-register .primary-button {
+  background: linear-gradient(135deg, #2196f3, #1976d2) !important;
+  border-color: #2196f3 !important;
+}
+
+// Departments module - Green buttons
+app-departments .primary-button,
+app-create-department-dialog .primary-button,
+app-edit-department-dialog .primary-button {
+  background: linear-gradient(135deg, #4caf50, #388e3c) !important;
+  border-color: #4caf50 !important;
+}
+
+// Extra specificity for departments buttons to ensure green color
+.departments-container .primary-button,
+div.departments-container button.primary-button,
+app-departments button[mat-raised-button].primary-button {
+  background: linear-gradient(135deg, #4caf50, #388e3c) !important;
+  border-color: #4caf50 !important;
+  color: white !important;
+}
+
+// Organizations module - Purple buttons
+app-organizations .primary-button,
+app-create-organization-dialog .primary-button,
+app-edit-organization-dialog .primary-button {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2) !important;
+  border-color: #9c27b0 !important;
+}
+
+// Incidents module - Orange buttons
+app-incidents .primary-button,
+app-create-incident .primary-button,
+app-incident-dialog .primary-button {
+  background: linear-gradient(135deg, #ff9800, #f57c00) !important;
+  border-color: #ff9800 !important;
+}
+
+// Help Topics module - Purple buttons (to match icon)
+app-help-topics .primary-button,
+app-create-topic-dialog .primary-button,
+app-edit-topic-dialog .primary-button {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2) !important;
+  border-color: #9c27b0 !important;
+}
+
+// Tickets module - Deep Orange buttons
+app-tickets .primary-button,
+app-create-tickets .primary-button,
+app-edit-ticket .primary-button,
+app-transfer-ticket .primary-button,
+app-my-open-tickets .primary-button,
+app-my-closed-tickets .primary-button,
+app-new-tickets .primary-button,
+app-assigned-ticket .primary-button,
+app-rating-ticket .primary-button,
+app-rate-ticket .primary-button,
+app-closed-tickes .primary-button,
+app-change-ticket-status .primary-button {
+  background: linear-gradient(135deg, #ff5722, #e64a19) !important;
+  border-color: #ff5722 !important;
+}
+
+// Evaluations module - Indigo buttons
+app-evaluations .primary-button,
+app-view-evaluation .primary-button {
+  background: linear-gradient(135deg, #3f51b5, #303f9f) !important;
+  border-color: #3f51b5 !important;
+}
+
+// Auth module - Cyan buttons
+app-login .primary-button,
+app-recover-password .primary-button {
+  background: linear-gradient(135deg, #00bcd4, #0097a7) !important;
+  border-color: #00bcd4 !important;
+}
+
+// Help-topics dialog forms - Improved center fix
+app-create-topic-dialog .dialog-body,
+app-edit-topic-dialog .dialog-body {
+  text-align: left !important;
+  width: 100% !important;
+}
+
+app-create-topic-dialog .form-row,
+app-edit-topic-dialog .form-row {
+  display: grid !important;
+  width: 100% !important;
+  margin: 0 !important;
+  gap: 20px !important;
+  
+  &:first-child {
+    grid-template-columns: 1fr !important;
+  }
+  
+  &:not(:first-child) {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+app-create-topic-dialog .form-field,
+app-edit-topic-dialog .form-field {
+  width: 100% !important;
+  justify-self: stretch !important;
+}
+
+app-create-topic-dialog .examples-section,
+app-edit-topic-dialog .examples-section {
+  width: 100% !important;
+  
+  .section-title {
+    text-align: left !important;
+    margin-bottom: 20px !important;
+  }
+  
+  // Make sure example form-rows follow the same grid pattern
+  .form-row {
+    display: grid !important;
+    width: 100% !important;
+    margin: 0 !important;
+    gap: 20px !important;
+    grid-template-columns: 1fr 1fr !important;
+    
+    &:last-child {
+      grid-template-columns: 1fr !important;
+    }
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  
+  .form-field {
+    width: 100% !important;
+    justify-self: stretch !important;
+  }
+}
+
+// Organizations dialog fix - Ensure styles are applied
+app-create-organization-dialog {
+  .modern-create-organization-container {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(15px) !important;
+    padding: 40px !important;
+  }
+
+  .form-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+    margin-bottom: 30px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .header-icon {
+    width: 60px !important;
+    height: 60px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #9c27b0, #7b1fa2) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 25px rgba(156, 39, 176, 0.3) !important;
+  }
+
+  .header-icon mat-icon {
+    font-size: 32px !important;
+    color: white !important;
+  }
+
+  .dialog-title {
+    font-size: 2.2rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+    margin: 0 0 8px 0 !important;
+  }
+
+  .dialog-subtitle {
+    font-size: 1.1rem !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 400 !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+    margin: 0 !important;
+  }
+
+  .form-field {
+    width: 100% !important;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .save-btn {
+    background: linear-gradient(135deg, #9c27b0, #7b1fa2) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    min-width: 180px !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 25px rgba(156, 39, 176, 0.4) !important;
+    }
+    
+    &:disabled {
+      opacity: 0.6 !important;
+      cursor: not-allowed !important;
+      transform: none !important;
+    }
+    
+    mat-icon {
+      font-size: 18px !important;
+      width: 18px !important;
+      height: 18px !important;
+      color: white !important;
+    }
+  }
+
+  .cancel-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    min-width: 140px !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+      transform: translateY(-1px) !important;
+      border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    &:disabled {
+      opacity: 0.5 !important;
+      cursor: not-allowed !important;
+      transform: none !important;
+    }
+    
+    mat-icon {
+      font-size: 18px !important;
+      width: 18px !important;
+      height: 18px !important;
+      color: inherit !important;
+    }
+  }
+
+  .dialog-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 16px !important;
+    margin-top: 30px !important;
+    padding-top: 20px !important;
+    border-top: 2px solid rgba(255, 255, 255, 0.1) !important;
   }
 }

@@ -88,7 +88,9 @@ export class HelpTopicsComponent implements OnInit, AfterViewInit {
       width: '900px',
       maxWidth: '90vw',
       disableClose: false,
-      panelClass: 'modern-dialog-panel'
+      panelClass: 'modern-dialog-panel',
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-backdrop'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -142,6 +144,8 @@ export class HelpTopicsComponent implements OnInit, AfterViewInit {
       maxWidth: '90vw',
       disableClose: false,
       panelClass: 'modern-dialog-panel',
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-backdrop',
       data: { name: helpTopic.name, tags: helpTopic.tags, department: helpTopic.department, expIn: helpTopic.expIn, },
     });
 

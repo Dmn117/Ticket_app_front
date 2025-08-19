@@ -167,9 +167,12 @@ export class MyOpenTicketsComponent implements OnInit, AfterViewInit{
 
    addTicket() {
     const dialogRef = this.dialog.open(CreateTicketsComponent, {
-      width: '750px',
-      height: '90vh',
-      maxWidth: '90vw'
+      width: '900px',
+      maxWidth: '90vw',
+      disableClose: false,
+      panelClass: 'modern-dialog-panel',
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-backdrop'
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -213,6 +213,9 @@
       background: rgba(255, 255, 255, 0.1);
       border-radius: 12px;
       border: 2px solid rgba(255, 255, 255, 0.2);
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
 
       .section-title {
         display: flex;
@@ -229,6 +232,47 @@
           height: 20px;
           color: #8b5cf6;
         }
+      }
+      
+      // Grid layout for example form rows - Override general form-row styles
+      .form-row {
+        display: grid !important;
+        width: 100% !important;
+        gap: 20px !important;
+        margin: 0 !important;
+        grid-template-columns: 1fr 1fr !important;
+        box-sizing: border-box !important;
+        
+        // Override the :first-child and :not(:first-child) selectors
+        &:first-child,
+        &:not(:first-child) {
+          display: grid !important;
+          grid-template-columns: 1fr 1fr !important;
+          gap: 20px !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+        }
+        
+        &:last-child {
+          grid-template-columns: 1fr !important;
+        }
+        
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr !important;
+          
+          &:first-child,
+          &:not(:first-child) {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      }
+      
+      .form-field {
+        width: 100% !important;
+        justify-self: stretch !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
       }
     }
   }

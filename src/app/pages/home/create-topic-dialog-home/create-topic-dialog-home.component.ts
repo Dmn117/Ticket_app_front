@@ -29,6 +29,7 @@ export class CreateTopicDialogHomeComponent {
     this.topicForm = this.fb.group({
       name: ['', Validators.required],
       department: ['', Validators.required],
+      expIn: [120, [Validators.required, Validators.min(1)]]
     });
 
     this.departments = this.data.departments;
@@ -62,6 +63,7 @@ export class CreateTopicDialogHomeComponent {
         name: formData.name,
         tags: this.tags,
         department: formData.department,
+        expIn: formData.expIn
       };
       this.dialogRef.close(payload);
     }

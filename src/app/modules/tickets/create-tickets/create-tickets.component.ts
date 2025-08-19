@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {OrganizationService} from "../../../core/services/organization.service";
 import {DepartmentService} from "../../../core/services/department.service";
 import {Organization} from "../../../shared/models/organization";
@@ -15,7 +15,8 @@ import {MatDialogRef} from "@angular/material/dialog";
 @Component({
   selector: 'app-create-tickets',
   templateUrl: './create-tickets.component.html',
-  styleUrls: ['./create-tickets.component.scss']
+  styleUrls: ['./create-tickets.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateTicketsComponent implements OnInit{
 
