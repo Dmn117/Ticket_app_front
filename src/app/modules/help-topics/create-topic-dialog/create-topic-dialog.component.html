@@ -1,97 +1,125 @@
-<h2 mat-dialog-title>Crear Nuevo Tema de Ayuda</h2>
-<mat-dialog-content>
-  <form [formGroup]="topicForm">
-    <mat-form-field>
-      <mat-label>Nombre del Tema</mat-label>
-      <input matInput formControlName="name" placeholder="Ej. Instalación de Aplicación" />
-    </mat-form-field>
+<div class="modern-create-topic-container">
+  <div class="form-header">
+    <div class="header-icon">
+      <mat-icon>quiz</mat-icon>
+    </div>
+    <div class="header-text">
+      <h1 class="dialog-title">Crear Tema de Ayuda</h1>
+      <p class="dialog-subtitle">Formulario para crear nuevos temas de ayuda</p>
+    </div>
+  </div>
 
-    <mat-form-field>
-      <mat-label>Organización</mat-label>
-      <mat-select formControlName="organization" (selectionChange)="onOrganizationChange($event.value)">
-        <mat-option *ngFor="let org of organizations" [value]="org._id">{{ org.name }}</mat-option>
-      </mat-select>
-      <mat-hint>Selecciona una organización</mat-hint>
-    </mat-form-field>
+  <div class="dialog-body">
+    <form [formGroup]="topicForm" (ngSubmit)="onCreate()">
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Nombre del Tema</mat-label>
+          <input matInput formControlName="name" placeholder="Ej. Instalación de Aplicación">
+        </mat-form-field>
+      </div>
 
-    <mat-form-field>
-      <mat-label>Departamentos</mat-label>
-      <mat-select formControlName="department" required>
-        <mat-option *ngFor="let dept of departments" [value]="dept._id">{{ dept.name }}</mat-option>
-      </mat-select>
-      <mat-hint>Selecciona un departamento</mat-hint>
-    </mat-form-field>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Organización</mat-label>
+          <mat-select formControlName="organization" (selectionChange)="onOrganizationChange($event.value)">
+            <mat-option *ngFor="let org of organizations" [value]="org._id">{{ org.name }}</mat-option>
+          </mat-select>
+          <mat-hint>Selecciona una organización</mat-hint>
+        </mat-form-field>
 
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Departamentos</mat-label>
+          <mat-select formControlName="department" required>
+            <mat-option *ngFor="let dept of departments" [value]="dept._id">{{ dept.name }}</mat-option>
+          </mat-select>
+          <mat-hint>Selecciona un departamento</mat-hint>
+        </mat-form-field>
+      </div>
 
-    <mat-form-field>
-      <mat-label>Tiempo de ejecución</mat-label>
-      <input matInput type="number"
-             formControlName="expIn"
-             placeholder="Tiempo para terminar la tarea"
-             minlength="0"
-             min="0"
-             step="5"
-             (keydown)="preventDecimal($event)"
-      />
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Tiempo de ejecución</mat-label>
+          <input matInput type="number"
+                 formControlName="expIn"
+                 placeholder="Tiempo para terminar la tarea"
+                 minlength="0"
+                 min="0"
+                 step="5"
+                 (keydown)="preventDecimal($event)">
+          <mat-hint align="end">
+            {{ minutes2String(topicForm.get('expIn')?.value) }}
+          </mat-hint>
+        </mat-form-field>
 
-      <mat-hint align="end">
-        {{ minutes2String(topicForm.get('expIn')?.value) }}
-      </mat-hint>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Etiquetas</mat-label>
+          <mat-chip-list #chipList aria-label="Etiquetas seleccionadas">
+            <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true" (removed)="removeTag(tag)">
+              {{ tag }}
+              <button mat-icon-button *ngIf="true" (click)="removeTag(tag)">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input matInput
+                   [formControl]="tagsControl"
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   (matChipInputTokenEnd)="addTag($event)"
+                   placeholder="Añadir etiqueta">
+          </mat-chip-list>
+          <mat-hint>Presiona Enter para añadir una etiqueta</mat-hint>
+        </mat-form-field>
+      </div>
 
-      <mat-error>
-        Asegurese de llenar correctamente el campo
-      </mat-error>
-    </mat-form-field>
+      <div class="examples-section">
+        <h3 class="section-title">
+          <mat-icon>help_outline</mat-icon>
+          Ejemplos de Consultas
+        </h3>
+        
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Ejemplo 1</mat-label>
+            <input matInput formControlName="example" placeholder="Ej. No puedo navegar por internet desde...">
+          </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Etiquetas</mat-label>
-      <mat-chip-list #chipList aria-label="Etiquetas seleccionadas">
-        <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true" (removed)="removeTag(tag)">
-          {{ tag }}
-          <button mat-icon-button *ngIf="true" (click)="removeTag(tag)">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip>
-        <input matInput
-               [formControl]="tagsControl"
-               [matChipInputFor]="chipList"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               (matChipInputTokenEnd)="addTag($event)"
-               placeholder="Añadir etiqueta"
-        />
-      </mat-chip-list>
-      <mat-hint>Presiona Enter para añadir una etiqueta</mat-hint>
-    </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Ejemplo 2</mat-label>
+            <input matInput formControlName="example2" placeholder="Ej. No puedo navegar por internet desde...">
+          </mat-form-field>
+        </div>
 
-    <mat-form-field>
-      <mat-label>Ejemplo 1</mat-label>
-      <input matInput formControlName="example" placeholder="Ej. No puedo navegar por internet desde..." />
-    </mat-form-field>
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Ejemplo 3</mat-label>
+            <input matInput formControlName="example3" placeholder="Ej. No puedo navegar por internet desde...">
+          </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Ejemplo 2</mat-label>
-      <input matInput formControlName="example2" placeholder="Ej. No puedo navegar por internet desde..." />
-    </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Ejemplo 4</mat-label>
+            <input matInput formControlName="example4" placeholder="Ej. No puedo navegar por internet desde...">
+          </mat-form-field>
+        </div>
 
-    <mat-form-field>
-      <mat-label>Ejemplo 3</mat-label>
-      <input matInput formControlName="example3" placeholder="Ej. No puedo navegar por internet desde..." />
-    </mat-form-field>
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Ejemplo 5</mat-label>
+            <input matInput formControlName="example5" placeholder="Ej. No puedo navegar por internet desde...">
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
 
-    <mat-form-field>
-      <mat-label>Ejemplo 4</mat-label>
-      <input matInput formControlName="example4" placeholder="Ej. No puedo navegar por internet desde..." />
-    </mat-form-field>
+  <div class="dialog-actions">
+    <button type="button" class="cancel-btn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+      Cancelar
+    </button>
+    <button type="button" class="save-btn" (click)="onCreate()">
+      <mat-icon>library_add</mat-icon>
+      Crear Tema
+    </button>
+  </div>
+</div>
 
-    <mat-form-field>
-      <mat-label>Ejemplo 5</mat-label>
-      <input matInput formControlName="example5" placeholder="Ej. No puedo navegar por internet desde..." />
-    </mat-form-field>
-
-  </form>
-</mat-dialog-content>
-
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Cancelar</button>
-  <button mat-button mat-raised-button color="primary" (click)="onCreate()">Crear</button>
-</mat-dialog-actions>

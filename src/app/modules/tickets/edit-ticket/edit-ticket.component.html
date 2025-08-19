@@ -1,17 +1,78 @@
-<h2 mat-dialog-title>Editar Ticket</h2>
+<div class="modern-dialog-container">
+  <div class="dialog-backdrop">
+    <div class="dialog-content">
+      <!-- Header with gradient -->
+      <div class="dialog-header">
+        <div class="header-icon">
+          <mat-icon>edit</mat-icon>
+        </div>
+        <div class="header-content">
+          <h2 class="dialog-title">Editar Ticket</h2>
+          <p class="dialog-subtitle">Modifica la información del ticket</p>
+        </div>
+      </div>
 
-<mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Titulo</mat-label>
-    <input matInput [(ngModel)]="titleTicket">
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Descripción</mat-label>
-    <input matInput [(ngModel)]="descriptionTicket">
-  </mat-form-field>
-</mat-dialog-content>
+      <!-- Body content -->
+      <div class="dialog-body">
+        <div class="modern-form">
+          
+          <!-- Title Field -->
+          <div class="form-group">
+            <label class="form-label">
+              <mat-icon>title</mat-icon>
+              Título del Ticket
+            </label>
+            <mat-form-field appearance="outline" class="modern-input">
+              <mat-icon matPrefix>subject</mat-icon>
+              <mat-label>Ingresa el título</mat-label>
+              <input 
+                matInput 
+                [(ngModel)]="titleTicket"
+                placeholder="Título descriptivo del ticket">
+            </mat-form-field>
+          </div>
 
-<mat-dialog-actions>
-  <button mat-flat-button  mat-dialog-close (click)="onClose()">Cancelar</button>
-  <button mat-raised-button color="warn" (click)="save()" [disabled]="!isFormChanged()">Guardar</button>
-</mat-dialog-actions>
+          <!-- Description Field -->
+          <div class="form-group">
+            <label class="form-label">
+              <mat-icon>description</mat-icon>
+              Descripción
+            </label>
+            <mat-form-field appearance="outline" class="modern-input">
+              <mat-icon matPrefix>notes</mat-icon>
+              <mat-label>Describe el problema o solicitud</mat-label>
+              <textarea 
+                matInput 
+                [(ngModel)]="descriptionTicket"
+                placeholder="Proporciona una descripción detallada..."
+                rows="4">
+              </textarea>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="dialog-actions">
+        <button 
+          type="button" 
+          class="btn-secondary"
+          mat-dialog-close
+          (click)="onClose()">
+          <mat-icon>close</mat-icon>
+          Cancelar
+        </button>
+        
+        <button 
+          type="button"
+          class="save-btn"
+          [disabled]="!isFormChanged()"
+          (click)="save()">
+          <mat-icon>save</mat-icon>
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

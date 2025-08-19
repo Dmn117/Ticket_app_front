@@ -113,7 +113,10 @@ export class DepartmentsComponent implements OnInit , AfterViewInit{
       const filteredOwners = usersResponse.users.filter(user => user.role !== 'AGENT' && user.role !== 'USER');
 
       const dialogRef = this.dialog.open(CreateDepartmentDialogComponent, {
-        width: '400px',
+        width: '800px',
+        maxWidth: '90vw',
+        disableClose: false,
+        panelClass: 'modern-dialog-panel',
         data: { organizations: this.organizations, owners: filteredOwners }
       });
 
@@ -143,7 +146,10 @@ export class DepartmentsComponent implements OnInit , AfterViewInit{
 
   editDepartment(department: any): void {
     const dialogRef = this.dialog.open(EditDepartmentDialogComponent, {
-      width: '400px',
+      width: '800px',
+      maxWidth: '90vw',
+      disableClose: false,
+      panelClass: 'modern-dialog-panel',
       data: {
         name: department.name,
         organization: department.organization.id,

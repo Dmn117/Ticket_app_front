@@ -1,13 +1,13 @@
-// Organizations Module Theme - Deep Orange Color Scheme
+// Organizations Module Theme - Purple Color Scheme
 @import '../../../assets/styles/global-table.scss';
 
 :root {
   // Override module colors for organizations
-  --module-primary: #ff5722;
-  --module-primary-dark: #d84315;
-  --module-primary-light: rgba(255, 87, 34, 0.1);
-  --module-primary-border: rgba(255, 87, 34, 0.2);
-  --module-primary-shadow: rgba(255, 87, 34, 0.3);
+  --module-primary: #9c27b0;
+  --module-primary-dark: #7b1fa2;
+  --module-primary-light: rgba(156, 39, 176, 0.1);
+  --module-primary-border: rgba(156, 39, 176, 0.2);
+  --module-primary-shadow: rgba(156, 39, 176, 0.3);
 }
 
 .organizations-container {
@@ -23,9 +23,9 @@
   @extend .status-badge;
   
   &.active {
-    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(139, 195, 74, 0.6));
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.8), rgba(233, 30, 99, 0.6));
     color: #fff;
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
   }
   
   &.inactive {

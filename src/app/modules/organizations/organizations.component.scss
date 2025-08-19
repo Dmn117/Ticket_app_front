@@ -65,8 +65,8 @@
       font-size: 48px;
       width: 48px;
       height: 48px;
-      color: #4caf50;
-      background: rgba(76, 175, 80, 0.1);
+      color: #9c27b0;
+      background: rgba(156, 39, 176, 0.1);
       border-radius: 12px;
       @include flex-center();
       justify-content: center;
@@ -94,7 +94,7 @@
   
   .header-actions {
     .primary-button {
-      @include button-gradient(#4caf50, #45a049);
+      @include button-gradient(#9c27b0, #7b1fa2);
       padding: 12px 24px;
       font-size: 1rem;
       
@@ -175,10 +175,10 @@
   
   &.activate-button {
     color: var(--white-text);
-    background: rgba(76, 175, 80, 0.3);
+    background: rgba(156, 39, 176, 0.3);
     
     &:hover {
-      background: #4caf50;
+      background: #9c27b0;
       color: white;
       transform: scale(1.1);
     }

@@ -1,0 +1,211 @@
+// Modern Alert Dialog Styles
+.modern-alert-container {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+
+  .alert-backdrop {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    border-radius: 20px;
+    padding: 2px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  .alert-content {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  // Header with gradient
+  .alert-header {
+    background: linear-gradient(135deg, #ff9a9e, #fecfef);
+    color: #8b2635;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.15"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.15"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.4;
+    }
+
+    .header-icon {
+      background: rgba(139, 38, 53, 0.15);
+      border-radius: 50%;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        color: #8b2635;
+      }
+    }
+
+    .header-content {
+      flex: 1;
+      z-index: 1;
+
+      .alert-title {
+        margin: 0 0 4px 0;
+        font-size: 20px;
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .alert-subtitle {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.8;
+        font-weight: 400;
+      }
+    }
+  }
+
+  // Body content
+  .alert-body {
+    padding: 32px 24px;
+
+    .message-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(255, 154, 158, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid #ff9a9e;
+
+      .message-icon {
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+        color: #ff9a9e;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      .message-text {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.6;
+        color: #2c3e50;
+        font-weight: 500;
+        flex: 1;
+      }
+    }
+  }
+
+  // Action buttons
+  .alert-actions {
+    padding: 0 24px 24px 24px;
+    display: flex;
+    justify-content: center;
+
+    .close-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 32px;
+      background: linear-gradient(135deg, #ff9a9e, #fecfef);
+      color: #8b2635;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 154, 158, 0.4);
+        background: linear-gradient(135deg, #ff8a8e, #fedcec);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}
+
+// Animation for dialog entrance
+.modern-alert-container {
+  animation: alertSlideIn 0.3s ease-out;
+}
+
+@keyframes alertSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .modern-alert-container {
+    max-width: 95vw;
+
+    .alert-header {
+      padding: 20px;
+
+      .alert-title {
+        font-size: 18px;
+      }
+
+      .alert-subtitle {
+        font-size: 12px;
+      }
+    }
+
+    .alert-body {
+      padding: 24px 20px;
+
+      .message-content {
+        padding: 16px;
+
+        .message-icon {
+          font-size: 24px;
+          width: 24px;
+          height: 24px;
+        }
+
+        .message-text {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .alert-actions {
+      padding: 0 20px 20px 20px;
+
+      .close-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}

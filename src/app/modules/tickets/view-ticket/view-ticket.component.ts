@@ -109,6 +109,7 @@ export class ViewTicketComponent
     private _ticketService: TicketService,
     private _messageService: MessageService,
     private _activatedrouter: ActivatedRoute,
+    private _router: Router,
     private _socketWebService: SocketWebService,
   ) { }
 
@@ -703,6 +704,33 @@ export class ViewTicketComponent
     } as unknown as Event;
 
     this.onFileSelected(fakeEvent);
+  }
+
+  goBack(): void {
+    // Intentar regresar a la página anterior usando el historial del navegador
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      // Si no hay historial, redirigir a la página de tickets
+      this._router.navigate(['/tickets']);
+    }
+  }
+
+  getStatusIcon(status: string): string {
+    switch (status) {
+      case TicketStatus.OPEN:
+        return 'schedule';
+      case TicketStatus.ASSIGNED:
+        return 'assignment_ind';
+      case TicketStatus.IN_PROCESS:
+        return 'hourglass_empty';
+      case TicketStatus.CLOSED:
+        return 'check_circle';
+      case TicketStatus.CANCELED:
+        return 'cancel';
+      default:
+        return 'help';
+    }
   }
 
 

@@ -1,42 +1,64 @@
-<h2 mat-dialog-title>Agregar Nuevo Departamento</h2>
-<mat-dialog-content>
-  <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-      <mat-label>Nombre</mat-label>
-      <input matInput formControlName="name" required>
-      <mat-error *ngIf="departmentForm.get('name')?.hasError('required')">
-        El nombre es requerido.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Organización</mat-label>
-      <mat-select formControlName="organization" required>
-        <mat-option *ngFor="let org of data.organizations" [value]="org._id">
-          {{ org.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="departmentForm.get('organization')?.hasError('required')">
-        La organización es requerida.
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Encargado</mat-label>
-      <mat-select formControlName="owner" required>
-        <mat-option *ngFor="let owner of data.owners" [value]="owner._id">
-          {{ owner.firstName }} {{ owner.lastName }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="departmentForm.get('owner')?.hasError('required')">
-        El encargado es requerido.
-      </mat-error>
-    </mat-form-field>
-
-    <div mat-dialog-actions>
-      <button mat-button  mat-dialog-close (click)="onCancel()">Cancelar</button>
-      <button mat-raised-button color="primary" type="submit"
-              [disabled]="!isFormComplete()">Crear</button>
+<div class="modern-create-department-container">
+  <div class="form-header">
+    <div class="header-icon">
+      <mat-icon>business</mat-icon>
     </div>
-  </form>
-</mat-dialog-content>
+    <div class="header-text">
+      <h1 class="dialog-title">Crear Departamento</h1>
+      <p class="dialog-subtitle">Formulario para crear nuevos departamentos</p>
+    </div>
+  </div>
+
+  <div class="dialog-body">
+    <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Nombre del Departamento</mat-label>
+          <input matInput formControlName="name" placeholder="Ej. Tecnología e Informática" required>
+          <mat-error *ngIf="departmentForm.get('name')?.hasError('required')">
+            El nombre es requerido.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Organización</mat-label>
+          <mat-select formControlName="organization" required>
+            <mat-option *ngFor="let org of data.organizations" [value]="org._id">
+              {{ org.name }}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Selecciona una organización</mat-hint>
+          <mat-error *ngIf="departmentForm.get('organization')?.hasError('required')">
+            La organización es requerida.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Encargado</mat-label>
+          <mat-select formControlName="owner" required>
+            <mat-option *ngFor="let owner of data.owners" [value]="owner._id">
+              {{ owner.firstName }} {{ owner.lastName }}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Selecciona un encargado</mat-hint>
+          <mat-error *ngIf="departmentForm.get('owner')?.hasError('required')">
+            El encargado es requerido.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+  <div class="dialog-actions">
+    <button type="button" class="cancel-btn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+      Cancelar
+    </button>
+    <button type="button" class="save-btn" (click)="onSubmit()" [disabled]="!isFormComplete()">
+      <mat-icon>add_business</mat-icon>
+      Crear Departamento
+    </button>
+  </div>
+</div>

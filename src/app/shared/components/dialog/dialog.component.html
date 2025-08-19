@@ -1,7 +1,35 @@
-<h2 mat-dialog-title>¡Importante!</h2>
-<mat-dialog-content>
-  <p>{{ data.message }}</p>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="onClose()">Cerrar</button>
-</mat-dialog-actions>
+<div class="modern-alert-container">
+  <div class="alert-backdrop">
+    <div class="alert-content">
+      <!-- Header with gradient -->
+      <div class="alert-header">
+        <div class="header-icon">
+          <mat-icon>info</mat-icon>
+        </div>
+        <div class="header-content">
+          <h2 class="alert-title">¡Importante!</h2>
+          <p class="alert-subtitle">Información del sistema</p>
+        </div>
+      </div>
+
+      <!-- Body content -->
+      <div class="alert-body">
+        <div class="message-content">
+          <mat-icon class="message-icon">announcement</mat-icon>
+          <p class="message-text">{{ data.message }}</p>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="alert-actions">
+        <button 
+          type="button"
+          class="close-btn"
+          (click)="onClose()">
+          <mat-icon>check</mat-icon>
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

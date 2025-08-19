@@ -376,8 +376,16 @@
       }
       
       .mat-mdc-select-value {
-        color: var(--white-text);
+        color: var(--white-text) !important;
         font-size: 0.9rem;
+      }
+      
+      .mat-mdc-select-value-text {
+        color: white !important;
+      }
+      
+      .mat-mdc-select-trigger {
+        color: white !important;
       }
       
       .mat-mdc-select-arrow {
@@ -449,7 +457,7 @@
     
     &.mat-selected {
       background: var(--module-primary);
-      color: white;
+      color: white !important;
     }
   }
 }
@@ -515,5 +523,23 @@ mat-toolbar {
       margin-right: 0 !important;
       margin-bottom: 15px;
     }
+  }
+}
+
+// Additional paginator select value styling
+::ng-deep mat-paginator {
+  .mat-mdc-select-value,
+  .mat-mdc-select-value-text,
+  .mat-select-value,
+  .mat-select-value-text {
+    color: white !important;
+  }
+  
+  .mat-mdc-form-field-infix {
+    color: white !important;
+  }
+  
+  .mat-mdc-select-trigger span {
+    color: white !important;
   }
 }

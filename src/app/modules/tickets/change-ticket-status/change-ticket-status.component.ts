@@ -45,6 +45,30 @@ export class ChangeTicketStatusComponent {
     return translation ? translation[0] : status;
   }
 
+  getStatusIcon(status: string): string {
+    const statusMap: { [key: string]: string } = {
+      'Abierto': 'radio_button_unchecked',
+      'En Progreso': 'autorenew',
+      'Pendiente': 'schedule',
+      'Resuelto': 'check_circle',
+      'Cerrado': 'lock',
+      'Cancelado / Anulado': 'cancel'
+    };
+    return statusMap[status] || 'help';
+  }
+
+  getStatusClass(status: string): string {
+    const classMap: { [key: string]: string } = {
+      'Abierto': 'status-open',
+      'En Progreso': 'status-progress',
+      'Pendiente': 'status-pending',
+      'Resuelto': 'status-resolved',
+      'Cerrado': 'status-closed',
+      'Cancelado / Anulado': 'status-cancelled'
+    };
+    return classMap[status] || '';
+  }
+
 
   changeStatus = async (): Promise<void> => {
     if(this.ticketForm.valid ){

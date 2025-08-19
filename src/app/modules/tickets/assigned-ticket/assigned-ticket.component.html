@@ -1,31 +1,52 @@
-<div class="container">
-    <mat-card class="assigned-ticket">
-      <mat-card-header>
-        <mat-card-title>
-          <h2 mat-dialog-title>Asignar ticket a un Agente</h2>
-        </mat-card-title>
-      </mat-card-header>
+<div class="modern-dialog-container">
+  <div class="dialog-backdrop">
+    <div class="dialog-content">
+      <!-- Header with gradient and icon -->
+      <div class="dialog-header">
+        <div class="header-icon">
+          <mat-icon>person_add</mat-icon>
+        </div>
+        <div class="header-content">
+          <h2 class="dialog-title">Asignar Agente</h2>
+          <p class="dialog-subtitle">Selecciona un agente para asignar este ticket</p>
+        </div>
+      </div>
 
-      <mat-card-content>
-        <form autocomplete="off" [formGroup]="ticketForm" (ngSubmit)="assignedTo()">
-
-          <mat-form-field appearance="fill">
-            <mat-label>Agente</mat-label>
-            <mat-select formControlName="assignedTo" required="true">
+      <!-- Form content -->
+      <div class="dialog-body">
+        <form class="modern-form" autocomplete="off" [formGroup]="ticketForm" (ngSubmit)="assignedTo()">
+          <div class="form-group">
+            <label class="form-label">
+              <mat-icon>support_agent</mat-icon>
+              Seleccionar Agente
+            </label>
+            <mat-form-field class="modern-select" appearance="outline">
+              <mat-icon matPrefix>person</mat-icon>
+              <mat-label>Elige un agente...</mat-label>
+              <mat-select formControlName="assignedTo" required="true">
                 <mat-option *ngFor="let user of users" [value]="user._id">
-                    {{user.firstName.toUpperCase()}}
-                    {{user.lastName.toUpperCase()}}
+                  {{user.firstName}} {{user.lastName}}
                 </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-          <br>
-
-          <button class="action-button" color="accent" type="submit" [disabled]="isSubmitting">
-            <h3>Asignar Agente</h3>
-          </button>
-
+              </mat-select>
+            </mat-form-field>
+          </div>
         </form>
-      </mat-card-content>
-    </mat-card>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="dialog-actions">
+        <button class="btn-secondary" mat-dialog-close type="button">
+          <mat-icon>close</mat-icon>
+          <span>Cancelar</span>
+        </button>
+        <button class="btn-primary" type="submit" [disabled]="isSubmitting || ticketForm.invalid" (click)="assignedTo()">
+          <mat-icon>assignment_ind</mat-icon>
+          <span>{{isSubmitting ? 'Asignando...' : 'Asignar Agente'}}</span>
+          <div class="loading-spinner" *ngIf="isSubmitting">
+            <mat-icon class="spin">refresh</mat-icon>
+          </div>
+        </button>
+      </div>
+    </div>
   </div>
+</div>

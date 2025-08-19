@@ -212,3 +212,19 @@
      color: white !important;
    }
  }
+
+// Modern dialog panel for glassmorphism dialogs
+.modern-dialog-panel {
+  .mat-mdc-dialog-container {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+  }
+
+  .mdc-dialog__surface {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 20px !important;
+  }
+}

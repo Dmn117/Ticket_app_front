@@ -1,22 +1,56 @@
-<h2 mat-dialog-title>Crear Nueva Organización</h2>
-<mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Nombre de la organización</mat-label>
-    <input matInput [(ngModel)]="organizationName" required />
-    <mat-error *ngIf="!organizationName">El nombre es obligatorio</mat-error>
-  </mat-form-field>
+<div class="modern-create-organization-container">
+  <div class="form-header">
+    <div class="header-icon">
+      <mat-icon>business</mat-icon>
+    </div>
+    <div class="header-text">
+      <h1 class="dialog-title">Crear Organización</h1>
+      <p class="dialog-subtitle">Formulario para crear nuevas organizaciones</p>
+    </div>
+  </div>
 
-  <mat-form-field>
-    <mat-label>Director</mat-label>
-    <mat-select [(ngModel)]="directorID">
-      <mat-option *ngFor="let director of directors" [value]="director._id">
-        {{ director.firstName }} {{ director.lastName }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-flat-button  (click)="onClose()">Cancelar</button>
-  <button mat-button mat-raised-button color="warn" [mat-dialog-close]="save()"
-          [disabled]="!isFormComplete()">Guardar</button>
-</mat-dialog-actions>
+  <div class="dialog-body">
+    <form class="organization-form">
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Nombre de la Organización</mat-label>
+          <input matInput
+                 [(ngModel)]="organizationName" 
+                 name="organizationName"
+                 placeholder="Ej. Empresa ABC S.A.S"
+                 required>
+          <mat-error *ngIf="!organizationName">
+            El nombre es obligatorio
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Director</mat-label>
+          <mat-select [(ngModel)]="directorID" name="directorID">
+            <mat-option value="" disabled>Seleccionar director</mat-option>
+            <mat-option *ngFor="let director of directors" [value]="director._id">
+              {{ director.firstName }} {{ director.lastName }}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Selecciona un director para la organización</mat-hint>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+  <div class="dialog-actions">
+    <button type="button" class="cancel-btn" (click)="onClose()">
+      <mat-icon>close</mat-icon>
+      Cancelar
+    </button>
+    <button type="button" 
+            class="save-btn" 
+            [mat-dialog-close]="save()"
+            [disabled]="!isFormComplete()">
+      <mat-icon>add_business</mat-icon>
+      Crear Organización
+    </button>
+  </div>
+</div>

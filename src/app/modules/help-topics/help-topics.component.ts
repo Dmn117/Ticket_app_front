@@ -85,7 +85,10 @@ export class HelpTopicsComponent implements OnInit, AfterViewInit {
 
   addHelpTopic(): void {
     const dialogRef = this.dialog.open(CreateTopicDialogComponent, {
-      width: '400px'
+      width: '900px',
+      maxWidth: '90vw',
+      disableClose: false,
+      panelClass: 'modern-dialog-panel'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -135,7 +138,10 @@ export class HelpTopicsComponent implements OnInit, AfterViewInit {
 
   editHelpTopic(helpTopic: any): void {
     const dialogRef = this.dialog.open(EditTopicDialogComponent, {
-      width: '400px',
+      width: '900px',
+      maxWidth: '90vw',
+      disableClose: false,
+      panelClass: 'modern-dialog-panel',
       data: { name: helpTopic.name, tags: helpTopic.tags, department: helpTopic.department, expIn: helpTopic.expIn, },
     });
 

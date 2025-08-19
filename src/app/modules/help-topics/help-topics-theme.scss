@@ -84,3 +84,26 @@
     box-shadow: 0 4px 12px rgba(96, 125, 139, 0.3);
   }
 }
+
+// Override primary button to match incidents style
+.header-actions {
+  .primary-button {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    padding: 12px 24px !important;
+    font-size: 1rem !important;
+    
+    &:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4) !important;
+    }
+    
+    mat-icon {
+      margin-right: 8px !important;
+    }
+  }
+}

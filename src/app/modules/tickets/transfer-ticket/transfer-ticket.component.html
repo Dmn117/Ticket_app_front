@@ -1,55 +1,106 @@
-<div class="container">
-    <mat-card class="assigned-ticket">
-        <mat-card-header>
-            <mat-card-title>
-                <h2 mat-dialog-title>Transferir Ticket</h2>
-            </mat-card-title>
-        </mat-card-header>
+<div class="modern-dialog-container">
+  <div class="dialog-backdrop">
+    <div class="dialog-content">
+      <!-- Header with gradient and icon -->
+      <div class="dialog-header">
+        <div class="header-icon">
+          <mat-icon>swap_horiz</mat-icon>
+        </div>
+        <div class="header-content">
+          <h2 class="dialog-title">Transferir Ticket</h2>
+          <p class="dialog-subtitle">Reasigna este ticket a otro departamento</p>
+        </div>
+      </div>
 
-        <mat-card-content>
-            <form autocomplete="off" [formGroup]="ticketForm" (ngSubmit)="transferTicket()">
+      <!-- Form content -->
+      <div class="dialog-body">
+        <form class="modern-form" autocomplete="off" [formGroup]="ticketForm" (ngSubmit)="transferTicket()">
+          
+          <!-- Organization selection -->
+          <div class="form-group">
+            <label class="form-label">
+              <mat-icon>business</mat-icon>
+              Organización
+            </label>
+            <mat-form-field class="modern-select" appearance="outline">
+              <mat-select formControlName="organization" (selectionChange)="onOrganizationSelected()" required="true" placeholder="Selecciona una organización...">
+                <mat-option *ngFor="let organization of organizations" [value]="organization._id" class="transfer-option">
+                  <div class="option-content">
+                    <div class="option-icon org-icon">
+                      <mat-icon>business</mat-icon>
+                    </div>
+                    <span class="option-text">{{organization.name}}</span>
+                  </div>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Organizaci&oacute;n</mat-label>
-                    <mat-select formControlName="organization" (selectionChange)="onOrganizationSelected()" required="true">
-                        <mat-option *ngFor="let organization of organizations" [value]="organization._id">
-                            {{organization.name.toUpperCase()}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+          <!-- Department selection -->
+          <div class="form-group">
+            <label class="form-label">
+              <mat-icon>apartment</mat-icon>
+              Departamento
+            </label>
+            <mat-form-field class="modern-select" appearance="outline">
+              <mat-select formControlName="department" (selectionChange)="onDepartmentSelected()" required="true" placeholder="Selecciona un departamento...">
+                <mat-option *ngFor="let department of filteredDepartments" [value]="department._id" class="transfer-option">
+                  <div class="option-content">
+                    <div class="option-icon dept-icon">
+                      <mat-icon>apartment</mat-icon>
+                    </div>
+                    <span class="option-text">{{department.name}}</span>
+                  </div>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Departamento</mat-label>
-                    <mat-select formControlName="department" (selectionChange)="onDepartmentSelected()" required="true">
-                        <mat-option *ngFor="let department of filteredDepartments" [value]="department._id">
-                            {{department.name.toUpperCase()}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+          <!-- Help topic selection -->
+          <div class="form-group">
+            <label class="form-label">
+              <mat-icon>help</mat-icon>
+              Tema de Ayuda
+            </label>
+            <mat-form-field class="modern-input" appearance="outline">
+              <input
+                type="text"
+                matInput
+                [matAutocomplete]="autoTopic"
+                formControlName="helpTopic"
+                (input)="filterHelpTopics($event)" 
+                placeholder="Busca un tema de ayuda..."
+                required="true"/>
+              <mat-icon matPrefix>search</mat-icon>
+              <mat-autocomplete #autoTopic="matAutocomplete" [displayWith]="displayHelpTopicUpperCase" class="modern-autocomplete">
+                <mat-option *ngFor="let helpTopic of filteredHelpTopics" [value]="helpTopic._id" class="help-topic-option">
+                  <div class="option-content">
+                    <div class="option-icon help-icon">
+                      <mat-icon>help_outline</mat-icon>
+                    </div>
+                    <span class="option-text">{{helpTopic.name}}</span>
+                  </div>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Tema de ayuda</mat-label>
-                    <input
-                        type="text"
-                        matInput
-                        [matAutocomplete]="autoTopic"
-                        formControlName="helpTopic"
-                        (input)="filterHelpTopics($event)" 
-                        required="true"/>
-                    <mat-autocomplete #autoTopic="matAutocomplete" [displayWith]="displayHelpTopicUpperCase">
-                        <mat-option *ngFor="let helpTopic of filteredHelpTopics" [value]="helpTopic._id">
-                            {{helpTopic.name.toUpperCase()}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-
-                <br>
-
-                <button class="action-button" color="accent" type="submit" [disabled]="isSubmitting">
-                    <h3>Transferir</h3>
-                </button>
-
-            </form>
-        </mat-card-content>
-    </mat-card>
+      <!-- Action buttons -->
+      <div class="dialog-actions">
+        <button class="btn-secondary" mat-dialog-close type="button">
+          <mat-icon>close</mat-icon>
+          <span>Cancelar</span>
+        </button>
+        <button class="btn-primary transfer-btn" type="submit" [disabled]="isSubmitting || ticketForm.invalid" (click)="transferTicket()">
+          <mat-icon>swap_horiz</mat-icon>
+          <span>{{isSubmitting ? 'Transfiriendo...' : 'Transferir Ticket'}}</span>
+          <div class="loading-spinner" *ngIf="isSubmitting">
+            <mat-icon class="spin">refresh</mat-icon>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

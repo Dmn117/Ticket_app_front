@@ -158,7 +158,10 @@ export class UsersComponent implements OnInit, AfterViewInit{
 
   editUser(data: any): void {
     const dialogRef = this.dialog.open(EditUserComponent,{
-      width: '600px',
+      width: '900px',
+      maxWidth: '90vw',
+      disableClose: false,
+      panelClass: 'modern-dialog-panel',
       data: data
       })
 

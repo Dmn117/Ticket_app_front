@@ -98,7 +98,10 @@ export class OrganizationsComponent implements OnInit , AfterViewInit{
 
   editOrganization(data: any): void {
     const dialogRef = this.dialog.open(EditOrganizationDialogComponent, {
-      width: '400px',
+      width: '800px',
+      maxWidth: '90vw',
+      disableClose: false,
+      panelClass: 'modern-dialog-panel',
       data: {
         id: data._id,
         name: data.name,
@@ -142,7 +145,10 @@ export class OrganizationsComponent implements OnInit , AfterViewInit{
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateOrganizationDialogComponent, {
-      width: '400px'
+      width: '800px',
+      maxWidth: '90vw',
+      disableClose: false,
+      panelClass: 'modern-dialog-panel'
     });
 
     dialogRef.afterClosed().subscribe(async result => {

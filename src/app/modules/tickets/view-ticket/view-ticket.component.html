@@ -1,182 +1,300 @@
 <div class="ticket-container" *ngIf="ticket">
+  <div class="glass-background"></div>
+  
   <header class="ticket-section">
-    <div class="ticket-details-container">
-      <div class="ticket-title">
-        <div class="title">
-          <h1>
-            Ticket # {{ticket.number}}: {{ticket.title}}
-          </h1>
-          <button class="button-share" (click)="sharePage()"
-            matTooltip="Compartir detalles del ticket {{ticket.number}}">
-            <mat-icon>share</mat-icon>
-          </button>
-        </div>
+    <!-- Back button and navigation -->
+    <div class="navigation-header">
+      <button class="back-button" (click)="goBack()" matTooltip="Regresar">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Regresar</span>
+      </button>
+    </div>
 
-        <button class="action-button" (click)="openRateTicket(ticket)" *ngIf="openRate">
-          <mat-icon>star_half</mat-icon>
-          <h4>Evaluar Ticket</h4>
-        </button>
-      </div>
-
-      <div class="ticket-details">
-        <div class="ticket-details-section">
-          <div class="ticket-details-item">
-            <h3 class="item item-key">Estatus: </h3>
-            <h3 class="item item-value" [ngClass]="ticket.status">{{getStatusEn(ticket.status)}}</h3>
+    <!-- Enhanced ticket header card -->
+    <div class="ticket-header-card">
+      <div class="ticket-title-section">
+        <div class="ticket-title-content">
+          <div class="ticket-number-badge">
+            <mat-icon>confirmation_number</mat-icon>
+            <span>#{{ticket.number}}</span>
           </div>
-
-          <div class="ticket-details-item">
-            <h3 class="item item-key">Autor: </h3>
-            <h3 class="item item-value">{{ticket.owner.firstName}} {{ticket.owner.lastName}}</h3>
-          </div>
-
-          <div class="ticket-details-item" *ngIf="ticket.assignedTo">
-            <h3 class="item item-key">Agente: </h3>
-            <h3 class="item item-value">{{ticket.assignedTo.firstName}} {{ticket.assignedTo.lastName}}</h3>
-          </div>
-
-          <div class="ticket-details-item" *ngIf="notUser">
-            <h3 class="item item-key">Estado: </h3>
-            <h3 class="item item-value" [ngClass]="getExpirationStatusClass(ticket, seconds2String(counter))">
-              {{ getExpirationStatus(ticket, seconds2String(counter)) }}
-            </h3>
+          <h1 class="ticket-title-text">{{ticket.title}}</h1>
+          <div class="ticket-actions-header">
+            <button class="button-share modern-button" (click)="sharePage()"
+              matTooltip="Compartir detalles del ticket {{ticket.number}}">
+              <mat-icon>share</mat-icon>
+            </button>
+            <button class="rate-button modern-button" (click)="openRateTicket(ticket)" *ngIf="openRate">
+              <mat-icon>star_half</mat-icon>
+              <span>Evaluar</span>
+            </button>
           </div>
         </div>
-
-        <div class="ticket-details-section">
-          <div class="ticket-details-item">
-            <h3 class="item item-key">Departamento: </h3>
-            <h3 class="item item-value">{{ticket.department.name}}</h3>
-          </div>
-
-          <div class="ticket-details-item">
-            <h3 class="item item-key">Tema de ayuda:</h3>
-            <h3 class="item item-value">{{ticket.helpTopic.name}}</h3>
-          </div>
-
-          <div class="ticket-details-item" *ngIf="ticket.rating">
-            <h3 class="item item-key">Rating: </h3>
-            <h3 class="item item-value" [ngClass]="getRatingClass(ticket.rating)">
-              {{formatDecimal(ticket.rating)}}</h3>
-          </div>
-
-          <div class="ticket-details-item" *ngIf="notUser">
-            <h3 class="item item-key">Tiempo de Expiración: </h3>
-            <h3 class="item item-value">{{minutes2String(ticket.helpTopic.expIn)}}</h3>
-          </div>
-        </div>
-
-        <div class="ticket-details-section">
-          <div class="ticket-details-item" *ngIf="ticket.createdAt">
-            <h3 class="item item-key">Fecha de Creaci&oacute;n:</h3>
-            <h3 class="item item-value">{{formatLocalDateL(ticket.createdAt, dateTypeL.long)}}</h3>
-          </div>
-
-          <div class="ticket-details-item" *ngIf="ticket.assignedAt">
-            <h3 class="item item-key">Fecha de asignaci&oacute;n: </h3>
-            <h3 class="item item-value">{{formatLocalDateL(ticket.assignedAt, dateTypeL.long)}}</h3>
-          </div>
-
-          <div class="ticket-details-item" *ngIf="ticket.completedAt">
-            <h3 class="item item-key">Fecha de Cierre:</h3>
-            <h3 class="item item-value">{{formatLocalDateL(ticket.completedAt, dateTypeL.long)}}</h3>
-          </div>
-
-          <div class="ticket-details-item" *ngIf="notUser">
-            <h3 class="item item-key">Expira en: </h3>
-            <h3 class="item item-value">{{seconds2String(counter) || '00:00'}}</h3>
-          </div>
+        
+        <!-- Status indicator -->
+        <div class="status-indicator" [ngClass]="'status-' + ticket.status">
+          <mat-icon>{{getStatusIcon(ticket.status)}}</mat-icon>
+          <span>{{getStatusEn(ticket.status)}}</span>
         </div>
       </div>
+    </div>
 
-      <div class="ticket-details-item">
-        <h3 class="item item-key item-key-desc">Descripci&oacute;n: </h3>
-        <h3 class="item item-value item-value-desc">{{ticket.description}}</h3>
+    <!-- Enhanced ticket details cards -->
+    <div class="ticket-details-grid">
+      <!-- Primary Information Card -->
+      <div class="details-card primary-info">
+        <div class="card-header">
+          <mat-icon>info</mat-icon>
+          <h3>Información Principal</h3>
+        </div>
+        <div class="card-content">
+          <div class="detail-item">
+            <div class="detail-icon">
+              <mat-icon>person</mat-icon>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Autor</span>
+              <span class="detail-value">{{ticket.owner.firstName}} {{ticket.owner.lastName}}</span>
+            </div>
+          </div>
+
+          <div class="detail-item" *ngIf="ticket.assignedTo">
+            <div class="detail-icon">
+              <mat-icon>support_agent</mat-icon>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Agente Asignado</span>
+              <span class="detail-value">{{ticket.assignedTo.firstName}} {{ticket.assignedTo.lastName}}</span>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <mat-icon>business</mat-icon>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Departamento</span>
+              <span class="detail-value">{{ticket.department.name}}</span>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <mat-icon>help</mat-icon>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Tema de Ayuda</span>
+              <span class="detail-value">{{ticket.helpTopic.name}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status and Timeline Card -->
+      <div class="details-card status-info">
+        <div class="card-header">
+          <mat-icon>schedule</mat-icon>
+          <h3>Estado y Tiempo</h3>
+        </div>
+        <div class="card-content">
+          <div class="detail-item" *ngIf="notUser">
+            <div class="detail-icon">
+              <mat-icon>hourglass_empty</mat-icon>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Estado</span>
+              <span class="detail-value status-badge" [ngClass]="getExpirationStatusClass(ticket, seconds2String(counter))">
+                {{ getExpirationStatus(ticket, seconds2String(counter)) }}
+              </span>
+            </div>
+          </div>
+
+          <div class="detail-item" *ngIf="ticket.rating">
+            <div class="detail-icon">
+              <mat-icon>star</mat-icon>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Calificación</span>
+              <span class="detail-value rating-badge" [ngClass]="getRatingClass(ticket.rating)">
+                {{formatDecimal(ticket.rating)}} ⭐
+              </span>
+            </div>
+          </div>
+
+          <div class="detail-item" *ngIf="notUser">
+            <div class="detail-icon">
+              <mat-icon>timer</mat-icon>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Tiempo de Expiración</span>
+              <span class="detail-value">{{minutes2String(ticket.helpTopic.expIn)}}</span>
+            </div>
+          </div>
+
+          <div class="detail-item" *ngIf="notUser">
+            <div class="detail-icon">
+              <mat-icon>timer_off</mat-icon>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Expira en</span>
+              <span class="detail-value countdown-timer">{{seconds2String(counter) || '00:00'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline Card -->
+      <div class="details-card timeline-info">
+        <div class="card-header">
+          <mat-icon>event</mat-icon>
+          <h3>Cronología</h3>
+        </div>
+        <div class="card-content timeline-content">
+          <div class="timeline-item" *ngIf="ticket.createdAt">
+            <div class="timeline-icon created">
+              <mat-icon>add_circle</mat-icon>
+            </div>
+            <div class="timeline-content-item">
+              <span class="timeline-label">Creado</span>
+              <span class="timeline-date">{{formatLocalDateL(ticket.createdAt, dateTypeL.long)}}</span>
+            </div>
+          </div>
+
+          <div class="timeline-item" *ngIf="ticket.assignedAt">
+            <div class="timeline-icon assigned">
+              <mat-icon>assignment_ind</mat-icon>
+            </div>
+            <div class="timeline-content-item">
+              <span class="timeline-label">Asignado</span>
+              <span class="timeline-date">{{formatLocalDateL(ticket.assignedAt, dateTypeL.long)}}</span>
+            </div>
+          </div>
+
+          <div class="timeline-item" *ngIf="ticket.completedAt">
+            <div class="timeline-icon completed">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+            <div class="timeline-content-item">
+              <span class="timeline-label">Completado</span>
+              <span class="timeline-date">{{formatLocalDateL(ticket.completedAt, dateTypeL.long)}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced description section -->
+    <div class="description-card">
+      <div class="card-header">
+        <mat-icon>description</mat-icon>
+        <h3>Descripción del Ticket</h3>
+      </div>
+      <div class="description-content">
+        <p>{{ticket.description}}</p>
       </div>
     </div>
   </header>
 
   <main class="ticket-section">
-    <div #chatContainer class="chat-container"
+    <!-- Enhanced chat container -->
+    <div class="chat-section" 
       *ngIf="!(messages.length === 0 && (ticket.status === status.CLOSED || ticket.status === status.CANCELED))">
-      <div class="message-container" [ngClass]="message.attachment && 'max-width-file'" [ngClass]="ticketOwner(message)"
-        *ngFor="let message of messages; trackBy: trackByMessageId">
+      <div class="chat-header">
+        <mat-icon>chat</mat-icon>
+        <h3>Conversación del Ticket</h3>
+        <div class="message-count-badge">{{messages.length}} mensajes</div>
+      </div>
+      
+      <div #chatContainer class="chat-container">
+        <div class="message-container modern-message" [ngClass]="message.attachment && 'max-width-file'" [ngClass]="ticketOwner(message)"
+          *ngFor="let message of messages; trackBy: trackByMessageId">
 
-        <div class="message-header">
-          <p class="message-author">{{message.owner.firstName}} {{message.owner.lastName}}</p>
+          <div class="message-header">
+            <div class="message-author-info">
+              <div class="author-avatar">
+                <mat-icon>person</mat-icon>
+              </div>
+              <div class="author-details">
+                <p class="message-author">{{message.owner.firstName}} {{message.owner.lastName}}</p>
+                <p class="message-time">{{formatLocalDateL(message.createdAt || '', dateTypeL.short)}}</p>
+              </div>
+            </div>
 
-          <button class="message-menu" [matMenuTriggerFor]="menu" aria-label="Message Menu"
-            *ngIf="(itsMyMessage(message) && message.visibility !== messageVisibilities.TO_NO_ONE) || isAdmin">
-            <mat-icon>{{getVisibilityIcon(message.visibility)}}</mat-icon>
-          </button>
-
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="changeVisibility(message._id, messageVisibilities.TO_ALL)">
-              <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_ALL)}}</mat-icon>
-              <span>Ver para todos</span>
+            <button class="message-menu modern-menu-button" [matMenuTriggerFor]="menu" aria-label="Message Menu"
+              *ngIf="(itsMyMessage(message) && message.visibility !== messageVisibilities.TO_NO_ONE) || isAdmin">
+              <mat-icon>{{getVisibilityIcon(message.visibility)}}</mat-icon>
             </button>
 
-            <button mat-menu-item *ngIf="userRol !== roles.USER"
-              (click)="changeVisibility(message._id, messageVisibilities.TO_AGENTS)">
-              <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_AGENTS)}}</mat-icon>
-              <span>Solo para uso interno</span>
-            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="changeVisibility(message._id, messageVisibilities.TO_ALL)">
+                <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_ALL)}}</mat-icon>
+                <span>Ver para todos</span>
+              </button>
 
-            <button mat-menu-item (click)="changeVisibility(message._id, messageVisibilities.ONLY_TO_ME)">
-              <mat-icon>{{getVisibilityIcon(messageVisibilities.ONLY_TO_ME)}}</mat-icon>
-              <span>Solo para mi</span>
-            </button>
+              <button mat-menu-item *ngIf="userRol !== roles.USER"
+                (click)="changeVisibility(message._id, messageVisibilities.TO_AGENTS)">
+                <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_AGENTS)}}</mat-icon>
+                <span>Solo para uso interno</span>
+              </button>
 
-            <button mat-menu-item *ngIf="message.visibility !== messageVisibilities.TO_NO_ONE || isAdmin"
-              (click)="changeVisibility(message._id, messageVisibilities.TO_NO_ONE)">
-              <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_NO_ONE)}}</mat-icon>
-              <span>Eliminar mensaje</span>
-            </button>
-          </mat-menu>
-        </div>
+              <button mat-menu-item (click)="changeVisibility(message._id, messageVisibilities.ONLY_TO_ME)">
+                <mat-icon>{{getVisibilityIcon(messageVisibilities.ONLY_TO_ME)}}</mat-icon>
+                <span>Solo para mi</span>
+              </button>
 
-        <img class="message-img" [src]="getMediaUrl(message)" *ngIf="
-                        message.attachmentType === messageAttachmentType.IMAGE &&
-                        message.visibility !== messageVisibilities.TO_NO_ONE
-                    " alt="Imagen del mensaje" (click)="openViewImage(getMediaUrl(message))">
-
-        <video class="message-video" [src]="getMediaUrl(message)" *ngIf="
-                        message.attachmentType === messageAttachmentType.VIDEO &&
-                        message.visibility !== messageVisibilities.TO_NO_ONE
-                    " controls></video>
-
-        <button class="message-other" [ngClass]="fileOwner(message)" type="button" (click)="downloadFile(message)"
-          *ngIf="
-                        (message.attachmentType === messageAttachmentType.OTHER ||
-                        message.attachmentType === messageAttachmentType.TEXT ||
-                        message.attachmentType === messageAttachmentType.PDF) &&
-                        message.visibility !== messageVisibilities.TO_NO_ONE
-                        ">
-          <div class="preview-other-item">
-            <h4 matTooltip="{{message.attachment.originalName}}">{{ formatFileName(message.attachment.originalName ||
-              'Unnamed', 20) }}</h4>
-            <mat-icon>download</mat-icon>
+              <button mat-menu-item *ngIf="message.visibility !== messageVisibilities.TO_NO_ONE || isAdmin"
+                (click)="changeVisibility(message._id, messageVisibilities.TO_NO_ONE)">
+                <mat-icon>{{getVisibilityIcon(messageVisibilities.TO_NO_ONE)}}</mat-icon>
+                <span>Eliminar mensaje</span>
+              </button>
+            </mat-menu>
           </div>
-        </button>
 
-        
-        <p class="message-text" *ngIf="message.visibility !== messageVisibilities.TO_NO_ONE">
-          <span [innerHTML]="getTruncatedText(message)"></span>
-          <span *ngIf="message.text.length > maxLength" (click)="toggleExpand(message)">
-            <span
-              [innerHTML]="isMessageExpanded(message) ? '<strong> \n\n Leer menos</strong>' : '<strong> Leer más</strong>'"></span>
-          </span>
-        </p>
+          <!-- Message content with enhanced styling -->
+          <div class="message-content">
+            <img class="message-img" [src]="getMediaUrl(message)" *ngIf="
+                            message.attachmentType === messageAttachmentType.IMAGE &&
+                            message.visibility !== messageVisibilities.TO_NO_ONE
+                        " alt="Imagen del mensaje" (click)="openViewImage(getMediaUrl(message))">
 
-        <p class="message-text" *ngIf="message.visibility === messageVisibilities.TO_NO_ONE">Mensaje Eliminado</p>
+            <video class="message-video" [src]="getMediaUrl(message)" *ngIf="
+                            message.attachmentType === messageAttachmentType.VIDEO &&
+                            message.visibility !== messageVisibilities.TO_NO_ONE
+                        " controls></video>
 
-        <div class="message-info">
-          <p>{{message.isEdited ? 'Editado' : ''}}</p>
-          <p>{{formatLocalDateL(message.createdAt || '', dateTypeL.short)}}</p>
+            <button class="message-other modern-file-button" [ngClass]="fileOwner(message)" type="button" (click)="downloadFile(message)"
+              *ngIf="
+                            (message.attachmentType === messageAttachmentType.OTHER ||
+                            message.attachmentType === messageAttachmentType.TEXT ||
+                            message.attachmentType === messageAttachmentType.PDF) &&
+                            message.visibility !== messageVisibilities.TO_NO_ONE
+                            ">
+              <div class="preview-other-item">
+                <mat-icon>download</mat-icon>
+                <h4 matTooltip="{{message.attachment.originalName}}">{{ formatFileName(message.attachment.originalName ||
+                  'Unnamed', 20) }}</h4>
+              </div>
+            </button>
+
+            
+            <p class="message-text" *ngIf="message.visibility !== messageVisibilities.TO_NO_ONE">
+              <span [innerHTML]="getTruncatedText(message)"></span>
+              <span *ngIf="message.text.length > maxLength" (click)="toggleExpand(message)" class="read-more-button">
+                <span
+                  [innerHTML]="isMessageExpanded(message) ? '<strong> \n\n Leer menos</strong>' : '<strong> Leer más</strong>'"></span>
+              </span>
+            </p>
+
+            <p class="message-text deleted-message" *ngIf="message.visibility === messageVisibilities.TO_NO_ONE">
+              <mat-icon>delete</mat-icon>
+              Mensaje Eliminado
+            </p>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- File viewer section -->
     <div class="file-viewer" *ngIf="getOpenInputFile()">
       <button class="delete-file" matTooltip="Eliminar Archivo" (click)="resetFileSelect(true)">
         <mat-icon>delete</mat-icon>
@@ -201,11 +319,11 @@
       </a>
     </div>
 
-    <form #sendMessageContainer class="send-message-container" action="" (ngSubmit)="sendMessage($event)"
+    <!-- Enhanced message form -->
+    <form #sendMessageContainer class="send-message-container modern-form" action="" (ngSubmit)="sendMessage($event)"
       [formGroup]="formMessage" autocomplete="off" *ngIf="unassignedOrAdmin">
 
       <div class="container-message" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (paste)="onPaste($event)">
-
         <textarea class="input-message" formControlName="message" rows="3" (keydown)="onKeyDown($event)"
           placeholder="Escribe un mensaje...">
         </textarea>
@@ -213,7 +331,6 @@
         <input type="file" class="input-message-file" #fileInput (change)="onFileSelectedInput($event)" accept="image/*"
           hidden>
       </div>
-
 
       <div class="button-container">
         <button class="button-send" type="button" matTooltip="Adjuntar Archivo" id="fileButton"
@@ -253,23 +370,45 @@
   </main>
 
   <footer class="ticket-section" *ngIf="visiblePanel">
-    <h2>Panel de acciones</h2>
-
-    <div class="button-container">
-      <button class="action-button" (click)="openAssignedAgent(ticket)">
-        <mat-icon>person_add</mat-icon>
-        <h4>Asignar Agente</h4>
+    <div class="actions-dropdown-container">
+      <h3 class="actions-title">Panel de Acciones</h3>
+      <button class="actions-dropdown-trigger" [matMenuTriggerFor]="actionsMenu" mat-raised-button>
+        <mat-icon class="actions-icon">settings</mat-icon>
+        <span class="actions-text">Gestionar Ticket</span>
+        <mat-icon class="dropdown-arrow">expand_more</mat-icon>
       </button>
 
-      <button class="action-button" (click)="openTransferTicket(ticket)">
-        <mat-icon>swap_horiz</mat-icon>
-        <h4>Transferir Ticket</h4>
-      </button>
+      <mat-menu #actionsMenu="matMenu" class="actions-dropdown-menu" xPosition="before" yPosition="above">
+        <button mat-menu-item (click)="openAssignedAgent(ticket)" class="menu-item-assign">
+          <div class="menu-item-content">
+            <mat-icon>person_add</mat-icon>
+            <div class="menu-item-text">
+              <span class="menu-item-title">Asignar Agente</span>
+              <span class="menu-item-subtitle">Asignar responsable del ticket</span>
+            </div>
+          </div>
+        </button>
 
-      <button class="action-button" (click)="openChangeStatus(ticket)" *ngIf="unassignedOrAdmin">
-        <mat-icon>update</mat-icon>
-        <h4>Cambiar Estatus</h4>
-      </button>
+        <button mat-menu-item (click)="openTransferTicket(ticket)" class="menu-item-transfer">
+          <div class="menu-item-content">
+            <mat-icon>swap_horiz</mat-icon>
+            <div class="menu-item-text">
+              <span class="menu-item-title">Transferir Ticket</span>
+              <span class="menu-item-subtitle">Mover a otro departamento</span>
+            </div>
+          </div>
+        </button>
+
+        <button mat-menu-item (click)="openChangeStatus(ticket)" *ngIf="unassignedOrAdmin" class="menu-item-status">
+          <div class="menu-item-content">
+            <mat-icon>update</mat-icon>
+            <div class="menu-item-text">
+              <span class="menu-item-title">Cambiar Estatus</span>
+              <span class="menu-item-subtitle">Actualizar estado del ticket</span>
+            </div>
+          </div>
+        </button>
+      </mat-menu>
     </div>
   </footer>
 </div>
