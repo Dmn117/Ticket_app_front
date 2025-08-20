@@ -1,64 +1,93 @@
-<div class="modern-edit-department-container">
-  <div class="form-header">
-    <div class="header-icon">
-      <mat-icon>edit</mat-icon>
-    </div>
-    <div class="header-text">
-      <h1 class="dialog-title">Editar Departamento</h1>
-      <p class="dialog-subtitle">Formulario para modificar información del departamento</p>
-    </div>
-  </div>
-
-  <div class="dialog-body">
-    <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Nombre del Departamento</mat-label>
-          <input matInput formControlName="name" placeholder="Ej. Tecnología e Informática" required>
-          <mat-error *ngIf="departmentForm.get('name')?.hasError('required')">
-            El nombre es requerido.
-          </mat-error>
-        </mat-form-field>
+<div class="modern-department-container">
+  <div class="department-backdrop">
+    <div class="department-content">
+      <!-- Header -->
+      <div class="department-header">
+        <div class="header-icon">
+          <mat-icon>apartment</mat-icon>
+        </div>
+        <div class="header-content">
+          <h1 class="department-title">Editar Departamento</h1>
+          <p class="department-subtitle">Modifica la información del departamento</p>
+        </div>
       </div>
 
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Organización</mat-label>
-          <mat-select formControlName="organization" required>
-            <mat-option *ngFor="let org of data.organizations" [value]="org._id">
-              {{ org.name }}
-            </mat-option>
-          </mat-select>
-          <mat-hint>Selecciona una organización</mat-hint>
-          <mat-error *ngIf="departmentForm.get('organization')?.hasError('required')">
-            La organización es requerida.
-          </mat-error>
-        </mat-form-field>
+      <!-- Body -->
+      <div class="department-body">
+        <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+          <div class="department-info">
+            <!-- Nombre del Departamento -->
+            <div class="info-row single-field">
+              <div class="form-field">
+                <div class="field-label">
+                  <mat-icon>label</mat-icon>
+                  <span>Nombre del Departamento</span>
+                </div>
+                <mat-form-field appearance="fill" class="modern-input">
+                  <mat-label>Nombre del Departamento</mat-label>
+                  <input matInput formControlName="name" placeholder="Ej. Tecnología e Informática" required>
+                  <mat-error *ngIf="departmentForm.get('name')?.hasError('required')">
+                    El nombre es requerido.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
 
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Encargado</mat-label>
-          <mat-select formControlName="owner" required>
-            <mat-option *ngFor="let owner of filteredOwners" [value]="owner._id">
-              {{ owner.firstName }} {{ owner.lastName }}
-            </mat-option>
-          </mat-select>
-          <mat-hint>Selecciona un encargado</mat-hint>
-          <mat-error *ngIf="departmentForm.get('owner')?.hasError('required')">
-            El encargado es requerido.
-          </mat-error>
-        </mat-form-field>
+            <!-- Organización y Encargado -->
+            <div class="info-row">
+              <div class="form-field">
+                <div class="field-label">
+                  <mat-icon>business</mat-icon>
+                  <span>Organización</span>
+                </div>
+                <mat-form-field appearance="fill" class="modern-input">
+                  <mat-label>Organización</mat-label>
+                  <mat-select formControlName="organization" required>
+                    <mat-option *ngFor="let org of data.organizations" [value]="org._id">
+                      {{ org.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-hint>Selecciona una organización</mat-hint>
+                  <mat-error *ngIf="departmentForm.get('organization')?.hasError('required')">
+                    La organización es requerida.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="form-field">
+                <div class="field-label">
+                  <mat-icon>person</mat-icon>
+                  <span>Encargado</span>
+                </div>
+                <mat-form-field appearance="fill" class="modern-input">
+                  <mat-label>Encargado</mat-label>
+                  <mat-select formControlName="owner" required>
+                    <mat-option *ngFor="let owner of filteredOwners" [value]="owner._id">
+                      {{ owner.firstName }} {{ owner.lastName }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-hint>Selecciona un encargado</mat-hint>
+                  <mat-error *ngIf="departmentForm.get('owner')?.hasError('required')">
+                    El encargado es requerido.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
 
-  <div class="dialog-actions">
-    <button type="button" class="cancel-btn" (click)="onCancel()">
-      <mat-icon>close</mat-icon>
-      Cancelar
-    </button>
-    <button type="button" class="save-btn" (click)="onSubmit()" [disabled]="!departmentForm.valid || !isFormChanged()">
-      <mat-icon>save</mat-icon>
-      Actualizar Departamento
-    </button>
+      <!-- Actions -->
+      <div class="department-actions">
+        <button type="button" class="cancel-btn" (click)="onCancel()">
+          <mat-icon>close</mat-icon>
+          Cancelar
+        </button>
+        <button type="button" class="save-btn" (click)="onSubmit()" [disabled]="!departmentForm.valid || !isFormChanged()">
+          <mat-icon>save</mat-icon>
+          Actualizar
+        </button>
+      </div>
+    </div>
   </div>
 </div>

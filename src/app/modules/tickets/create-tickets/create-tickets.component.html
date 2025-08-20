@@ -1,164 +1,124 @@
-<div class="create-tickets-container">
-    <div class="form-card">
-        <div class="form-header">
-            <div class="header-icon">
-                <mat-icon>confirmation_number</mat-icon>
-            </div>
-            <div class="header-text">
-                <h1 class="form-title">Crear Ticket de Soporte</h1>
-                <p class="form-subtitle">Formulario para crear nuevos tickets de soporte técnico</p>
-            </div>
-        </div>
-
-        <form class="ticket-form" autocomplete="off" [formGroup]="ticketForm" (ngSubmit)="createTicket()">
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="form-field">
-                    <mat-label>
-                        <mat-icon class="field-icon">title</mat-icon>
-                        Título del Ticket
-                    </mat-label>
-                    <input 
-                        matInput 
-                        formControlName="title" 
-                        type="text" 
-                        placeholder="Ej: Problema con acceso al sistema"
-                        maxlength="100">
-                    <mat-hint align="end">{{ticketForm.get('title')?.value?.length || 0}}/100</mat-hint>
-                    <mat-error *ngIf="ticketForm.get('title')?.hasError('required')">
-                        <mat-icon>error</mat-icon>
-                        El título es requerido
-                    </mat-error>
-                    <mat-error *ngIf="ticketForm.get('title')?.hasError('minlength')">
-                        <mat-icon>error</mat-icon>
-                        El título debe tener al menos 5 caracteres
-                    </mat-error>
-                    <mat-error *ngIf="ticketForm.get('title')?.hasError('maxlength')">
-                        <mat-icon>error</mat-icon>
-                        El título no puede exceder 100 caracteres
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="form-field description-field">
-                    <mat-label>
-                        <mat-icon class="field-icon">description</mat-icon>
-                        Descripción Detallada
-                    </mat-label>
-                    <textarea 
-                        matInput 
-                        formControlName="description" 
-                        rows="4"
-                        maxlength="1000"
-                        placeholder="Describe detalladamente tu problema o solicitud:&#10;- ¿Qué problema tienes?&#10;- ¿Cuándo ocurrió?&#10;- ¿Qué pasos seguiste?&#10;- ¿Qué esperas que se solucione?"></textarea>
-                    <mat-hint align="end">{{ticketForm.get('description')?.value?.length || 0}}/1000</mat-hint>
-                    <mat-error *ngIf="ticketForm.get('description')?.hasError('required')">
-                        <mat-icon>error</mat-icon>
-                        La descripción es requerida
-                    </mat-error>
-                    <mat-error *ngIf="ticketForm.get('description')?.hasError('minlength')">
-                        <mat-icon>error</mat-icon>
-                        La descripción debe tener al menos 10 caracteres
-                    </mat-error>
-                    <mat-error *ngIf="ticketForm.get('description')?.hasError('maxlength')">
-                        <mat-icon>error</mat-icon>
-                        La descripción no puede exceder 1000 caracteres
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="form-row form-row-split">
-                <mat-form-field appearance="outline" class="form-field">
-                    <mat-label>
-                        <mat-icon class="field-icon">business</mat-icon>
-                        Organización
-                    </mat-label>
-                    <mat-select formControlName="organization" (selectionChange)="onOrganizationChange($event.value)" required>
-                        <mat-option *ngFor="let org of organizations" [value]="org._id">
-                            <div class="select-option">
-                                <mat-icon>domain</mat-icon>
-                                {{ org.name }}
-                            </div>
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="ticketForm.get('organization')?.hasError('required')">
-                        <mat-icon>error</mat-icon>
-                        Debe seleccionar una organización
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="form-field">
-                    <mat-label>
-                        <mat-icon class="field-icon">apartment</mat-icon>
-                        Departamento
-                    </mat-label>
-                    <mat-select formControlName="department" (selectionChange)="onDepartmentChange($event.value)" required>
-                        <mat-option *ngFor="let dept of departments" [value]="dept._id">
-                            <div class="select-option">
-                                <mat-icon>group_work</mat-icon>
-                                {{ dept.name }}
-                            </div>
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="ticketForm.get('department')?.hasError('required')">
-                        <mat-icon>error</mat-icon>
-                        Debe seleccionar un departamento
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="form-row">
-                <mat-form-field appearance="outline" class="form-field">
-                    <mat-label>
-                        <mat-icon class="field-icon">help_outline</mat-icon>
-                        Tema de Ayuda
-                    </mat-label>
-                    <input
-                        type="text"
-                        matInput
-                        [matAutocomplete]="autoTopic"
-                        formControlName="helpTopic"
-                        (input)="filterHelpTopics($event)"
-                        placeholder="Busque y seleccione el tema más apropiado..."
-                        required />
-                    <mat-autocomplete #autoTopic="matAutocomplete" [displayWith]="displayHelpTopic">
-                        <mat-option *ngFor="let help of filteredHelpTopics" [value]="help._id">
-                            <div class="help-topic-option">
-                                <mat-icon>label</mat-icon>
-                                {{ help.name }}
-                            </div>
-                        </mat-option>
-                    </mat-autocomplete>
-                    <mat-hint *ngIf="!noMatch">Escriba para buscar o seleccione de la lista</mat-hint>
-                    <mat-error *ngIf="noMatch" class="no-match-msg">
-                        <mat-icon>error</mat-icon>
-                        Tema de ayuda inválido, debe seleccionar un elemento de la lista
-                    </mat-error>
-                    <mat-error *ngIf="ticketForm.get('helpTopic')?.hasError('required')">
-                        <mat-icon>error</mat-icon>
-                        Debe seleccionar un tema de ayuda
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="form-actions">
-                <button 
-                    type="button" 
-                    class="cancel-button" 
-                    mat-dialog-close>
-                    <mat-icon>close</mat-icon>
-                    Cancelar
-                </button>
-                
-                <button 
-                    type="submit" 
-                    class="submit-button" 
-                    [disabled]="noMatch || ticketForm.invalid || isSubmitting">
-                    <mat-icon *ngIf="!isSubmitting">add</mat-icon>
-                    <div *ngIf="isSubmitting" class="loading-spinner"></div>
-                    {{ isSubmitting ? 'Creando Ticket...' : 'Crear Ticket' }}
-                </button>
-            </div>
-        </form>
+<div class="modern-create-tickets-container">
+  <div class="form-header">
+    <div class="header-icon">
+      <mat-icon>confirmation_number</mat-icon>
     </div>
+    <div class="header-text">
+      <h1 class="dialog-title">Crear Ticket de Soporte</h1>
+      <p class="dialog-subtitle">Formulario para crear nuevos tickets de soporte técnico</p>
+    </div>
+  </div>
+
+  <div class="dialog-body">
+    <form [formGroup]="ticketForm" (ngSubmit)="createTicket()">
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Título del Ticket</mat-label>
+          <input 
+            matInput 
+            formControlName="title" 
+            type="text" 
+            placeholder="Ej: Problema con acceso al sistema"
+            maxlength="100"
+            required>
+          <mat-hint align="end">{{ticketForm.get('title')?.value?.length || 0}}/100</mat-hint>
+          <mat-error *ngIf="ticketForm.get('title')?.hasError('required')">
+            El título es requerido
+          </mat-error>
+          <mat-error *ngIf="ticketForm.get('title')?.hasError('minlength')">
+            El título debe tener al menos 5 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row description-row">
+        <mat-form-field appearance="outline" class="form-field description-field">
+          <mat-label>Descripción Detallada</mat-label>
+          <textarea 
+            matInput 
+            formControlName="description" 
+            placeholder="Describe detalladamente el problema o solicitud..."
+            rows="4"
+            maxlength="1000"
+            required></textarea>
+          <mat-hint align="end">{{ticketForm.get('description')?.value?.length || 0}}/1000</mat-hint>
+          <mat-error *ngIf="ticketForm.get('description')?.hasError('required')">
+            La descripción es requerida
+          </mat-error>
+        </mat-form-field>
+      </div> 
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Organización</mat-label>
+          <mat-select formControlName="organization" (selectionChange)="onOrganizationChange($event.value)" required>
+            <mat-option *ngFor="let org of organizations" [value]="org._id">
+              {{ org.name }}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Selecciona una organización</mat-hint>
+          <mat-error *ngIf="ticketForm.get('organization')?.hasError('required')">
+            Debe seleccionar una organización
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Departamento</mat-label>
+          <mat-select formControlName="department" (selectionChange)="onDepartmentChange($event.value)" required>
+            <mat-option *ngFor="let dept of departments" [value]="dept._id">
+              {{ dept.name }}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Selecciona un departamento</mat-hint>
+          <mat-error *ngIf="ticketForm.get('department')?.hasError('required')">
+            Debe seleccionar un departamento
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Tema de Ayuda</mat-label>
+          <input
+            type="text"
+            matInput
+            [matAutocomplete]="autoTopic"
+            formControlName="helpTopic"
+            (input)="filterHelpTopics($event)"
+            placeholder="Busque y seleccione el tema más apropiado..."
+            required />
+          <mat-autocomplete #autoTopic="matAutocomplete" [displayWith]="displayHelpTopic">
+            <mat-option *ngFor="let help of filteredHelpTopics" [value]="help._id">
+              {{ help.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-hint *ngIf="!noMatch">Escriba para buscar o seleccione de la lista</mat-hint>
+          <mat-error *ngIf="noMatch">
+            Tema de ayuda inválido, debe seleccionar un elemento de la lista
+          </mat-error>
+          <mat-error *ngIf="ticketForm.get('helpTopic')?.hasError('required')">
+            Debe seleccionar un tema de ayuda
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+  <div class="dialog-actions">
+    <button 
+      type="button" 
+      class="cancel-btn" 
+      mat-dialog-close>
+      <mat-icon>close</mat-icon>
+      Cancelar
+    </button>
+    
+    <button 
+      type="button" 
+      class="save-btn" 
+      [disabled]="noMatch || ticketForm.invalid || isSubmitting"
+      (click)="createTicket()">
+      <mat-icon>confirmation_number</mat-icon>
+      {{ isSubmitting ? 'Creando...' : 'Crear Ticket' }}
+    </button>
+  </div>
 </div>

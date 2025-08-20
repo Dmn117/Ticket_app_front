@@ -29,6 +29,9 @@
                 formControlName="status" 
                 (selectionChange)="ticketForm.get('cancellationComment')?.setValue(ticketForm.get('status')?.value === 'Cancelado / Anulado' ? '' : 'No hay justificación')"
                 panelClass="modern-autocomplete">
+                <mat-select-trigger>
+                  {{ticketForm.get('status')?.value}}
+                </mat-select-trigger>
                 <mat-option *ngFor="let status of statuses" [value]="status" class="status-option">
                   <div class="option-content">
                     <div class="option-icon status-icon" [ngClass]="getStatusClass(status)">

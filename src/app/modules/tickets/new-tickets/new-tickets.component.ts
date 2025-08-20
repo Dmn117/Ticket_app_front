@@ -271,13 +271,20 @@ export class NewTicketsComponent implements OnInit, AfterViewInit{
         const ticketDelete = await firstValueFrom(this._ticketService.deleteTicket(id));
 
         if (ticketDelete){
-          this.loadUser();
+          // Recargar los tickets para actualizar la tabla
+          this.loadTickets();
+          
+          // Actualizar el datasource inmediatamente para mejor UX
+          this.dataSourceMat.data = this.ticketFull.filter(ticket => ticket._id !== id);
+          
+          // Mostrar mensaje de éxito
           this.dialogService.openDialog(`${ticketDelete.message}`)
         }
       }
     }
     catch (error){
-
+      console.error('Error al eliminar ticket:', error);
+      this.dialogService.openDialog('Error al eliminar el ticket');
     }
   }
 

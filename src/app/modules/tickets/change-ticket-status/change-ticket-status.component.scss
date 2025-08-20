@@ -1,8 +1,13 @@
 // Modern Dialog Styles for Change Status
 .modern-dialog-container {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
   width: 100%;
   max-width: 550px;
   margin: 0 auto;
+  z-index: 1000 !important;
 
   .dialog-backdrop {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -134,7 +139,12 @@
             }
 
             .mat-mdc-form-field-icon-prefix {
-              color: #667eea;
+              color: #667eea !important;
+            }
+
+            // Específicamente para el icono flag
+            .mat-mdc-form-field-icon-prefix mat-icon {
+              color: #667eea !important;
             }
 
             .mat-mdc-text-field-wrapper.mdc-text-field--textarea {
@@ -249,16 +259,20 @@
           background: linear-gradient(135deg, #4facfe, #00f2fe);
         }
 
+        &.status-assigned {
+          background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
         &.status-progress {
           background: linear-gradient(135deg, #f093fb, #f5576c);
         }
 
-        &.status-pending {
-          background: linear-gradient(135deg, #ffa726, #fb8c00);
+        &.status-stopped {
+          background: linear-gradient(135deg, #ff8a80, #ff5722);
         }
 
-        &.status-resolved {
-          background: linear-gradient(135deg, #66bb6a, #43a047);
+        &.status-pending {
+          background: linear-gradient(135deg, #ffa726, #fb8c00);
         }
 
         &.status-closed {

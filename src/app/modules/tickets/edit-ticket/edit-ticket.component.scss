@@ -1,8 +1,13 @@
 // Modern Dialog Styles for Edit Ticket
 .modern-dialog-container {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  z-index: 1000 !important;
 
   .dialog-backdrop {
     background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);

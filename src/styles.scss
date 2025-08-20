@@ -235,6 +235,19 @@
   backdrop-filter: blur(8px) !important;
 }
 
+// Centrado específico SOLO para los 3 popups de tickets cuando hay sidebar abierto
+app-assigned-ticket,
+app-transfer-ticket, 
+app-change-ticket-status {
+  .mat-mdc-dialog-container {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+  }
+}
+
 // Specific styling for tickets popup to ensure modern glassmorphism design
 app-create-tickets {
   .modern-dialog-panel {

@@ -38,6 +38,8 @@ export class ChangeTicketStatusComponent {
     private dialogRef: MatDialogRef<ChangeTicketStatusComponent>,
     private sweetAlert: SweetAlertComponent
   ) {
+    console.log('Estados disponibles:', this.statuses);
+    console.log('Enum completo:', TicketStatusEs);
   }
 
   getStatusTranslation(status: string): string {
@@ -48,9 +50,10 @@ export class ChangeTicketStatusComponent {
   getStatusIcon(status: string): string {
     const statusMap: { [key: string]: string } = {
       'Abierto': 'radio_button_unchecked',
-      'En Progreso': 'autorenew',
-      'Pendiente': 'schedule',
-      'Resuelto': 'check_circle',
+      'Asignado': 'assignment_ind',
+      'En Proceso': 'autorenew',
+      'Detenido': 'pause_circle',
+      'En espera': 'schedule',
       'Cerrado': 'lock',
       'Cancelado / Anulado': 'cancel'
     };
@@ -60,9 +63,10 @@ export class ChangeTicketStatusComponent {
   getStatusClass(status: string): string {
     const classMap: { [key: string]: string } = {
       'Abierto': 'status-open',
-      'En Progreso': 'status-progress',
-      'Pendiente': 'status-pending',
-      'Resuelto': 'status-resolved',
+      'Asignado': 'status-assigned', 
+      'En Proceso': 'status-progress',
+      'Detenido': 'status-stopped',
+      'En espera': 'status-pending',
       'Cerrado': 'status-closed',
       'Cancelado / Anulado': 'status-cancelled'
     };

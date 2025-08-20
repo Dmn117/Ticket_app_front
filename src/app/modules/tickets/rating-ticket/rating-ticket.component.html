@@ -1,23 +1,90 @@
-<div class="rating-modal">
-  <mat-card class="rating-header">
-    <div class="rating-info">
-      <img mat-card-avatar [src]="imgAvatar" alt="Avatar del usuario">
-      <div>
-        <h2 class="rating-h2">{{data.ownerName}}</h2>
+<div class="modern-rating-container">
+  <div class="rating-backdrop">
+    <div class="rating-content">
+      <!-- Header with gradient -->
+      <div class="rating-header">
+        <div class="header-icon">
+          <mat-icon>star_rate</mat-icon>
+        </div>
+        <div class="header-content">
+          <h2 class="rating-title">Calificación del Ticket</h2>
+          <p class="rating-subtitle">Evaluación del servicio recibido</p>
+        </div>
+        <button class="close-header-btn" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
       </div>
-      <div class="star-rating">
-        <h2 class="rating-h2">Calificación</h2>
-        <ng-container *ngFor="let star of getStars(data.rating)">
-          <mat-icon *ngIf="star.filled">star</mat-icon>
-          <mat-icon *ngIf="star.half">star_hal</mat-icon>
-          <mat-icon *ngIf="!star.filled && !star.half">star_border</mat-icon>
-        </ng-container>
+
+      <!-- Body content -->
+      <div class="rating-body">
+        <!-- User Info Section -->
+        <div class="user-section">
+          <div class="user-avatar">
+            <img [src]="imgAvatar" alt="Avatar del usuario" class="avatar-image">
+          </div>
+          <div class="user-info">
+            <h3 class="user-name">{{ data.ownerName }}</h3>
+            <p class="user-label">Cliente evaluado</p>
+          </div>
+        </div>
+
+        <!-- Rating Section -->
+        <div class="rating-section">
+          <div class="section-header">
+            <mat-icon class="section-icon">grade</mat-icon>
+            <h3 class="section-title">Puntuación</h3>
+          </div>
+          <div class="stars-container">
+            <div class="stars-display">
+              <ng-container *ngFor="let star of getStars(data.rating)">
+                <mat-icon class="star-icon" 
+                          [class.filled]="star.filled" 
+                          [class.half]="star.half"
+                          [class.empty]="!star.filled && !star.half">
+                  {{ star.filled ? 'star' : (star.half ? 'star_half' : 'star_border') }}
+                </mat-icon>
+              </ng-container>
+            </div>
+            <div class="rating-value">
+              <span class="rating-number">{{ data.rating || 0 }}</span>
+              <span class="rating-max">/5</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section" *ngIf="data.comment">
+          <div class="section-header">
+            <mat-icon class="section-icon">comment</mat-icon>
+            <h3 class="section-title">Comentarios</h3>
+          </div>
+          <div class="comment-content">
+            <p class="comment-text">{{ data.comment }}</p>
+          </div>
+        </div>
+
+        <!-- No comments message -->
+        <div class="no-comments-section" *ngIf="!data.comment">
+          <div class="section-header">
+            <mat-icon class="section-icon">comment</mat-icon>
+            <h3 class="section-title">Comentarios</h3>
+          </div>
+          <div class="no-comment-content">
+            <mat-icon class="no-comment-icon">speaker_notes_off</mat-icon>
+            <p class="no-comment-text">No se proporcionaron comentarios adicionales</p>
+          </div>
+        </div>
       </div>
-      <div class="rating-comment">
-        <h2 class="rating-h2">Comentarios</h2>
-        <p>{{data.comment}}</p>
+
+      <!-- Action buttons -->
+      <div class="rating-actions">
+        <button 
+          type="button"
+          class="action-btn primary-btn"
+          (click)="closedDialog()">
+          Cerrar
+        </button>
       </div>
-      <button mat-raised-button color="primary" (click)="closedDialog()">Cerrar</button>
     </div>
-  </mat-card>
+  </div>
 </div>

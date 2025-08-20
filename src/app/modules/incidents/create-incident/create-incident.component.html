@@ -76,28 +76,16 @@
                     </mat-label>
                     <mat-select formControlName="severity" required>
                         <mat-option value="1">
-                            <div class="priority-option low">
-                                <mat-icon>keyboard_arrow_down</mat-icon>
-                                Baja (1-2)
-                            </div>
+                            Baja (1-2)
                         </mat-option>
                         <mat-option value="3">
-                            <div class="priority-option medium">
-                                <mat-icon>remove</mat-icon>
-                                Media (3-5)
-                            </div>
+                            Media (3-5)
                         </mat-option>
                         <mat-option value="7">
-                            <div class="priority-option high">
-                                <mat-icon>keyboard_arrow_up</mat-icon>
-                                Alta (6-8)
-                            </div>
+                            Alta (6-8)
                         </mat-option>
                         <mat-option value="10">
-                            <div class="priority-option critical">
-                                <mat-icon>warning</mat-icon>
-                                Crítica (9-10)
-                            </div>
+                            Crítica (9-10)
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="incidentForm.get('severity')?.hasError('required')">
@@ -113,10 +101,7 @@
                     </mat-label>
                     <mat-select formControlName="agent" required>
                         <mat-option *ngFor="let agent of users" [value]="agent">
-                            <div class="agent-option">
-                                <mat-icon>account_circle</mat-icon>
-                                {{ agent.firstName }} {{ agent.lastName }}
-                            </div>
+                            {{ agent.firstName }} {{ agent.lastName }}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="incidentForm.get('agent')?.hasError('required')">

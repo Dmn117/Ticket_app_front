@@ -1,12 +1,110 @@
- <h1 mat-dialog-title>Detalles de la Incidencia</h1>
+<div class="modern-incident-container">
+  <div class="incident-backdrop">
+    <div class="incident-content">
+      <!-- Header with gradient -->
+      <div class="incident-header">
+        <div class="header-icon">
+          <mat-icon>bug_report</mat-icon>
+        </div>
+        <div class="header-content">
+          <h2 class="incident-title">Detalles de la Incidencia</h2>
+          <p class="incident-subtitle">Información completa del reporte</p>
+        </div>
+        <button class="close-header-btn" mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
 
-<mat-dialog-content>
-  <p><strong>Título:</strong> {{ data.title }}</p>
-  <p><strong>Descripción:</strong> {{ data.description }}</p>
-  <p><strong>Severidad:</strong> {{ data.severity }}</p>
-  <p><strong>Autor:</strong> {{ data.author.firstName }} {{ data.author.lastName }}</p>
-  <p><strong>Dirigido a:</strong> {{ data.agent.firstName }} {{ data.agent.lastName }}</p>
-  <p><strong>Fecha de creación:</strong> {{ data.createdAt | date:'short' }}</p>
-</mat-dialog-content>
+      <!-- Body content -->
+      <div class="incident-body">
+        <!-- Title Section -->
+        <div class="detail-section">
+          <div class="detail-icon">
+            <mat-icon>title</mat-icon>
+          </div>
+          <div class="detail-content">
+            <h3 class="detail-label">Título</h3>
+            <p class="detail-value">{{ data.title }}</p>
+          </div>
+        </div>
+
+        <!-- Description Section -->
+        <div class="detail-section">
+          <div class="detail-icon">
+            <mat-icon>description</mat-icon>
+          </div>
+          <div class="detail-content">
+            <h3 class="detail-label">Descripción</h3>
+            <p class="detail-value description-text">{{ data.description }}</p>
+          </div>
+        </div>
+
+        <!-- Severity Section -->
+        <div class="detail-section">
+          <div class="detail-icon severity-icon" [class]="'severity-' + getSeverityLevel(data.severity)">
+            <mat-icon>
+              {{ getSeverityIcon(data.severity) }}
+            </mat-icon>
+          </div>
+          <div class="detail-content">
+            <h3 class="detail-label">Severidad</h3>
+            <span class="severity-badge" [class]="'severity-' + getSeverityLevel(data.severity)">
+              {{ getSeverityText(data.severity) }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Author Section -->
+        <div class="detail-section">
+          <div class="detail-icon">
+            <mat-icon>person</mat-icon>
+          </div>
+          <div class="detail-content">
+            <h3 class="detail-label">Autor</h3>
+            <p class="detail-value">{{ getAuthorName() }}</p>
+          </div>
+        </div>
+
+        <!-- Agent Section -->
+        <div class="detail-section">
+          <div class="detail-icon">
+            <mat-icon>support_agent</mat-icon>
+          </div>
+          <div class="detail-content">
+            <h3 class="detail-label">Dirigido a</h3>
+            <p class="detail-value">{{ getAgentName() }}</p>
+          </div>
+        </div>
+
+        <!-- Date Section -->
+        <div class="detail-section">
+          <div class="detail-icon">
+            <mat-icon>schedule</mat-icon>
+          </div>
+          <div class="detail-content">
+            <h3 class="detail-label">Fecha de creación</h3>
+            <p class="detail-value">{{ getFormattedDate() }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="incident-actions">
+        <button 
+          type="button"
+          class="action-btn secondary-btn"
+          mat-dialog-close>
+          Cerrar
+        </button>
+        <button 
+          type="button"
+          class="action-btn primary-btn"
+          mat-dialog-close>
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 

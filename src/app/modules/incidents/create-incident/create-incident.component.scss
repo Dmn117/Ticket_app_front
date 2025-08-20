@@ -164,11 +164,25 @@
       
       .mat-mdc-input-element,
       .mat-mdc-select-value {
-        color: white;
+        color: white !important;
         
         &::placeholder {
           color: rgba(255, 255, 255, 0.5);
         }
+      }
+      
+      // Asegurar que el texto de las opciones sea blanco
+      .mat-mdc-option {
+        color: white !important;
+      }
+      
+      // Estilos específicos para mat-select
+      .mat-mdc-select-value-text {
+        color: white !important;
+      }
+      
+      .mat-mdc-select-arrow {
+        color: rgba(255, 255, 255, 0.7) !important;
       }
       
       .mat-mdc-form-field-error {
@@ -213,6 +227,23 @@
   &.medium mat-icon { color: #ff9800; }
   &.high mat-icon { color: #f44336; }
   &.critical mat-icon { color: #d32f2f; }
+}
+
+// Estilos globales para las opciones del dropdown (se renderizan fuera del componente)
+::ng-deep .mat-mdc-select-panel {
+  .mat-mdc-option {
+    color: white !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    
+    &:hover {
+      background: rgba(244, 67, 54, 0.2) !important;
+    }
+    
+    &.mat-mdc-option-selected {
+      background: rgba(244, 67, 54, 0.3) !important;
+      color: white !important;
+    }
+  }
 }
 
 .form-actions {

@@ -1,230 +1,269 @@
-// Variables CSS para el formulario (similar a create-department)
-:root {
-  --border-radius: 16px;
-  --border-radius-lg: 20px;
-  --transition: all 0.3s ease;
-  --white-text: #ffffff;
-  --shadow-sm: 0 8px 16px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.15);
-}
-
-// Mixins específicos para el formulario
-@mixin form-glass-card($padding: 20px, $radius: 16px) {
-  background: rgba(255, 255, 255, 0.1);
-  padding: $padding;
-  border-radius: $radius;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(15px);
-  transition: all 0.3s ease;
-}
-
-@mixin flex-center($direction: row, $gap: 16px) {
-  display: flex;
-  align-items: center;
-  gap: $gap;
-  @if $direction != row { flex-direction: $direction; }
-}
-
-@mixin button-gradient($primary: #8b5cf6, $secondary: #6366f1) {
-  background: linear-gradient(135deg, $primary, $secondary);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  
-  &:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
-  }
-  
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-}
-
-.modern-edit-department-container {
+// Modern Department Dialog Styles (following help-topics pattern)
+.modern-department-container {
   width: 100%;
-  max-width: 700px;
-  @include form-glass-card(40px, 20px);
+  max-width: 600px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  z-index: 1000;
 
-  .form-header {
-    @include flex-center(row, 20px);
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-    
+  .department-backdrop {
+    background: linear-gradient(135deg, #51ff00 0%, #6610f2 50%, #6f42c1 100%);
+    border-radius: 20px;
+    padding: 2px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  .department-content {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  // Header with gradient
+  .department-header {
+    background: linear-gradient(135deg, #00ff22, #10f276);
+    color: #004085;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.15"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.15"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.4;
+    }
+
     .header-icon {
-      width: 60px;
-      height: 60px;
-      @include flex-center();
+      background: rgba(0, 64, 133, 0.15);
+      border-radius: 50%;
+      padding: 12px;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #2196f3, #1976d2);
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(33, 150, 243, 0.3);
-      
+      z-index: 1;
+
       mat-icon {
-        font-size: 32px;
-        color: white;
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        color: #004085;
       }
     }
-    
-    .header-text {
+
+    .header-content {
       flex: 1;
-      
-      .dialog-title {
-        margin: 0 0 8px 0;
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: white !important;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      z-index: 1;
+
+      .department-title {
+        margin: 0 0 4px 0;
+        font-size: 20px;
+        font-weight: 600;
+        color: #004085;
       }
-      
-      .dialog-subtitle {
+
+      .department-subtitle {
         margin: 0;
-        font-size: 1.1rem;
-        color: rgba(255, 255, 255, 0.8) !important;
-        font-weight: 400;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        font-size: 14px;
+        opacity: 0.8;
+        color: #004085;
+      }
+    }
+
+    .close-header-btn {
+      background: rgba(0, 64, 133, 0.15);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1;
+
+      mat-icon {
+        color: #004085;
+        font-size: 20px;
+      }
+
+      &:hover {
+        background: rgba(0, 64, 133, 0.25);
+        transform: scale(1.1);
       }
     }
   }
 
   // Body content
-  .dialog-body {
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-    }
+  .department-body {
+    padding: 32px 24px;
 
-    .form-row {
-      width: 100%;
-      
-      &:first-child {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
+    .department-info {
+      .info-row {
+        display: flex;
+        margin-bottom: 24px;
+        gap: 16px;
 
-      &:not(:first-child) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-      }
-
-      @media (max-width: 768px) {
-        &:not(:first-child) {
-          grid-template-columns: 1fr;
-        }
-      }
-    }
-
-    .form-field {
-      width: 100%;
-
-      ::ng-deep {
-        .mat-mdc-form-field {
-          width: 100%;
-        }
-
-        .mat-mdc-text-field-wrapper {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 12px;
-          transition: all 0.3s ease;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-
-          &:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(33, 150, 243, 0.4);
+        &.single-field {
+          .form-field {
+            flex: 1;
           }
         }
 
-        .mat-mdc-form-field-focus-overlay {
-          background: rgba(33, 150, 243, 0.1);
-        }
+        .form-field {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
 
-        .mat-mdc-form-field-outline {
-          color: rgba(255, 255, 255, 0.3);
-        }
+          .field-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 12px;
 
-        .mat-mdc-form-field-outline-thick {
-          color: #2196f3;
-        }
-
-        .mat-mdc-floating-label {
-          color: rgba(255, 255, 255, 0.7) !important;
-          font-weight: 500;
-          @include flex-center(row, 8px);
-        }
-
-        .mat-mdc-form-field-label-wrapper .mat-mdc-floating-label.mdc-floating-label--float-above {
-          color: #2196f3 !important;
-        }
-
-        .mat-mdc-form-field.mat-focused {
-          .mat-mdc-text-field-wrapper {
-            border-color: #2196f3;
-            background: rgba(33, 150, 243, 0.1);
-            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+            mat-icon {
+              font-size: 18px;
+              width: 18px;
+              height: 18px;
+              color: #007bff;
+            }
           }
-        }
 
-        .mat-mdc-input-element,
-        .mat-mdc-select-value {
-          color: white !important;
-          
-          &::placeholder {
-            color: rgba(255, 255, 255, 0.5) !important;
+          .modern-input {
+            ::ng-deep {
+              .mat-mdc-form-field {
+                width: 100%;
+              }
+
+              .mat-mdc-text-field-wrapper {
+                background: #f8f9fa;
+                border-radius: 12px;
+                transition: all 0.3s ease;
+                border: 2px solid #e9ecef;
+
+                &:hover {
+                  border-color: #007bff;
+                  background: #f0f8ff;
+                }
+              }
+
+              .mat-mdc-form-field-focus-overlay {
+                background: rgba(0, 123, 255, 0.04);
+              }
+
+              .mat-mdc-form-field-outline {
+                display: none;
+              }
+
+              .mat-mdc-floating-label {
+                color: #6c757d;
+                font-weight: 500;
+              }
+
+              .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+                color: #007bff;
+              }
+
+              .mat-mdc-input-element,
+              .mat-mdc-select-value,
+              .mat-mdc-select-value-text {
+                color: #495057;
+                font-weight: 500;
+
+                &::placeholder {
+                  color: #6c757d;
+                  opacity: 0.7;
+                }
+              }
+
+              .mat-mdc-form-field-error {
+                color: #dc3545;
+                font-weight: 500;
+                font-size: 12px;
+                margin-top: 4px;
+              }
+
+              .mat-mdc-form-field-hint {
+                color: #6c757d;
+                font-size: 12px;
+              }
+
+              // Styles for mat-select
+              .mat-mdc-select-arrow {
+                color: #6c757d;
+              }
+
+              .mat-mdc-form-field.mat-focused .mat-mdc-select-arrow {
+                color: #007bff;
+              }
+            }
           }
-        }
-
-        .mat-icon {
-          color: #2196f3;
-        }
-
-        .mat-mdc-select-arrow {
-          color: #2196f3;
-        }
-
-        .mat-mdc-form-field-error {
-          @include flex-center(row, 4px);
-          color: #ff5252;
-          
-          mat-icon {
-            font-size: 16px;
-            width: 16px;
-            height: 16px;
-          }
-        }
-
-        .mat-mdc-form-field-hint {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 0.85rem;
         }
       }
     }
   }
 
   // Action buttons
-  .dialog-actions {
-    @include flex-center(row, 15px);
+  .department-actions {
+    padding: 16px 24px 24px;
+    display: flex;
     justify-content: flex-end;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    gap: 12px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
 
-    button {
-      @include flex-center(row, 8px);
-      padding: 12px 24px;
+    .cancel-btn {
+      background: #6c757d;
+      color: white;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
+      padding: 12px 24px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+
+      &:hover {
+        background: #5a6268;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+      }
+    }
+
+    .save-btn {
+      background: linear-gradient(135deg, #00ff0d, #10f2d4);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 32px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       min-width: 140px;
       justify-content: center;
 
@@ -233,125 +272,77 @@
         width: 18px;
         height: 18px;
       }
-    }
-
-    .cancel-btn {
-      background: rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.8);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-
-      &:hover:not(:disabled) {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        transform: translateY(-1px);
-      }
-
-      &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-    }
-
-    .save-btn {
-      background: linear-gradient(135deg, #2196f3, #1976d2);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      font-size: 1rem;
-      min-width: 180px;
 
       &:hover:not(:disabled) {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+        box-shadow: 0 6px 20px rgba(0, 255, 13, 0.4);
       }
 
       &:disabled {
-        opacity: 0.5;
+        opacity: 0.6;
         cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+// Global styles for mat-select options
+::ng-deep .mat-mdc-select-panel {
+  .mat-mdc-option {
+    color: #495057 !important;
+    
+    &:hover {
+      background: rgba(0, 123, 255, 0.1) !important;
+    }
+    
+    &.mat-mdc-option-selected {
+      background: rgba(0, 123, 255, 0.15) !important;
+      color: #004085 !important;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .modern-department-container {
+    max-width: 95vw;
+
+    .department-header {
+      padding: 20px;
+
+      .department-title {
+        font-size: 18px;
+      }
+
+      .department-subtitle {
+        font-size: 13px;
       }
     }
 
-    @media (max-width: 768px) {
-      flex-direction: column-reverse;
-      gap: 12px;
+    .department-body {
+      padding: 24px 20px;
 
-      button {
+      .department-info .info-row {
+        flex-direction: column;
+        gap: 0;
+
+        .form-field {
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    .department-actions {
+      padding: 16px 20px 20px;
+      flex-direction: column;
+
+      .cancel-btn,
+      .save-btn {
         width: 100%;
         justify-content: center;
       }
-    }
-  }
-}
-
-// Animation for dialog entrance
-.modern-edit-department-container {
-  animation: dialogSlideIn 0.4s ease-out;
-}
-
-@keyframes dialogSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-// Dark overlay animation
-::ng-deep .cdk-overlay-dark-backdrop {
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-// Dialog position and responsive
-::ng-deep .mat-mdc-dialog-container {
-  .mdc-dialog__surface {
-    background: transparent !important;
-    box-shadow: none !important;
-    border-radius: 20px;
-    overflow: visible;
-    max-width: 800px !important;
-    width: 90vw !important;
-  }
-}
-
-// Responsive Design
-@media (max-width: 768px) {
-  .modern-edit-department-container {
-    @include form-glass-card(20px, 16px);
-    
-    .form-header {
-      flex-direction: column;
-      text-align: center;
-      gap: 15px;
-      
-      .header-text .dialog-title {
-        font-size: 1.8rem;
-      }
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .modern-edit-department-container {
-    @include form-glass-card(15px, 12px);
-  }
-  
-  .form-header .header-text .dialog-title {
-    font-size: 1.5rem;
-  }
-  
-  .form-header .header-icon {
-    width: 50px;
-    height: 50px;
-    
-    mat-icon {
-      font-size: 28px;
     }
   }
 }

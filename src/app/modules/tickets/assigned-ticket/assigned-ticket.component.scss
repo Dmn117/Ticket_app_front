@@ -1,8 +1,13 @@
 // Modern Dialog Styles for Assigned Ticket
 .modern-dialog-container {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+  z-index: 1000 !important;
 
   .dialog-backdrop {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -52,6 +57,7 @@
         font-size: 24px;
         width: 24px;
         height: 24px;
+        color: white !important;
       }
     }
 
@@ -166,6 +172,7 @@
         font-size: 18px;
         width: 18px;
         height: 18px;
+        color: #6c757d !important;
       }
     }
 
@@ -200,6 +207,7 @@
         font-size: 18px;
         width: 18px;
         height: 18px;
+        color: white !important;
       }
 
       .loading-spinner {

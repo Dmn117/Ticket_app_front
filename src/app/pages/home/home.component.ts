@@ -211,10 +211,6 @@ export class HomeComponent implements OnInit {
 
 
   addTicket() {
-    const dialogRef = this.dialog.open(CreateTicketsComponent, {
-      width: '750px',
-      height: '90vh',
-      maxWidth: '90vw'
-    })
+    const dialogRef = this.dialog.open(CreateTicketsComponent)
   }
 }
