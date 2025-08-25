@@ -25,19 +25,10 @@ export class CreateTicketsComponent implements OnInit{
 
   ticketForm: FormGroup;
 
-  organizations: Organization[] = [];
-  departments: Department[] = [];
-  helpTopics: any[] = [];
-  departmentSelected: any[] = [];
-  filteredHelpTopics: any[] = [];
-
   noMatch: boolean = false;
 
 
   constructor(
-    private _organizationService: OrganizationService,
-    private _departmentService: DepartmentService,
-    private _helpTopicService: HelpTopicsService,
     private _ticketService: TicketService,
     private fb: FormBuilder,
     private sweetAlert: SweetAlertComponent,
@@ -49,71 +40,19 @@ export class CreateTicketsComponent implements OnInit{
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]],
       owner: [''],
-      organization: ['', Validators.required],
-      department: ['', Validators.required],
-      helpTopic: ['', Validators.required]
     })
-
-    this.displayHelpTopic = this.displayHelpTopic.bind(this);
   }
 
-  ngOnInit() {
-    this._organizationService.getOrganizationsEnabled().subscribe(response => {
-      // @ts-ignore
-      this.organizations = response.organizations || [];
-    });
-  }
-
-
-  filterHelpTopics(event: Event): void {
-    const query = (event.target as HTMLInputElement).value.toLowerCase();
-    this.filteredHelpTopics = this.helpTopics.filter(help => help.name.toLowerCase().includes(query));
-
-    this.noMatch = this.filteredHelpTopics.length === 0 && query.length > 0;
-  }
-
-
-  displayHelpTopic(id: string | null): string {
-    if (!this.filteredHelpTopics) return '';
-
-    const helpTopic = this.filteredHelpTopics.find(ht => ht._id === id);
-    return helpTopic ? helpTopic.name : '';
-  }
-
-
-  onOrganizationChange(organizationId: string): void {
-    if (organizationId) {
-      this._departmentService.getDepartmentsEnabled().subscribe(response => {
-        // @ts-ignore
-        this.departments = response.departments?.filter(dept => dept.organization === organizationId) || [];
-      });
-
-    }
-  }
-
-
-  onDepartmentChange(departmentId: string): void {
-    if (departmentId) {
-      this._helpTopicService.getHelpTopics().subscribe(response => {
-        // @ts-ignore
-        this.helpTopics = response.helpTopics?.filter(top => top.department === departmentId) || [];
-        this.filteredHelpTopics = [...this.helpTopics];
-      });
-    }
-  }
+  ngOnInit() {}
 
   createTicket = async(): Promise<void> => {
     try {
       this.isSubmitting = true;
       this.ticketForm.value.owner = this.owner;
 
-      delete this.ticketForm.value.organization;
-
-      const departmentName = await firstValueFrom(this._departmentService.getDepartmentById(this.ticketForm.value.department));
-
       const confirmed = await this.sweetAlert.confirmAction(
         'Crear Ticket de Soporte',
-        `¿Estás seguro de crear este ticket para el departamento de ${departmentName.department.name}?`
+        `¿Estás seguro de crear este ticket con la información actual?`
       );
 
       if (confirmed){

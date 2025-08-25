@@ -47,59 +47,6 @@
           </mat-error>
         </mat-form-field>
       </div> 
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Organización</mat-label>
-          <mat-select formControlName="organization" (selectionChange)="onOrganizationChange($event.value)" required>
-            <mat-option *ngFor="let org of organizations" [value]="org._id">
-              {{ org.name }}
-            </mat-option>
-          </mat-select>
-          <mat-hint>Selecciona una organización</mat-hint>
-          <mat-error *ngIf="ticketForm.get('organization')?.hasError('required')">
-            Debe seleccionar una organización
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Departamento</mat-label>
-          <mat-select formControlName="department" (selectionChange)="onDepartmentChange($event.value)" required>
-            <mat-option *ngFor="let dept of departments" [value]="dept._id">
-              {{ dept.name }}
-            </mat-option>
-          </mat-select>
-          <mat-hint>Selecciona un departamento</mat-hint>
-          <mat-error *ngIf="ticketForm.get('department')?.hasError('required')">
-            Debe seleccionar un departamento
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline" class="form-field">
-          <mat-label>Tema de Ayuda</mat-label>
-          <input
-            type="text"
-            matInput
-            [matAutocomplete]="autoTopic"
-            formControlName="helpTopic"
-            (input)="filterHelpTopics($event)"
-            placeholder="Busque y seleccione el tema más apropiado..."
-            required />
-          <mat-autocomplete #autoTopic="matAutocomplete" [displayWith]="displayHelpTopic">
-            <mat-option *ngFor="let help of filteredHelpTopics" [value]="help._id">
-              {{ help.name }}
-            </mat-option>
-          </mat-autocomplete>
-          <mat-hint *ngIf="!noMatch">Escriba para buscar o seleccione de la lista</mat-hint>
-          <mat-error *ngIf="noMatch">
-            Tema de ayuda inválido, debe seleccionar un elemento de la lista
-          </mat-error>
-          <mat-error *ngIf="ticketForm.get('helpTopic')?.hasError('required')">
-            Debe seleccionar un tema de ayuda
-          </mat-error>
-        </mat-form-field>
-      </div>
     </form>
   </div>
 
